@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 
+import { HttpClient }   from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   private serverPath = 'http://localhost:5000';
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   public getApi() {
@@ -14,10 +16,6 @@ export class DataService {
   }
 
   public getData(command: string) {
-    fetch(this.serverPath + '/api/auth/' + command, {
-      mode: "no-cors"
-    })
-      // .then(data => data.text())
-      .then(data => console.log(data));
+      this.http.get(this.serverPath + '/auth/' + command).subscribe(data=>console.log(data));
   }
 }

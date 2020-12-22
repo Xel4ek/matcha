@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HttpClientModule }   from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { DataService } from '@services/data.service';
@@ -18,7 +20,8 @@ import { AuthLayoutModule } from "@components/auth-layout/auth-layout.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthLayoutModule
+    AuthLayoutModule,
+    HttpClientModule
   ],
   providers: [DataService, PluginsService],
   bootstrap: [AppComponent],
