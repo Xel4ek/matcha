@@ -1,0 +1,27 @@
+.container {
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #eee;
+  color: #546e7a;
+  font-size: 14px;
+}
+
+.main__wrapper {
+  //@media screen and (min-device-width: 998px) {
+  //  max-width: 900px;
+  //}
+  //margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.content {
+  @media screen and (min-device-width: 1025px) {
+    max-width: 1018px;
+  }
+  margin: 0 auto;
+  width: 100%;
+}

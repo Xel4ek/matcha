@@ -1,0 +1,149 @@
+.settings__content {
+  min-width: 300px;
+  padding: 1rem;
+  margin: 2px;
+  background: #fff;
+  border-radius: 3px;
+
+  .control {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+
+    .setting__action {
+      @media only screen and (max-width: 600px) {
+        transform: scale(.8);
+      }
+      @media only screen and (min-width: 992px) {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .art__title {
+    @media only screen and (max-width: 600px) {
+      font-size: 26px;
+    }
+    @media only screen and (min-width: 600px) {
+      font-size: 36px;
+    }
+    @media only screen and (min-width: 992px) {
+      font-size: 50px;
+    }
+
+  }
+
+  @keyframes arrow {
+    0% {
+      left: 0.2rem;
+    }
+    100% {
+      left: .6rem;
+    }
+  }
+
+  .setting__action {
+    cursor: pointer;
+    padding: .3rem .3rem .3rem 0;
+    @media only screen and (max-width: 600px) {
+      width: 1.5rem;
+    }
+    @media only screen and (min-width: 600px) {
+      width: 2rem;
+    }
+    @media only screen and (min-width: 992px) {
+      width: 2.5rem;
+    }
+    height: 2.5rem;
+    position: relative;
+
+    &::after, &::before {
+      position: absolute;
+      top: 0;
+      left: .4rem;
+      content: '';
+      width: 1px;
+      height: 1rem;
+      background: #bdbdbd;
+    }
+
+    &::after {
+      transform: translate(.5rem, 10%) rotate(-40deg);
+    }
+
+    &::before {
+      transform: translate(.5rem, 90%) rotate(40deg);
+    }
+
+  }
+
+  .back {
+    &::after {
+      transform: translate(.5rem, 10%) rotate(40deg);
+    }
+
+    &::before {
+      transform: translate(.5rem, 90%) rotate(-40deg);
+    }
+
+    &:hover {
+      &.setting__action::after, &.setting__action::before {
+        background: #5a5d5d;
+        animation: .8s arrow ease-in-out reverse infinite;
+      }
+    }
+  }
+
+  .settings__field__wrapper {
+    min-width: 15ch;
+    width: 30ch;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    .btn {
+      width: 10rem;
+    }
+
+    .row {
+      box-shadow: 1px 1px 2px rgba(109, 109, 109, 0.5);
+      background: #eee;
+      border-radius: 3px;
+      padding: .2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        padding: .3rem 0 .3rem .3rem;
+        width: 8ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .settings__field {
+        padding: .4rem;
+        margin: 0 .5rem;
+        border-left: #e1e1e1 2px solid;
+        border-right: #e1e1e1 2px solid;
+        flex: 1 1 auto;
+      }
+
+      .setting__action {
+        width: 2rem;
+        height: 2rem;
+      }
+
+      &:hover {
+        .setting__action::after, .setting__action::before {
+          background: #5a5d5d;
+          animation: .8s arrow ease-in-out infinite;
+        }
+      }
+
+    }
+  }
+}
