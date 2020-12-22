@@ -16,6 +16,6 @@ export class DataService {
   }
 
   public getData(command: string) {
-      this.http.get(this.serverPath + '/auth/' + command).subscribe(data=>console.log(data));
+      this.http.get(this.serverPath + '/api/auth/' + command).subscribe(data=>console.log(data));
   }
 }
