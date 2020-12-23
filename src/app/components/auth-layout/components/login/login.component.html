@@ -19,9 +19,9 @@
            [ngClass]="{'invalid':!!valid.pass.error}"
            (blur)="valid.pass.check(f)"
            (focus)="valid.pass.reset()"></div>
-  <button type="submit" class="btn" id="sing_in">Sing In</button>
+  <button type="submit" class="btn">Sign In</button>
   <div class="login__helper">
     <a routerLink="/restore" class="link" routerLinkActive="active">Forgot password?</a>
-    <a routerLink="/register" class="link" routerLinkActive="active">Sing Up</a>
+    <a routerLink="/register" class="link" routerLinkActive="active">Sign Up</a>
   </div>
 </form>
