@@ -37,8 +37,15 @@ input:focus{
   border: 1px solid black;
 }
 .invalid {
-  box-shadow: 0 0 0.5rem red;
+  box-shadow: 0 0 .5rem #9d0000;
+  border: 1px solid #830000;
 }
+
+.valid {
+  box-shadow: 0 0 .5rem #009d15;
+  border: 1px solid #008321;
+}
+
 input::placeholder {
   font-weight: 400;
   color: #bdbdbd;

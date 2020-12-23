@@ -1,0 +1,18 @@
+<form class="menu__content" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+  <div>
+    <div class="error">{{valid.mail.error}}</div>
+    <input class="field" id="e-mail" autocomplete="off" type="email" placeholder="E-mail address"
+           ngModel name="mail" #mail="ngModel"
+           (blur)="valid.mail.check(f)"
+           (focus)="valid.mail.reset()"
+           [ngClass]="{'invalid':!!valid.mail.error}"
+    ></div>
+  <div>
+    <button type="submit" class="btn" id="restore">Restore</button>
+  </div>
+  <div class="login__helper">
+    <span class="info">Have an account?</span>
+    <a routerLink="/login" class="link" routerLinkActive="active">Sing In</a>
+  </div>
+</form>

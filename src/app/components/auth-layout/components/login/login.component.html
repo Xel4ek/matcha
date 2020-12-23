@@ -1,18 +1,24 @@
 <form class="menu__content" #f="ngForm" (ngSubmit)="onSubmit(f)">
   <div>
-    <div class="error"></div>
+    <div class="error">{{valid.login.error}}</div>
     <input class="field"
            autocomplete="off"
            type="text"
            placeholder="Login"
-           ngModel name="login" #login="ngModel"></div>
+           ngModel name="login" #login="ngModel"
+           [ngClass]="{'invalid':!!valid.login.error}"
+    (blur)="valid.login.check(f)"
+    (focus)="valid.login.reset()"></div>
   <div>
-    <div class="error"></div>
+    <div class="error">{{valid.pass.error}}</div>
     <input class="field"
            autocomplete="off"
            type="password"
            placeholder="Password"
-           ngModel name="pass" #pass="ngModel"></div>
+           ngModel name="pass" #pass="ngModel"
+           [ngClass]="{'invalid':!!valid.pass.error}"
+           (blur)="valid.pass.check(f)"
+           (focus)="valid.pass.reset()"></div>
   <button type="submit" class="btn" id="sing_in">Sing In</button>
   <div class="login__helper">
     <a routerLink="/restore" class="link" routerLinkActive="active">Forgot password?</a>

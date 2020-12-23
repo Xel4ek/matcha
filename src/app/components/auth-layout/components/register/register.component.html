@@ -1,0 +1,40 @@
+<form class="menu__content" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div>
+    <div class="error">{{valid.login.error}}</div>
+    <input class="field" id="login" autocomplete="off" type="text" placeholder="Login"
+           ngModel name="login" #login="ngModel"
+           (blur)="valid.login.check(f)"
+           (focus)="resetLogin()"
+           [ngClass]="{'invalid':!!valid.login.error, 'valid':valid.login.status}"></div>
+  <div>
+    <div class="error">{{valid.pass.error}}</div>
+    <input class="field" id="password" autocomplete="off" type="password" placeholder="Password"
+           ngModel name="pass" #pass="ngModel"
+    (input)="checkPassStrength(f)"
+    (blur)="valid.pass.check()"
+    (focus)="resetPass()">
+    <mat-progress-bar *ngIf="!!pass.value" mode="determinate" [value]="strength * 20" class="strength-{{strength}}"></mat-progress-bar>
+  </div>
+  <div>
+    <div class="error">{{valid.confirm.error}}</div>
+    <input class="field" id="confirm" autocomplete="off" type="password" placeholder="Confirm password"
+           ngModel name="confirm" #confirm="ngModel"
+           (blur)="valid.confirm.check(f)"
+           (focus)="resetConfirm()"
+           [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}"></div>
+  <div>
+    <div class="error">{{valid.mail.error}}</div>
+    <input class="field" id="e-mail" autocomplete="off" type="email" placeholder="E-mail address"
+           ngModel name="mail" #mail="ngModel"
+           (blur)="valid.mail.check(f)"
+           (focus)="resetMail()"
+           [ngClass]="{'invalid':!!valid.mail.error, 'valid':valid.mail.status}"></div>
+  <div>
+    <button type="submit" class="btn" id="register">Register</button>
+  </div>
+  <div class="login__helper">
+
+    <span class="info">Have an account?</span>
+    <a routerLink="/login" class="link" routerLinkActive="active">Sing In</a>
+  </div>
+</form>
