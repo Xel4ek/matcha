@@ -12,9 +12,18 @@ export class AppComponent implements OnInit{
   constructor(public router: Router,
               private wsService: WebsocketService,
   ) {
+    console.log('was here');
+    this.wsService.on<any>('message')
+      .subscribe((messages) => {
+        console.log('here',messages);
+      });
   }
 
   ngOnInit(): void {
+  }
+  test() {
+    console.log(';sending');
+    this.wsService.send('message', 'Test Text!');
   }
 
 }
