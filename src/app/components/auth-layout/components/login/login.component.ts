@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {HttpService} from "@services/http.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {WebsocketService} from "@services/websocket/websocket.service";
 
 interface FormControl {
   status: boolean,
@@ -41,7 +42,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private dataService: HttpService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private ws: WebsocketService
   ) {
 
   }
@@ -58,9 +60,11 @@ export class LoginComponent implements OnInit {
       }
     })
     if (!valid) {
+
       this.toastr.error('Не все поля заполнены!', 'Ошибка');
     } else {
-      this.dataService.postApi('login', {username: data.value.login, password: data.value.pass}, true);
+      this.ws.send('login', {username: data.value.login, password: data.value.pass});
+      // this.dataService.postApi('login', {username: data.value.login, password: data.value.pass}, true);
       data.resetForm({...data.value, pass:''});
       this.router.navigate(['/settings']);
     }

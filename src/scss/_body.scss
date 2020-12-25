@@ -4,9 +4,9 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: #eee;
-  color: #546e7a;
   font-size: 14px;
+  color: #546e7a;
+  background: #eee;
 }
 
 .main__wrapper {
@@ -18,11 +18,12 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+
 .content {
+  overflow-y: scroll;
+  width: 100%;
+  margin: 0 auto;
   @media screen and (min-device-width: 1025px) {
     max-width: 1018px;
   }
-  margin: 0 auto;
-  width: 100%;
-  overflow-y: scroll;
 }

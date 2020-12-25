@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "@services/user/user";
+import {UserService} from "@services/user/user.service";
 
 @Component({
   selector: 'app-settings',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  public user: User;
 
-  constructor() { }
+  constructor(
+    private userService:UserService
+  ) {
+    this.user = this.userService.user;
+  }
 
   ngOnInit(): void {
+
   }
 
 }

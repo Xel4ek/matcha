@@ -1,6 +1,6 @@
 import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {interval, Observable, Observer, Subject, SubscriptionLike} from 'rxjs';
-import {distinctUntilChanged, filter, map, share, takeWhile} from 'rxjs/operators';
+import {distinctUntilChanged, filter, first, map, share, takeWhile} from 'rxjs/operators';
 import {WebSocketSubject, WebSocketSubjectConfig} from 'rxjs/webSocket';
 import {IWebsocketService, IWsMessage, WebSocketConfig} from './websocket.interfaces';
 import {config} from './websocket.config';
@@ -90,11 +90,14 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
   * on message to server
   * */
   public send(event: string, data: any = {}): void {
-    console.log('sending', {event, data}, this.isConnected);
     if (event && this.isConnected) {
       this.websocket$!.next({event, data});
     } else {
-      console.error('Send error!');
+      this.status.pipe(first()).subscribe({
+        next: _ => this.websocket$!.next({event, data}),
+        error: err => console.error('Send error!', event, data),
+        complete: () => console.log('seending')
+      })
     }
   }
 
@@ -107,7 +110,6 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
 
     this.websocket$.subscribe(
       (message) => {
-        console.log('row', message)
         this.wsMessages$.next(message)
       },
       (error: Event) => {
