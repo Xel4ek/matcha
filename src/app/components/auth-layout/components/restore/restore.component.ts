@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpService} from "@services/http.service";
 import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import { Router} from "@angular/router";
+import {WebsocketService} from "@services/websocket/websocket.service";
+import {first} from "rxjs/operators";
 
 interface FormControl {
   status: boolean,
@@ -31,7 +32,7 @@ export class RestoreComponent implements OnInit {
     }
   }
   constructor(
-    private dataService: HttpService,
+    private ws: WebsocketService,
     private toastr: ToastrService,
     private router: Router
   ) { }
@@ -41,9 +42,7 @@ export class RestoreComponent implements OnInit {
   onSubmit(data:NgForm): void {
     this.valid.mail.check(data);
     if (this.valid.mail.status) {
-      this.dataService.postApi('restore', {
-        email: data.value.mail,
-      }, true);
+      this.ws.send('restore', {email: data.value.mail})
       this.router.navigate(['/login']);
     } else {
       this.toastr.error('Некоректный E-mail', 'Ошибка');

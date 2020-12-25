@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
       }
     })
     if (!valid) {
-
       this.toastr.error('Не все поля заполнены!', 'Ошибка');
     } else {
       this.ws.send('login', {username: data.value.login, password: data.value.pass});

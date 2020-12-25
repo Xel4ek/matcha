@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "@services/http.service";
+import {WebsocketService} from "@services/websocket/websocket.service";
+import {first} from "rxjs/operators";
 
 interface ValidateStatus {
   valid:boolean;
@@ -12,7 +14,7 @@ interface ValidateStatus {
 export class ValidatorService {
 
   constructor(
-    private http: HttpService
+    private ws: WebsocketService
   ) { }
 
   async login(login:string) : Promise<ValidateStatus> {
@@ -23,17 +25,19 @@ export class ValidatorService {
     if (!letterStart.test(login.toLowerCase())) return {valid:false, error: 'Логин должен начинаться с буквы'}
     const loginRe = /^[\w\d]*$/i;
     if (!loginRe.test(login)) return {valid:false, error: 'Используйте буквы и цифры'}
-    return await this.http.getApi('occupied/login').then(occupied => {
-      if (occupied) return {valid: false, error: 'Логин уже занят'}
-      else return {valid: true};
-    });
+    let result  = this.ws.on<boolean>('occupied').pipe(first()).toPromise()
+      .then((data:boolean) => {
+        return data ? {valid: false, error: 'Логин уже занят'} : {valid: true}
+      });
+    this.ws.send('occupied', {login} );
+    return  result;
   }
-  async mail(mail:string) : Promise<ValidateStatus> {
+  async mail(mail:string) : Promise<ValidateStatus>{
     const emailRe = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     if(!emailRe.test(mail)) return {valid: false, error: 'Некорректный E-mail'};
-    return await this.http.getApi('occupied/mail').then(occupied => {
-      if (occupied) return {valid: false, error: 'E-mail уже занят'}
-      else return {valid: true};
-    });
+    let result  = this.ws.on<boolean>('occupied').pipe(first()).toPromise()
+      .then((data:boolean) => data ? {valid: false, error: 'E-mail уже занят'} : {valid: true});
+    this.ws.send('occupied', {email: mail} );
+    return  result;
   }
 }

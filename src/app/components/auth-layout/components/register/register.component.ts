@@ -4,6 +4,7 @@ import {HttpService} from "@services/http.service";
 import {ValidatorService} from "@services/validator.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {WebsocketService} from "@services/websocket/websocket.service";
 
 interface FormControl {
   status: boolean,
@@ -26,10 +27,10 @@ export class RegisterComponent implements OnInit {
   public strength: number = 5;
 
   constructor(
-    private http: HttpService,
+    private ws: WebsocketService,
     private validate: ValidatorService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -38,8 +39,9 @@ export class RegisterComponent implements OnInit {
 
   async checkLogin(form: NgForm): Promise<void> {
     const {valid, error} = await this.validate.login(form.value.login);
+    console.log('login', valid, error);
     this.valid.login.status = valid;
-    this.valid.login.error = error ? error : '';
+    this.valid.login.error = error ?? '';
   }
 
   resetLogin(): void {
@@ -49,7 +51,7 @@ export class RegisterComponent implements OnInit {
   async checkMail(form: NgForm): Promise<void> {
     const {valid, error} = await this.validate.mail(form.value.mail);
     this.valid.mail.status = valid;
-    this.valid.mail.error = error ? error : '';
+    this.valid.mail.error = error ?? '';
   }
 
   resetMail(): void {
@@ -106,11 +108,16 @@ export class RegisterComponent implements OnInit {
         this.valid[key].status = false;
         this.valid[key].error = ''
       });
-      this.http.postApi('register', {
+      this.ws.send('register', {
         username: login,
         password: pass,
         email: mail,
-      }, true);
+      });
+      // this.http.postApi('register', {
+      //   username: login,
+      //   password: pass,
+      //   email: mail,
+      // }, true);
       this.router.navigate(['/settings']);
     }
   }

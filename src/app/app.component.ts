@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {WebsocketService} from "@services/websocket/websocket.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,15 @@ export class AppComponent implements OnInit{
 
   constructor(public router: Router,
               private wsService: WebsocketService,
+              private toastr: ToastrService
   ) {
     this.wsService.on<any>('message')
-      .subscribe((messages) => {
-        console.log('here',messages);
+      .subscribe((message) => {
+        this.toastr.success(message.text, message.title);
+      });
+    this.wsService.on<any>('error')
+      .subscribe((message) => {
+        this.toastr.error(message.text, message.title);
       });
   }
 
