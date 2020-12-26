@@ -19,5 +19,6 @@ export class InfoComponent implements OnInit {
     this.user = this.userInfoService.user(this.id);
   }
   ngOnInit(): void {
+    console.log(this.user);
   }
 }

@@ -6,7 +6,7 @@ import {UserInfo} from "@services/user-info/user-info";
   providedIn: 'root'
 })
 export class UserInfoService {
-  private _users: Map<number, UserInfo> = new Map<number, UserInfo>();
+  private _users: {[index:number]:UserInfo} = {};
 
   constructor(
     private ws: WebsocketService,
@@ -17,9 +17,10 @@ export class UserInfoService {
     }));
     ws.on<UserInfo>('userInfo').subscribe({
       next: (user) => {
+        console.log('new UserInfo', user);
         const key: number = user.id;
-        if (this._users.has(key)) this._users.set(key, this._users.get(key)!.value = user);
-        else this._users.set(key, new UserInfo(user));
+        if (this._users[key]) this._users[key].value = user
+        else this._users[key] = new UserInfo(user)
       },
       error: error => console.log(error),
     })
@@ -27,10 +28,10 @@ export class UserInfoService {
   }
 
   user(id: number): UserInfo {
-    if (!this._users.has(id)) {
-      this._users.set(id, new UserInfo());
-      this.ws.send('userInfo', {id});
+    this.ws.send('userInfo', {id});
+    if (!this._users[id]) {
+      this._users[id] = new UserInfo();
     }
-    return <UserInfo>this._users.get(id);
+    return <UserInfo>this._users[id];
   }
 }

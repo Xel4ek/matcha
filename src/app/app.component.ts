@@ -27,6 +27,6 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
   }
   test() {
-    this.wsService.send('message', 'Test Text!');
+    this.wsService.send('userInfo', {id:12});
   }
 }
