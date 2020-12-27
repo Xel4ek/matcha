@@ -9,14 +9,14 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-  private readonly id: number;
+  private readonly login: string;
   public user: UserInfo;
   constructor(
     private activateRoute: ActivatedRoute,
     private userInfoService: UserInfoService
   ) {
-    this.id = activateRoute.snapshot.params['id'];
-    this.user = this.userInfoService.user(this.id);
+    this.login = activateRoute.snapshot.params['id'];
+    this.user = this.userInfoService.user(this.login);
   }
   ngOnInit(): void {
     console.log(this.user);
