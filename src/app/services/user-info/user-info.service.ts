@@ -18,7 +18,7 @@ export class UserInfoService {
     ws.on<UserInfo>('userInfo').subscribe({
       next: (user) => {
         console.log('new UserInfo', user);
-        const key: number = user.id;
+        const key: string = user.login;
         if (this._users[key]) this._users[key].value = user
         else this._users[key] = new UserInfo(user)
       },
