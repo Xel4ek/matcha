@@ -1,1 +1,14 @@
-<p>main-layout works!</p>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" #drawer opened>
+    <mat-nav-list>
+      <mat-list-item
+        routerLink="user/12"
+       routerLinkActive="user/12">
+        user
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule} from "@angular/router";
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -12,4 +11,4 @@ import {RouterModule} from "@angular/router";
     RouterModule
   ]
 })
-export class MainLayoutRoutingModule { }
+export class AuthLayoutRouteModule { }

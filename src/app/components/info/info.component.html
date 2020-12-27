@@ -1,10 +1,23 @@
-
 <div class="info">
   <carousel [images]="user.photo" [width]="300" [height]="350" [cellsToShow]="1" [dots]="true" class="carousel">
   </carousel>
 
   <mat-list role="list">
-    <mat-list-item role="listitem"></mat-list-item>
+    <mat-list-item role="listitem">
+      Nick: {{user.name.nickName}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      Name: {{user.name.firstName}} {{user.name?.secondName }} {{user.name.lastName}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      Rating: {{user.fameRating | json}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      Tag: {{user.tag | json}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      Age: {{user.birthDay | json}}
+    </mat-list-item>
   </mat-list>
 </div>
 

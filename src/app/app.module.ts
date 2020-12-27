@@ -24,7 +24,8 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from "@angular/material/button";
-import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { MainLayoutComponent } from '@components/main-layout/main-layout.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, SettingsComponent, InfoComponent, MainLayoutComponent],
@@ -42,6 +43,8 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
     MatListModule,
     MatSidenavModule,
     MatButtonModule,
+    MatToolbarModule,
+
   ],
   providers: [HttpService, PluginsService, UserService, UserInfoService],
   bootstrap: [AppComponent],
