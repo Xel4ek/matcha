@@ -6,7 +6,7 @@ import {UserInfo} from "@services/user-info/user-info";
   providedIn: 'root'
 })
 export class UserInfoService {
-  private _users: {[index:number]:UserInfo} = {};
+  private _users: {[index:string]:UserInfo} = {};
 
   constructor(
     private ws: WebsocketService,
@@ -27,11 +27,11 @@ export class UserInfoService {
 
   }
 
-  user(id: number): UserInfo {
-    this.ws.send('userInfo', {id});
-    if (!this._users[id]) {
-      this._users[id] = new UserInfo();
+  user(login: string): UserInfo {
+    this.ws.send('userInfo', {login});
+    if (!this._users[login]) {
+      this._users[login] = new UserInfo();
     }
-    return <UserInfo>this._users[id];
+    return <UserInfo>this._users[login];
   }
 }
