@@ -20,9 +20,14 @@ import { SettingsComponent } from '@components/settings/settings.component';
 import {environment} from "../environments/environment";
 import { InfoComponent } from '@components/info/info.component';
 import {UserInfoService} from "@services/user-info/user-info.service";
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from "@angular/material/button";
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, SettingsComponent, InfoComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, SettingsComponent, InfoComponent, MainLayoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -32,7 +37,11 @@ import {UserInfoService} from "@services/user-info/user-info.service";
     ToastrModule.forRoot(),
     WebsocketModule.config({
       url: environment.ws
-    })
+    }),
+    IvyCarouselModule,
+    MatListModule,
+    MatSidenavModule,
+    MatButtonModule,
   ],
   providers: [HttpService, PluginsService, UserService, UserInfoService],
   bootstrap: [AppComponent],

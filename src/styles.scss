@@ -1,5 +1,3 @@
-@import '~ngx-toastr/toastr';
-
 @import 'scss/clear';
 @import "scss/base";
 @import 'scss/body';
@@ -10,6 +8,4 @@
 @import "scss/settings";
 @import "scss/gallery";
 @import "scss/redactor";
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import '~ngx-toastr/toastr';

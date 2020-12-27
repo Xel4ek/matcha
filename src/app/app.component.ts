@@ -9,7 +9,7 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-
+  showFiller: boolean = false;
   constructor(public router: Router,
               private wsService: WebsocketService,
               private toastr: ToastrService

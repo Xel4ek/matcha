@@ -7,14 +7,14 @@ import {RestoreComponent} from "@components/auth-layout/components/restore/resto
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'auth',
     component: AuthLayoutComponent,
     children:[
-      {path: 'login', component: LoginComponent},
-      {path: 'register', component: RegisterComponent},
-      {path: 'restore', component: RestoreComponent},
-    ]
-  }
+      {path: 'register', component: RegisterComponent, pathMatch: 'full'},
+      {path: 'restore', component: RestoreComponent,pathMatch: 'full'},
+      {path: 'login', component: LoginComponent,pathMatch: 'full'},
+      {path: '**', component: LoginComponent,pathMatch: 'full'},
+    ]}
 ];
 
 @NgModule({

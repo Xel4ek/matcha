@@ -5,9 +5,15 @@ import {SettingsComponent} from "@components/settings/settings.component";
 import {InfoComponent} from "@components/info/info.component";
 
 const routes: Routes = [
-  {path: '', component: AuthLayoutComponent},
+  {path: 'auth', component: AuthLayoutComponent,
+    children:[
+      {path: '', redirectTo:'login',pathMatch: 'full'},
+    ]},
   {path: 'settings', component: SettingsComponent},
-  {path: 'user/:id', component: InfoComponent}
+  {path: 'user/:id', component: InfoComponent},
+  {path: '**', redirectTo: '', pathMatch: 'full'},
+  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+
 ];
 
 @NgModule({
