@@ -17,6 +17,7 @@ export class InfoComponent implements OnInit {
   ) {
     this.login = activateRoute.snapshot.params['id'];
     this.user = this.userInfoService.user(this.login);
+    this.user.age = ((new Date().getTime() - this.user.birthDay.getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
   }
   ngOnInit(): void {
     console.log(this.user);

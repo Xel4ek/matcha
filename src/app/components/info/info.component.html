@@ -1,7 +1,11 @@
 <div class="info">
-  <carousel [images]="user.photo" [width]="300" [height]="350" [cellsToShow]="1" [dots]="true" class="carousel">
-  </carousel>
-
+  <div class="carousel__wrapper">
+    <div class="status">
+      <mat-icon>radio_button_checked</mat-icon>
+    </div>
+    <carousel [images]="user.photo" [width]="300" [height]="350" [cellsToShow]="1" [dots]="true" class="carousel">
+    </carousel>
+  </div>
   <mat-list role="list">
     <mat-list-item role="listitem">
       Nick: {{user.name.nickName}}
@@ -10,15 +14,19 @@
       Name: {{user.name.firstName}} {{user.name?.secondName }} {{user.name.lastName}}
     </mat-list-item>
     <mat-list-item role="listitem">
+      <mat-chip-list>
+        <mat-chip *ngFor="let tag of user.tag">
+          {{tag}}
+        </mat-chip>
+      </mat-chip-list>
+    </mat-list-item>
+    <mat-list-item role="listitem">
       Rating: {{user.fameRating | json}}
     </mat-list-item>
-    <mat-list-item role="listitem">
-      Tag: {{user.tag | json}}
-    </mat-list-item>
-    <mat-list-item role="listitem">
-      Age: {{user.birthDay | json}}
+    <mat-list-item role="listitem" [title]="'Birth day: ' + (user.birthDay | date:'longDate')">
+      Age: {{user.age}}
     </mat-list-item>
   </mat-list>
 </div>
 
-<pre> {{user | json}}</pre>
+<pre> {{user | json }}</pre>

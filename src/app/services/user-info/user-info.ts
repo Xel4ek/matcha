@@ -7,20 +7,20 @@ export class UserInfo {
     secondName: null,
     lastName: 'Anonymousov'
   };
-  email: string = 'no@mail.cpm';
-  tag: string[] = [];
+  tag: string[] = ['dwa','daw'];
   fameRating:number = 0;
   favorites: number[] =  [];
   blackList: number[] =  [];
   photo: string[] = [];
-  birthDay:string = "12/10/1994";
+  birthDay:Date = new Date(1985, 5, 12);
   coordinates: { [index: string]: number } = {
     latitude: 0,
     longitude: 0,
     accuracy: 0,
   };
   aboutMe:string = '';
-
+  isOnline: boolean = false;
+  LastSeen: Date = new Date();
   constructor(user?:object) {
     this.value = user;
   }

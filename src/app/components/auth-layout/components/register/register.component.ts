@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForm, NgModel} from "@angular/forms";
-import {HttpService} from "@services/http.service";
+import {NgForm} from "@angular/forms";
 import {ValidatorService} from "@services/validator.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
@@ -113,11 +112,6 @@ export class RegisterComponent implements OnInit {
         password: pass,
         email: mail,
       });
-      // this.http.postApi('register', {
-      //   username: login,
-      //   password: pass,
-      //   email: mail,
-      // }, true);
       this.router.navigate(['/settings']);
     }
   }

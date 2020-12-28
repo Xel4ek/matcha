@@ -11,10 +11,6 @@ export class UserInfoService {
   constructor(
     private ws: WebsocketService,
   ) {
-    console.log(ws.status.subscribe({
-      next:(value => console.log('sw', value)),
-      error: err => null,
-    }));
     ws.on<UserInfo>('userInfo').subscribe({
       next: (user) => {
         console.log('new UserInfo', user);
