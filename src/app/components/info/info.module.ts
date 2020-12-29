@@ -8,9 +8,10 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { InfoComponent } from '@components/info/info.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatIconModule } from "@angular/material/icon";
-
+import {MatExpansionModule} from '@angular/material/expansion';
+import { MapComponent } from "@components/map/map.component";
 @NgModule({
-  declarations: [InfoComponent],
+  declarations: [InfoComponent, MapComponent],
   imports: [
     CommonModule,
     IvyCarouselModule,
@@ -19,6 +20,7 @@ import { MatIconModule } from "@angular/material/icon";
     MatToolbarModule,
     MatChipsModule,
     MatIconModule,
+    MatExpansionModule,
   ]
 })
 export class InfoModule {

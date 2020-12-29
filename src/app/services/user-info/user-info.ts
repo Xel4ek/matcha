@@ -11,7 +11,11 @@ export class UserInfo {
   fameRating:number = 0;
   favorites: number[] =  [];
   blackList: number[] =  [];
-  photo: string[] = [];
+  photo: {[index:string]:any} = {
+    profilePhoto: 1,
+    paths: ['./assets/img/original.webp',
+      './assets/img/14-48.jpg']
+  };
   birthDay:Date = new Date(1985, 5, 12);
   coordinates: { [index: string]: number } = {
     latitude: 0,
@@ -20,7 +24,7 @@ export class UserInfo {
   };
   aboutMe:string = '';
   isOnline: boolean = false;
-  LastSeen: Date = new Date();
+  lastLoginTime: Date = new Date();
   constructor(user?:object) {
     this.value = user;
   }

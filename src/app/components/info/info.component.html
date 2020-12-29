@@ -1,9 +1,11 @@
 <div class="info">
   <div class="carousel__wrapper">
     <div class="status">
-      <mat-icon>radio_button_checked</mat-icon>
+      <span [ngClass]="{'online': user.isOnline}">{{user.isOnline ?
+        'Online' :
+        'Was: ' + (user.lastLoginTime | date:'medium')}}</span>
     </div>
-    <carousel [images]="user.photo" [width]="300" [height]="350" [cellsToShow]="1" [dots]="true" class="carousel">
+    <carousel [images]="carousel" [width]="300" [height]="350" [cellsToShow]="1" [dots]="true" class="carousel">
     </carousel>
   </div>
   <mat-list role="list">
@@ -13,13 +15,11 @@
     <mat-list-item role="listitem">
       Name: {{user.name.firstName}} {{user.name?.secondName }} {{user.name.lastName}}
     </mat-list-item>
-    <mat-list-item role="listitem">
-      <mat-chip-list>
-        <mat-chip *ngFor="let tag of user.tag">
-          {{tag}}
-        </mat-chip>
-      </mat-chip-list>
-    </mat-list-item>
+    <mat-chip-list>
+      <mat-chip *ngFor="let tag of user.tag">
+        {{tag}}
+      </mat-chip>
+    </mat-chip-list>
     <mat-list-item role="listitem">
       Rating: {{user.fameRating | json}}
     </mat-list-item>
@@ -28,5 +28,25 @@
     </mat-list-item>
   </mat-list>
 </div>
-
+<mat-accordion multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        About Me
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ user.aboutMe }}</p>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Find Me
+      </mat-panel-title>
+      <mat-panel-description>
+        Location
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-map [markers]="[[32.9756, -96.89],[32,-98]]"> </app-map>
+  </mat-expansion-panel>
+</mat-accordion>
 <pre> {{user | json }}</pre>

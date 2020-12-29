@@ -1,3 +1,27 @@
 .info{
   display: flex;
+  padding: 1rem;
+}
+.status{
+  text-align: center;
+  span{
+    &::before {
+      content: "";
+      margin-right: 1ch;
+      display: inline-block;
+      height: .7rem;
+      width: .7rem;
+      background-image: radial-gradient(farthest-corner at .3rem .3rem, #ffffff 0%, #646464 80%, #6b6b6b 100%);
+      border-radius: 50%;
+      box-shadow: 1px 1px 1px black;
+    }
+  }
+}
+
+.online::before {
+  background-image: radial-gradient(farthest-corner at .3rem .3rem, #ffffff 0%, green 80%, green 100%) !important;
+}
+.mat-expansion-panel{
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
