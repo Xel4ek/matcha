@@ -13,8 +13,8 @@ export class UserInfo {
   blackList: number[] =  [];
   photo: {[index:string]:any} = {
     profilePhoto: 1,
-    paths: ['./assets/img/original.webp',
-      './assets/img/14-48.jpg']
+    paths: ['assets/img/original.webp',
+      'assets/img/14-48.jpg']
   };
   birthDay:Date = new Date(1985, 5, 12);
   coordinates: { [index: string]: number } = {
@@ -37,6 +37,9 @@ export class UserInfo {
     Object.keys(this).forEach(key =>
       this[key] = data?.[key] ?? this[key]
     );
+  }
+  get age() {
+    return ((new Date().getTime() - this.birthDay.getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
   }
 
 }

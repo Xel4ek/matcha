@@ -6,13 +6,21 @@ import {InfoModule} from "@components/info/info.module";
 import {SettingsComponent} from '@components/settings/settings.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { FormsModule } from "@angular/forms";
+import { SearchComponent } from '@components/search/search.component';
+import { ChatsModule } from "@components/chats/chats.module";
+
 @NgModule({
-  declarations: [MainLayoutComponent, SettingsComponent],
+  declarations: [MainLayoutComponent, SettingsComponent, SearchComponent],
   imports: [
     CommonModule,
     MainLayoutRoutingModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    ScrollingModule,
+    FormsModule,
+    ChatsModule
   ],
   exports: [InfoModule]
 })

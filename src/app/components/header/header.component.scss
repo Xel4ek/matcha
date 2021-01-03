@@ -3,3 +3,10 @@
   display: block;
   padding-right: 1ch;
 }
+.head {
+  display: flex;
+  gap: 1rem;
+  .title{
+    flex: 1 1 auto;
+  }
+}

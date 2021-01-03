@@ -17,7 +17,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
   private statusSub: SubscriptionLike;
   private reconnection$: Observable<number> | null = null;
   private websocket$: WebSocketSubject<IWsMessage<any>> | null = null;
-  private connection$: Observer<boolean> | undefined;
+  private connection$?: Observer<boolean>;
   private wsMessages$: Subject<IWsMessage<any>>;
   private reconnectInterval: number;
   private readonly reconnectAttempts: number;
@@ -35,13 +35,13 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
         next: (event: CloseEvent) => {
           console.log('WebSocket close!');
           this.websocket$ = null;
-          this.connection$!.next(false);
+          this.connection$?.next(false);
         }
       },
       openObserver: {
         next: (event: Event) => {
           console.log('WebSocket connected!');
-          this.connection$!.next(true);
+          this.connection$?.next(true);
         }
       }
     };
@@ -96,7 +96,6 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
       this.status.pipe(first()).subscribe({
         next: _ => this.websocket$!.next({event, data}),
         error: err => console.error('Send error!', event, data),
-        complete: () => console.log('seending')
       })
     }
   }
@@ -137,7 +136,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
 
         if (!this.websocket$) {
           this.wsMessages$.complete();
-          this.connection$!.complete();
+          this.connection$?.complete();
         }
       }
     });

@@ -1,0 +1,9 @@
+.toolbar{
+  div{
+    padding: .3rem;
+&:hover{
+  background-color: darken(#673ab7,20%);
+
+}
+  }
+}
