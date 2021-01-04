@@ -1,0 +1,18 @@
+::ng-deep .mat-progress-spinner {
+  height: 100% !important;
+
+  svg {
+    top: calc(50% - 50px) !important;
+  }
+
+}
+::ng-deep .settings form{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin: .5rem;
+  .btn{
+    width: auto;
+    align-self: flex-end;
+  }
+}

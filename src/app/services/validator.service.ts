@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {HttpService} from "@services/http.service";
 import {WebsocketService} from "@services/websocket/websocket.service";
 import {first} from "rxjs/operators";
 
@@ -12,7 +11,10 @@ interface ValidateStatus {
   providedIn: 'root'
 })
 export class ValidatorService {
-
+  private availableValidators: {[index:string]: Function} = {
+    login: this.login,
+    mail: this.mail,
+  }
   constructor(
     private ws: WebsocketService
   ) { }
@@ -39,5 +41,12 @@ export class ValidatorService {
       .then((data:boolean) => data ? {valid: false, error: 'E-mail уже занят'} : {valid: true});
     this.ws.send('occupied', {email: mail} );
     return  result;
+  }
+  async validate(action?:string, value?: string){
+    if (action && action in this.availableValidators) {
+      return await this.availableValidators[action](value);
+    } else
+    console.warn('Nothing in validators');
+    return {valid: false, error: 'Нет подходящего валидатора'}
   }
 }

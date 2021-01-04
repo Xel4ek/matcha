@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from "@angular/material/button";
@@ -12,8 +11,7 @@ import { MapComponent } from "@components/map/map.component";
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { GlobalSharedModule } from "../../global-shared.module";
+import { GlobalSharedModule } from "../../tools/global-shared.module";
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -23,7 +21,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 @NgModule({
   declarations: [InfoComponent, MapComponent],
   imports: [
-    CommonModule,
     MatListModule,
     MatButtonModule,
     MatToolbarModule,
@@ -31,7 +28,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatIconModule,
     MatExpansionModule,
     SwiperModule,
-    MatProgressSpinnerModule,
     GlobalSharedModule
   ],
   providers:[{

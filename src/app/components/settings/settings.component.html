@@ -1,2 +1,18 @@
-<pre>{{user | json}}</pre>
+<div *ngIf="profile else loading">
+    <app-form-control class="settings">
+      <app-form-field
+        validate="login"
+        [value]="profile.login"
+        title="Логин"></app-form-field>
+      <app-form-field
+        validate="mail"
+        [value]="profile.name.nickName"
+        title="E-mail"></app-form-field>
+      <button type="submit" class="btn">Save</button>
+    </app-form-control>
+</div>
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
+<pre>{{profile | json}}</pre>
 

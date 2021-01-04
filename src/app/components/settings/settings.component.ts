@@ -1,23 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import {User} from "@services/user/user";
-import {UserService} from "@services/user/user.service";
+import { ProfileService } from "@services/profile/profile.service";
+import { NgForm } from "@angular/forms";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
-  public user: User;
+export class SettingsComponent implements OnInit, OnDestroy {
+  profile: User | null = null;
+  subscription: Subscription | null = null;
 
+  private settingsForm = {}
+  public test: any;
   constructor(
-    private userService:UserService
+    private profileService:ProfileService
   ) {
-    this.user = this.userService.user;
+    this.subscription = this.profileService.data$.subscribe(profile =>this.profile = profile);
   }
 
   ngOnInit(): void {
 
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+    this.subscription = null;
+  }
+  onSubmit(form: NgForm):void {
+    console.log(form.value)
+    console.log(this.test);
+  }
+  validateTest(data: any){
+    console.log('from setting', data);
+    return 567;
+  }
 }
