@@ -1,0 +1,6 @@
+<div class="card-wrapper">
+  <app-image-card *ngFor="let image of images; index as i"
+  [image]="image"
+  [selected]="profilePhoto === i">
+  </app-image-card>
+</div>

@@ -13,4 +13,16 @@ export class MainLayoutComponent implements AfterViewInit{
   ngAfterViewInit(): void {
     setTimeout(() => this.sideNav?.toggle(),0);
   }
+  testFunction(): void {
+      if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position)=>{
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        console.log('geo', longitude, latitude);
+      });
+    } else {
+      console.log("No support for geolocation")
+    }
+
+  }
 }

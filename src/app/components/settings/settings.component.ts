@@ -1,18 +1,20 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import {User} from "@services/user/user";
 import { ProfileService } from "@services/profile/profile.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
+import { FormControlComponent } from "../../tools/form-control/form-control.component";
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild(FormControlComponent) formControl?: FormControlComponent;
+  checked: boolean = true;
   profile: User | null = null;
   subscription: Subscription | null = null;
-
   private settingsForm = {}
   public test: any;
   constructor(
@@ -29,12 +31,18 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
     this.subscription = null;
   }
-  onSubmit(form: NgForm):void {
-    console.log(form.value)
-    console.log(this.test);
+  onSubmit(event:Event) {
+    console.log('settings', event, typeof event);
+    if(this.profile) {
+      this.profileService.update({...this.profile, ...event});
+    }
   }
   validateTest(data: any){
     console.log('from setting', data);
     return 567;
+  }
+
+  ngAfterViewInit(): void {
+    console.log('form control', this.formControl);
   }
 }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { ValidatorService } from "@services/validator.service";
 
 @Component({
-  selector: 'app-form-field',
+  selector: 'app-form-field[name]',
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss']
 })
@@ -16,6 +16,7 @@ export class FormFieldComponent implements OnInit {
   @Input() type: string = 'text';
   @Input() validate?: string
   @Input() placeholder:string = '';
+  @Input() name:string = '';
   @Output() data?: { [index: string]: any };
 
   constructor(
@@ -31,8 +32,10 @@ export class FormFieldComponent implements OnInit {
   }
 
   async check() {
-    const  result = await this.vs.validate(this.validate, this.value);
+    const result = await this.vs.validate(this.validate, this.value);
     this.error = result?.error ?? '';
-    this.data = {status: result.valid, value: this.value}
+    this.status = result.valid;
+    this.data = {status: result.valid, value: this.value, name:this.name}
+    return this.data;
   }
 }

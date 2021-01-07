@@ -21,10 +21,10 @@ export class ProfileService implements OnDestroy{
       },
     })
   }
-  update(userProfile: User){
-    this.ws.send('profile', {
+  update(userProfile: any){
+    this.ws.send('profile',
       userProfile
-    })
+    )
   }
   ngOnDestroy(): void {
     console.log('settings.destroy')

@@ -1,15 +1,72 @@
 <div *ngIf="profile else loading">
-    <app-form-control class="settings">
-      <app-form-field
-        validate="login"
-        [value]="profile.login"
-        title="Логин"></app-form-field>
-      <app-form-field
-        validate="mail"
-        [value]="profile.name.nickName"
-        title="E-mail"></app-form-field>
-      <button type="submit" class="btn">Save</button>
-    </app-form-control>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        General
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-settings-input-field
+      name="login"
+      validate="login"
+      [value]="profile.login"
+      title="Login"></app-settings-input-field>
+
+    <app-settings-input-field
+      name="nickName"
+      [value]="profile.name.nickName"
+      title="Nick"></app-settings-input-field>
+
+    <app-settings-input-field
+      name="firstName"
+      [value]="profile.name.firstName"
+      title="FirstName"></app-settings-input-field>
+
+    <app-settings-input-field
+      name="secondName"
+      [value]="profile.name.secondName"
+      title="SecondName"></app-settings-input-field>
+
+    <app-settings-input-field
+      name="lastName"
+      validate="login"
+      [value]="profile.name.lastName"
+      title="LastName"></app-settings-input-field>
+    <app-settings-input-field
+      name="birthDay"
+      validate="birthDay"
+      type="date"
+      [value]="profile.birthDay"
+      title="BirthDay"></app-settings-input-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Preferences
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>tags,
+    {{profile.tag}}</p>
+    <p>blackList
+    {{profile.blackList}}
+    </p>
+    <p>favorites
+      {{profile.favorites}}</p>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Advance
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-image-edit
+      [images]="profile.photo.paths"
+      [profilePhoto]="profile.photo.profilePhoto">
+    </app-image-edit>
+    <p>photos
+      {{profile.photo | json}}</p>
+    <p>about me
+      {{profile.aboutMe}}</p>
+  </mat-expansion-panel>
 </div>
 <ng-template #loading>
   <mat-spinner></mat-spinner>

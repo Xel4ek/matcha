@@ -6,6 +6,7 @@
     "paths": {
       "@components/*": ["app/components/*"],
       "@services/*": ["app/services/*"],
+      "@tools/*": ["app/tools/*"],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

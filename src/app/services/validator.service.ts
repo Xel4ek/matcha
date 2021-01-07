@@ -12,12 +12,13 @@ interface ValidateStatus {
 })
 export class ValidatorService {
   private availableValidators: {[index:string]: Function} = {
-    login: this.login,
-    mail: this.mail,
+    login: (data:string)=>this.login(data),
+    mail: (data:string)=>this.mail(data),
   }
   constructor(
     private ws: WebsocketService
-  ) { }
+  ) {
+  }
 
   async login(login:string) : Promise<ValidateStatus> {
     if(!login || login.length < 3 || login.length > 18) {
@@ -46,7 +47,6 @@ export class ValidatorService {
     if (action && action in this.availableValidators) {
       return await this.availableValidators[action](value);
     } else
-    console.warn('Nothing in validators');
-    return {valid: false, error: 'Нет подходящего валидатора'}
+    return {valid: true}
   }
 }
