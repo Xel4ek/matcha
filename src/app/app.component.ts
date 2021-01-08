@@ -13,7 +13,7 @@ import { ProfileService } from "@services/profile/profile.service";
 })
 export class AppComponent implements OnInit, OnDestroy{
   public profile: User | null = null;
-  subscription: Subscription | null = null;
+  private subscription: Subscription | null = null;
   constructor(public router: Router,
               private wsService: WebsocketService,
               private toastr: ToastrService,

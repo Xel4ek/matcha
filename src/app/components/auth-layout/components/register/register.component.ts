@@ -90,15 +90,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(data: NgForm): void {
     // console.log(data.value);
-    let valid = true;
     this.valid.confirm.check(data);
     Object.entries(this.valid).forEach(([key, entry]) => {
       if (!entry.status) {
         entry.check(data);
-        valid = false;
       }
     })
-    if (!valid) {
+    if (Object.values(this.valid).some((el)=> !el.status)) {
       this.toastr.error('Не все поля заполнены!', 'Ошибка');
     } else {
       const {login, pass, mail} = data.value;

@@ -52,14 +52,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(data: NgForm) {
-    let valid = true;
     Object.entries(this.valid).forEach(([key, entry]) => {
       if (!entry.status) {
         entry.check(data);
-        valid = false;
       }
     })
-    if (!valid) {
+    if (Object.values(this.valid).some((el)=> !el.status)) {
       this.toastr.error('Не все поля заполнены!', 'Ошибка');
     } else {
       this.ws.send('login', {username: data.value.login, password: data.value.pass});
