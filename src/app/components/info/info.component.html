@@ -1,35 +1,35 @@
-<ng-container *ngTemplateOutlet="user ? userInfo : notFound ? userNotFound : loading"></ng-container>
+<ng-container *ngTemplateOutlet="user !== null ? userInfo : notFound ? userNotFound : loading"></ng-container>
 <ng-template #userInfo>
   <div class="info">
     <div class="carousel__wrapper">
       <div class="status">
-        <span [ngClass]="{'online': user.isOnline}">{{user.isOnline ?
+        <span [ngClass]="{'online': user?.isOnline}">{{user?.isOnline ?
           'Online' :
-          'Was: ' + (user.lastLoginTime ? (user.lastLoginTime | date:'medium') : 'false')}}</span>
+          'Was: ' + (user?.lastLoginTime ? (user?.lastLoginTime | date:'medium') : 'false')}}</span>
       </div>
-      <swiper [index] ="user.photo.profilePhoto">
-        <div *ngFor="let path of user.photo.paths">
+      <swiper [index] ="user?.photo?.profilePhoto">
+        <div *ngFor="let path of user?.photo?.paths">
           <img [src]="path" alt="photo">
         </div>
       </swiper>
     </div>
     <mat-list role="list">
       <mat-list-item role="listitem">
-        Nick: {{user.name.nickName}}
+        Nick: {{user?.name?.nickName}}
       </mat-list-item>
       <mat-list-item role="listitem">
-        Name: {{user.name.firstName}} {{user.name?.secondName }} {{user.name.lastName}}
+        Name: {{user?.name?.firstName}} {{user?.name?.secondName }} {{user?.name?.lastName}}
       </mat-list-item>
       <mat-chip-list>
-        <mat-chip *ngFor="let tag of user.tag">
+        <mat-chip *ngFor="let tag of user?.tag">
           {{tag}}
         </mat-chip>
       </mat-chip-list>
       <mat-list-item role="listitem">
-        Rating: {{user.fameRating | json}}
+        Rating: {{user?.fameRating | json}}
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Birth day: ' + (user.birthDay | date:'longDate')">
-        Age: {{user.age}}
+      <mat-list-item role="listitem" [title]="'Birth day: ' + (user?.birthDay | date:'longDate')">
+        Age: {{user?.age}}
       </mat-list-item>
     </mat-list>
   </div>
@@ -40,7 +40,7 @@
           About Me
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>{{ user.aboutMe }}</p>
+      <p>{{ user?.aboutMe }}</p>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
