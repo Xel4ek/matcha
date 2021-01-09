@@ -21,7 +21,6 @@ import { UserInfoService } from "@services/user-info/user-info.service";
 import { MainLayoutModule } from "@components/main-layout/main-layout.module";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
-import { GlobalSharedModule } from "./tools/global-shared.module";
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
