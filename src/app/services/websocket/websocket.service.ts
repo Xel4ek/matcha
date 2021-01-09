@@ -4,7 +4,7 @@ import {distinctUntilChanged, filter, first, map, share, takeWhile} from 'rxjs/o
 import {WebSocketSubject, WebSocketSubjectConfig} from 'rxjs/webSocket';
 import {IWebsocketService, IWsMessage, WebSocketConfig} from './websocket.interfaces';
 import {config} from './websocket.config';
-import {session, log} from '@tools/tools'
+import {session} from '@tools/tools'
 
 @Injectable({
   providedIn: 'root'
@@ -104,7 +104,6 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
   /*
   * connect to WebSocked
   * */
-  // @log
   @session
   private connect(): void {
     /**

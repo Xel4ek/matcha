@@ -1,10 +1,14 @@
+import {environment} from "../../environments/environment";
+
 export function session (target: Object, method: string, descriptor: PropertyDescriptor) {
-  const originalMethod = descriptor.value;
-  descriptor.value = function(...args: any){
-    return fetch('http://localhost:5000/session').then(data=>{
-      console.log(data);
-      return originalMethod.apply(this, args);
-    })
+  if(!environment.production) {
+    const originalMethod = descriptor.value;
+    descriptor.value = function (...args: any) {
+      return fetch('http://localhost:5000/session').then(data => {
+        console.log(data);
+        return originalMethod.apply(this, args);
+      })
+    }
   }
 }
 
