@@ -16,4 +16,12 @@
     align-self: flex-end;
   }
 }
-
+.textarea{
+  width: 100%;
+  border: none;
+  box-shadow: 0 4px 2px -2px purple;
+  border-bottom: 1px solid purple;
+  &:focus{
+    outline: none;
+  }
+}

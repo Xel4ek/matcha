@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-image-card',
@@ -8,9 +8,17 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ImageCardComponent implements OnInit {
   @Input() image: string = '';
   @Input() selected: boolean = false;
+  @Output() remove = new EventEmitter();
+  @Output() addPhoto = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
+  }
+  removePhoto(){
+    this.remove.emit();
+  }
+  handleFileInput(event: Event) {
+    this.addPhoto.emit(event);
   }
 
 }

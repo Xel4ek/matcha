@@ -6,15 +6,17 @@ import { SettingsInputFieldComponent } from "@tools/settings-input-field/setting
 import { MatExpansionModule } from "@angular/material/expansion";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle'
 import { ImageEditModule } from "@tools/image-edit/image-edit.module";
+import { TextFieldModule } from "@angular/cdk/text-field";
 
 @NgModule({
   declarations: [SettingsComponent, SettingsInputFieldComponent],
-  imports: [
-    GlobalSharedModule,
-    FormControlModule,
-    MatExpansionModule,
-    MatSlideToggleModule,
-    ImageEditModule
-  ]
+    imports: [
+        GlobalSharedModule,
+        FormControlModule,
+        MatExpansionModule,
+        MatSlideToggleModule,
+        ImageEditModule,
+        TextFieldModule
+    ]
 })
 export class SettingsModule { }

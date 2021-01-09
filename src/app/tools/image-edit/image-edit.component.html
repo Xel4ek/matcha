@@ -1,6 +1,12 @@
 <div class="card-wrapper">
   <app-image-card *ngFor="let image of images; index as i"
   [image]="image"
-  [selected]="profilePhoto === i">
+  [selected]="profilePhoto === i"
+  (click)="changeProfilePhoto(i)"
+  (remove)="removePhoto(i)">
   </app-image-card>
+  <app-image-card
+    *ngIf="images.length < 5"
+    (addPhoto)="uploadNewPhoto($event)"
+  ></app-image-card>
 </div>

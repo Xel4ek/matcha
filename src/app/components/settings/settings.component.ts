@@ -4,6 +4,7 @@ import { ProfileService } from "@services/profile/profile.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { FormControlComponent } from "../../tools/form-control/form-control.component";
+import { WebsocketService } from "@services/websocket/websocket.service";
 
 @Component({
   selector: 'app-settings',
@@ -15,10 +16,10 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   checked: boolean = true;
   profile: User | null = null;
   subscription: Subscription | null = null;
-  private settingsForm = {}
   public test: any;
   constructor(
-    private profileService:ProfileService
+    private profileService:ProfileService,
+    private ws: WebsocketService
   ) {
     this.subscription = this.profileService.data$.subscribe(profile =>this.profile = profile);
   }
@@ -43,6 +44,8 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('form control', this.formControl);
+  }
+  uploadAbout(aboutMe: string){
+    this.ws.send('profile', {aboutMe})
   }
 }

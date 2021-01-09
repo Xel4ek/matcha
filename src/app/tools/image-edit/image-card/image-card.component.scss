@@ -1,3 +1,31 @@
 .selected{
-  border: 1px solid green;
+  box-sizing: border-box;
+  border: 5px outset green;
+}
+:host{
+  cursor: pointer;
+  position: relative;
+}
+.image{
+  display: block;
+  max-height: 200px;
+  min-height: 200px;
+}
+.icon{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
+  color: rgba(0,0,0,.5);
+}
+.empty{
+  cursor: pointer;
+  height: 200px;
+  width: 150px;
+  box-sizing: border-box;
+  border: 5px dashed #673ab7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

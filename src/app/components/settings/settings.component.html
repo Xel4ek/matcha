@@ -62,10 +62,16 @@
       [images]="profile.photo.paths"
       [profilePhoto]="profile.photo.profilePhoto">
     </app-image-edit>
-    <p>photos
-      {{profile.photo | json}}</p>
-    <p>about me
+    <p>About Me</p><p>
       {{profile.aboutMe}}</p>
+    <label>
+      <textarea
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        [value]="profile.aboutMe"
+        #about (blur)="uploadAbout(about.value)"
+      class="textarea"></textarea>
+    </label>
   </mat-expansion-panel>
 </div>
 <ng-template #loading>

@@ -1,1 +1,15 @@
-<div [ngClass]="{'selected' : selected}">{{image}} {{selected}}</div>
+<div *ngIf="image else upload">
+<img  [src]="image" alt="" class="image" [ngClass]="{'selected' : selected}">
+  <span class="material-icons icon" title="Remove Photo"
+  (click)="removePhoto()">delete</span>
+</div>
+<ng-template #upload>
+  <label class="empty">
+      <span>Add photo </span>
+      <span class="material-icons">add_a_photo</span>
+      <input type="file"
+           id="file"
+             hidden
+           (change)="handleFileInput($event)">
+  </label>
+</ng-template>
