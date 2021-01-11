@@ -35,7 +35,7 @@
       name="birthDay"
       validate="birthDay"
       type="date"
-      [value]="profile.birthDay"
+      [value]="profile.birthDay | date:'yyyy-MM-dd'"
       title="BirthDay"></app-settings-input-field>
   </mat-expansion-panel>
   <mat-expansion-panel>

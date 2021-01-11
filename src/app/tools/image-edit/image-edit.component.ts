@@ -22,7 +22,9 @@ export class ImageEditComponent implements OnInit {
   uploadNewPhoto(event:Event){
     const file = (event.target as HTMLInputElement).files?.item(0);
     if (file) {
-      this.ws.send('profile', {photo: file});
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => (reader.result);this.ws.send('profile', {photo: reader.result});
     }
     console.log('uploadNewPhoto', file);
   }

@@ -18,7 +18,6 @@ export class InfoComponent implements OnInit, OnDestroy {
   public advance: {[index:string]:any } = {}
   public panelOpenState = false;
   private routeSubscription?: Subscription;
-  private observer: any;
   public notFound = false;
   private subscription: Subscription | null = null;
   constructor(
