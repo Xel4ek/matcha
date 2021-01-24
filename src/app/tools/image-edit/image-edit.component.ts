@@ -23,11 +23,14 @@ export class ImageEditComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files?.item(0);
     if (file) {
       const reader = new FileReader();
+      reader.onloadend = () => {
+        const photo = reader.result;
+        this.ws.send('profile', {photo});
+        (event.target as HTMLInputElement).value = '';
+        console.log('uploadNewPhoto', {photo});
+      }
       reader.readAsDataURL(file);
-      reader.onload = () => this.ws.send('profile', {photo: reader.result});
-      (event.target as HTMLInputElement).value = '';
     }
-    console.log('uploadNewPhoto', file);
   }
   removePhoto(index: number){
     console.log('photo removed', index);
