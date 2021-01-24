@@ -5,9 +5,10 @@ import { RegisterComponent } from "@components/auth-layout/components/register/r
 import { RestoreComponent } from "@components/auth-layout/components/restore/restore.component";
 import { LoginComponent } from "@components/auth-layout/components/login/login.component";
 import { MainLayoutComponent } from "@components/main-layout/main-layout.component";
+import { AuthGuard } from "@services/auth.guard";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'settings', pathMatch: 'full'},
   {
     path: '', component: AuthLayoutComponent,
     children: [
@@ -18,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: '', component: MainLayoutComponent,
-    loadChildren: () => import('./components/main-layout/main-layout.module').then(m => m.MainLayoutModule)
+    loadChildren: () => import('./components/main-layout/main-layout.module').then(m => m.MainLayoutModule),
+    canActivate: [AuthGuard]
   },
   {path: '**', redirectTo: 'login', pathMatch: 'full'},
 ];

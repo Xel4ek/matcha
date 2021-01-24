@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {WebsocketService} from "@services/websocket/websocket.service";
 import {ToastrService} from "ngx-toastr";
 import { User } from "@services/user/user";
-import { Subscription } from "rxjs";
+import { Observable, Observer, Subscription } from "rxjs";
 import { ProfileService } from "@services/profile/profile.service";
 
 @Component({
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy{
               private toastr: ToastrService,
               private profileService: ProfileService
   ) {
-    this.subscription = this.profileService.data$.subscribe(profile =>this.profile = profile);
+    this.subscription = this.profileService.data$.subscribe(profile => this.profile = profile);
     this.wsService.on<any>('message')
       .subscribe((message) => {
         this.toastr.success(message.text, message.title);
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy{
         console.log(message)
         this.toastr.error(message.text, message.title);
       });
+
   }
 
   ngOnInit(): void {

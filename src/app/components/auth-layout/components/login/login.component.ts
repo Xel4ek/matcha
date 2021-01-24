@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {HttpService} from "@services/http.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {WebsocketService} from "@services/websocket/websocket.service";
+import { ProfileService } from "@services/profile/profile.service";
+import { Subscription } from "rxjs";
 
 interface FormControl {
   status: boolean,
@@ -42,8 +44,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private dataService: HttpService,
     private toastr: ToastrService,
-    private router: Router,
-    private ws: WebsocketService
+    private ws: WebsocketService,
+    private router: Router
   ) {
 
   }
@@ -63,7 +65,8 @@ export class LoginComponent implements OnInit {
       this.ws.send('login', {username: data.value.login, password: data.value.pass});
       // this.dataService.postApi('login', {username: data.value.login, password: data.value.pass}, true);
       data.resetForm({...data.value, pass:''});
-      this.router.navigate(['/settings']);
+      this.router.navigate(['./settings']);
     }
   }
+
 }
