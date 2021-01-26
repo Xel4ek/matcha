@@ -1,4 +1,4 @@
-<ng-container *ngTemplateOutlet="user ? userInfo : notFound ? userNotFound : loading"></ng-container>
+<ng-container *ngTemplateOutlet="notFound ? userNotFound : user ? userInfo : loading"></ng-container>
 <ng-template #userInfo>
   <div class="info">
     <div class="carousel__wrapper">

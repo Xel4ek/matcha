@@ -38,6 +38,7 @@ export class InfoComponent implements OnInit, OnDestroy {
     });
   }
   private prepareData() {
+    this.notFound = !!this.user?.notFound;
     if(!this.user?.photo.paths.length) this.user?.photo.paths.push('assets/img/4e73208be9f326816a787de2e04db80a.jpg');
   }
   ngOnDestroy(): void {
