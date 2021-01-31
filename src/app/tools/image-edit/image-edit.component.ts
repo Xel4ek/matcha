@@ -32,8 +32,8 @@ export class ImageEditComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  removePhoto(index: number){
-    console.log('photo removed', index);
-    this.ws.send('profile', {removePhoto: index});
+  removePhoto(fileName: string){
+    console.log('photo removed', fileName);
+    this.ws.send('profile', {removePhoto: fileName});
   }
 }

@@ -3,7 +3,7 @@
   [image]="image"
   [selected]="profilePhoto === i"
   (click)="changeProfilePhoto(i)"
-  (remove)="removePhoto(i)">
+  (remove)="removePhoto(image)">
   </app-image-card>
   <app-image-card
     *ngIf="images.length < 5"
