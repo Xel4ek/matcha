@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
 
 @Component({
@@ -9,17 +9,21 @@ import { WebsocketService } from "@services/websocket/websocket.service";
 export class ImageEditComponent implements OnInit {
   @Input() images: string[] = [];
   @Input() profilePhoto: number = 0;
+
   constructor(
-    private ws:WebsocketService
-  ) { }
+    private ws: WebsocketService
+  ) {
+  }
 
   ngOnInit(): void {
 
   }
+
   changeProfilePhoto(startPhoto: string) {
     this.ws.send('profile', {profilePhoto: startPhoto.split('/').pop()})
   }
-  uploadNewPhoto(event:Event){
+
+  uploadNewPhoto(event: Event) {
     const file = (event.target as HTMLInputElement).files?.item(0);
     if (file) {
       const reader = new FileReader();
@@ -32,7 +36,8 @@ export class ImageEditComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  removePhoto(fileName: string){
+
+  removePhoto(fileName: string) {
     console.log('photo removed', fileName);
     this.ws.send('profile', {removePhoto: fileName.split('/').pop()});
   }
