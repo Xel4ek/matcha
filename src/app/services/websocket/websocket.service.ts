@@ -104,7 +104,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
   /*
   * connect to WebSocked
   * */
-  @session
+  // @session
   private connect(): void {
     /**
      * Ask cookie
