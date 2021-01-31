@@ -14,7 +14,8 @@ export class ImageCardComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  removePhoto(){
+  removePhoto(event: Event){
+    event.preventDefault();
     this.remove.emit();
   }
   handleFileInput(event: Event) {

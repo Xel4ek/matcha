@@ -2,9 +2,7 @@ export class UserInfo {
   [index: string]: any;
   login: string = '0';
   name: {[index: string]:string | null } = {
-    nickName: 'Anon',
     firstName: 'Anonymous',
-    secondName: null,
     lastName: 'Anonymousov'
   };
   tag: string[] = ['dwa','daw'];

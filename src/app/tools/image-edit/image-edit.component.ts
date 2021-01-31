@@ -16,8 +16,8 @@ export class ImageEditComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  changeProfilePhoto(startPhoto: number) {
-    this.ws.send('profile', {profilePhoto: startPhoto})
+  changeProfilePhoto(startPhoto: string) {
+    this.ws.send('profile', {profilePhoto: startPhoto.split('/').pop()})
   }
   uploadNewPhoto(event:Event){
     const file = (event.target as HTMLInputElement).files?.item(0);
@@ -34,6 +34,6 @@ export class ImageEditComponent implements OnInit {
   }
   removePhoto(fileName: string){
     console.log('photo removed', fileName);
-    this.ws.send('profile', {removePhoto: fileName});
+    this.ws.send('profile', {removePhoto: fileName.split('/').pop()});
   }
 }

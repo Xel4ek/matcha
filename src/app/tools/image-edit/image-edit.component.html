@@ -2,7 +2,7 @@
   <app-image-card *ngFor="let image of images; index as i"
   [image]="image"
   [selected]="profilePhoto === i"
-  (click)="changeProfilePhoto(i)"
+  (click)="changeProfilePhoto(image)"
   (remove)="removePhoto(image)">
   </app-image-card>
   <app-image-card

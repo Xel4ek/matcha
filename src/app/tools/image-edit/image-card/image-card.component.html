@@ -1,7 +1,7 @@
 <div *ngIf="image else upload">
 <img  [src]="image" alt="" class="image" [ngClass]="{'selected' : selected}">
   <span class="material-icons icon" title="Remove Photo"
-  (click)="removePhoto()">delete</span>
+  (click)="removePhoto($event)">delete</span>
 </div>
 <ng-template #upload>
   <label class="empty">
