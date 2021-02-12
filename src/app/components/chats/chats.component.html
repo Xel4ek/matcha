@@ -1,9 +1,9 @@
 <!--<p>{{chats | json}}</p>-->
 <mat-toolbar color="primary" class="toolbar">
     <div *ngFor="let chat of chats"
-      routerLink="{{chat.key}}"
+      routerLink="{{chat}}"
       routerLinkActive="active">
-      {{chat.subscriber}}
+      {{chat}}
     </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

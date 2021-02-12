@@ -9,9 +9,9 @@ import { first, map, tap } from "rxjs/operators";
 })
 export class ProfileService implements OnDestroy{
   // private profile: User = new User();
-  private profile: User | null = null;
+  private profile: User = new User();
   public subject = new BehaviorSubject(this.profile);
-  data$: Observable<User|null> = this.subject.asObservable();
+  data$: Observable<User> = this.subject.asObservable();
   constructor(
     private ws: WebsocketService
   ) {

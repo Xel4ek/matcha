@@ -23,7 +23,7 @@ import {SettingsModule} from "@components/settings/settings.module";
     ChatsModule,
     SettingsModule
   ],
-  exports: [InfoModule]
+  exports: [InfoModule, MainLayoutRoutingModule]
 })
 export class MainLayoutModule {
 }

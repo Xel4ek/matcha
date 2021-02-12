@@ -1,10 +1,9 @@
 import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {interval, Observable, Observer, Subject, SubscriptionLike} from 'rxjs';
-import {distinctUntilChanged, filter, first, map, share, takeWhile} from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, share, takeWhile, tap } from 'rxjs/operators';
 import {WebSocketSubject, WebSocketSubjectConfig} from 'rxjs/webSocket';
 import {IWebsocketService, IWsMessage, WebSocketConfig} from './websocket.interfaces';
 import {config} from './websocket.config';
-import {session} from '@tools/tools'
 
 @Injectable({
   providedIn: 'root'

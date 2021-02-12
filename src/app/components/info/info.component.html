@@ -7,6 +7,10 @@
           'Online' :
           'Was: ' + (user?.lastLoginTime ? (user?.lastLoginTime | date:'medium') : 'false')}}</span>
       </div>
+      <div class="btn__block">
+        <div class="btn"><i class="fas fa-star"></i> Favorite</div>
+        <div class="btn" (click)="startChat()"><i class="far fa-comments"></i> Chat</div>
+      </div>
       <swiper [index] ="user?.photo?.profilePhoto">
         <div *ngFor="let path of user?.photo?.paths">
           <img [src]="path" alt="photo">

@@ -1,3 +1,8 @@
-<p>chat works!</p>
-<p>{{token}}</p>
-<p>{{key}}</p>
+<div class="wrapper">
+  <div class="chat__message" *ngFor="let item of chat"
+  [ngClass]="item.alignment ? 'left' : 'right'">
+    {{ item.text }}
+  </div>
+  <input type="text" #input (keydown.enter)="send(input)">
+</div>
+

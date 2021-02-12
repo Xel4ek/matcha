@@ -15,6 +15,7 @@ import { ChatComponent } from "@components/chats/chat/chat.component";
     ChatsRoutingModule,
     MatToolbarModule,
     MatListModule
-  ]
+  ],
+  exports:[ChatsRoutingModule]
 })
 export class ChatsModule { }

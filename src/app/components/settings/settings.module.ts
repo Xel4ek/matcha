@@ -7,6 +7,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle'
 import { ImageEditModule } from "@tools/image-edit/image-edit.module";
 import { TextFieldModule } from "@angular/cdk/text-field";
+import { ListEditModule } from "@tools/list-edit/list-edit.module";
 
 @NgModule({
   declarations: [SettingsComponent, SettingsInputFieldComponent],
@@ -16,7 +17,8 @@ import { TextFieldModule } from "@angular/cdk/text-field";
         MatExpansionModule,
         MatSlideToggleModule,
         ImageEditModule,
-        TextFieldModule
+        TextFieldModule,
+        ListEditModule
     ]
 })
 export class SettingsModule { }

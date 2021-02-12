@@ -6,7 +6,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { FormControlModule } from "./form-control/form-control.module";
 
 @NgModule({
-  declarations: [NotFoundComponent,],
+  declarations: [NotFoundComponent],
   imports: [
     CommonModule
   ],

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {UserInfo} from "@services/user-info/user-info";
 import {UserInfoService} from "@services/user-info/user-info.service";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 
@@ -22,6 +22,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   private subscription: Subscription | null = null;
   constructor(
     private activateRoute: ActivatedRoute,
+    private router: Router,
     private userInfoService: UserInfoService,
     private ws: WebsocketService
   ) {
@@ -30,7 +31,11 @@ export class InfoComponent implements OnInit, OnDestroy {
       this.prepareData();
     })
   }
+  startChat() {
+    this.ws.send('chat', {login: this.login});
+    this.router.navigate(['./chats/' + this.login]);
 
+  }
   ngOnInit() {
     this.routeSubscription = this.activateRoute.params.subscribe(params=> {
       this.login = params['id'];

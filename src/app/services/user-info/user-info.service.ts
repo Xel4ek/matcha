@@ -18,8 +18,10 @@ export class UserInfoService implements OnDestroy {
   ) {
     ws.on<UserInfo>('userInfo').subscribe({
       next: (user) => {
-        this._users[user.login] = user
-        this.subject.next(this._users);
+        if (user.login) {
+          this._users[user.login] = user
+          this.subject.next(this._users);
+        }
       },
       error: error => console.log(error),
     })

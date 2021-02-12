@@ -1,0 +1,7 @@
+<div>
+  <span class="entry" *ngFor="let entry of list" (click)="removeEntry(entry)"> {{entry}} </span>
+  <label>
+    <input #input type="text" (blur)="addEntry(input)">
+  </label>
+
+</div>

@@ -1,6 +1,6 @@
 export class UserInfo {
   [index: string]: any;
-  login: string = '0';
+  login: string| null = null;
   name: {[index: string]:string | null } = {
     firstName: 'Anonymous',
     lastName: 'Anonymousov'
