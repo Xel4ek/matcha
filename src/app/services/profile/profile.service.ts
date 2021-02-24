@@ -3,6 +3,7 @@ import { WebsocketService } from "@services/websocket/websocket.service";
 import { User } from "@services/user/user";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { first, map, tap } from "rxjs/operators";
+import { Route, Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ProfileService implements OnDestroy{
   public subject = new BehaviorSubject(this.profile);
   data$: Observable<User> = this.subject.asObservable();
   constructor(
-    private ws: WebsocketService
+    private ws: WebsocketService,
+    private router: Router
   ) {
     ws.on<User>('profile').subscribe({
       next:(profile) => {
@@ -23,6 +25,7 @@ export class ProfileService implements OnDestroy{
           sessionStorage.setItem('auth', 'true');
         } else {
           sessionStorage.setItem('auth', 'false');
+          router.navigate(['/login']);
         }
       },
     })

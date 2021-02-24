@@ -42,7 +42,9 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('from setting', data);
     return 567;
   }
-
+  updateGender(gender: string) {
+    this.ws.send('profile', {gender});
+  }
   ngAfterViewInit(): void {
   }
   uploadAbout(aboutMe: string){

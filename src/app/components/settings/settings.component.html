@@ -6,30 +6,40 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-settings-input-field
-      name="login"
-      validate="login"
       [value]="profile.login"
-      title="Login"></app-settings-input-field>
+      name="login"
+      title="Login"
+      validate="login"></app-settings-input-field>
 
     <app-settings-input-field
-      name="firstName"
       [value]="profile.name.firstName"
+      name="firstName"
       title="FirstName"></app-settings-input-field>
 
     <app-settings-input-field
-      name="lastName"
       [value]="profile.name.lastName"
+      name="lastName"
       title="LastName"></app-settings-input-field>
     <app-settings-input-field
-      name="birthDay"
-      validate="birthDay"
-      type="date"
       [value]="profile.birthDay | date:'yyyy-MM-dd'"
-      title="BirthDay"></app-settings-input-field>
-    <app-settings-input-field
-      name="gender"
-      [value]="profile.gender"
-      title="Gender"></app-settings-input-field>
+      name="birthDay"
+      title="BirthDay"
+      type="date"
+      validate="birthDay"></app-settings-input-field>
+    <div>
+      <mat-label>Gender</mat-label>
+      <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender" placeholder="Gender"
+                  style="padding:.3rem">
+        <mat-option *ngFor="let food of ['Male', 'Female', 'Other']" [value]="food">
+          {{food}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <!--    <select (change)="updateGender(gender.value)" #gender>-->
+    <!--      <option>Male</option>-->
+    <!--      <option>Female</option>-->
+    <!--      <option>Other</option>-->
+    <!--    </select>-->
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -38,11 +48,11 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <p>tags,
-    {{profile.tag}}</p>
-<!--    <app-list-edit [list]="profile.tag"></app-list-edit>-->
+      {{profile.tag}}</p>
+    <!--    <app-list-edit [list]="profile.tag"></app-list-edit>-->
     <app-list-edit [list]="['love', 'sex', 'pain']"></app-list-edit>
     <p>blackList
-    {{profile.blackList}}
+      {{profile.blackList}}
     </p>
     <p>favorites
       {{profile.favorites}}</p>
@@ -57,15 +67,14 @@
       [images]="profile.photo.paths"
       [profilePhoto]="profile.photo.profilePhoto">
     </app-image-edit>
-    <p>About Me</p><p>
-      {{profile.aboutMe}}</p>
+    <p>About Me</p>
     <label>
       <textarea
-        cdkTextareaAutosize
-        cdkAutosizeMinRows="3"
+        #about
+        (blur)="uploadAbout(about.value)"
         [value]="profile.aboutMe"
-        #about (blur)="uploadAbout(about.value)"
-      class="textarea"></textarea>
+        cdkAutosizeMinRows="3" cdkTextareaAutosize
+        class="textarea"></textarea>
     </label>
   </mat-expansion-panel>
 </div>
