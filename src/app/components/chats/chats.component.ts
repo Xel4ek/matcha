@@ -14,7 +14,7 @@ export class ChatsComponent implements OnInit{
 
   constructor(private ps: ProfileService) {
     // this.chats = Object.keys(new User().chats);
-    ps.data$.subscribe(profile => this.chats = Object.keys(profile.chats))
+    ps.data$.subscribe(profile => this.chats = profile.activeChats)
   }
 
   ngOnInit(): void {

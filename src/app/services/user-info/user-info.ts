@@ -5,6 +5,7 @@ export class UserInfo {
     firstName: 'Anonymous',
     lastName: 'Anonymousov'
   };
+  activeChats: string[] = [];
   tag: string[] = ['dwa','daw'];
   fameRating:number = 0;
   favorites: number[] =  [];
