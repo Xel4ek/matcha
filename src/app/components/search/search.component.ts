@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  search(input: {[index:string]: string}): void {
+  search(input: any): void {
     console.log('Search query', input);
     this.ws.send('search', input)
   }

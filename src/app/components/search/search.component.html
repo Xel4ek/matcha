@@ -1,5 +1,47 @@
-<input type="text" #login>
-<div (click)="search({login: login.value})" class="btn">Search</div>
+<div>
+ageGap
+<label>
+  start
+  <input type="text" #ageGapStart>
+</label>
+<label>
+  end
+  <input type="text" #ageGapEnd>
+</label>
+</div>
+<div>
+fameGap
+<label>
+  start
+  <input type="text" #fameGapStart>
+</label>
+<label>
+  end
+  <input type="text" #fameGapEnd>
+</label>
+</div>
+<div>
+Location
+<label>
+  lat
+  <input type="text" #lat>
+</label>
+<label>
+  lon
+  <input type="text" #lon>
+</label>
+<label>
+  radius
+  <input type="text" #radius>
+</label>
+</div>
+<div (click)="search({ageGap:
+          {start: ageGapStart.value, end: ageGapEnd.value },
+        fameGap:
+          { start: fameGapStart.value, end: fameGapEnd.value },
+        tags: [],
+        radius: radius.value
+        })" class="btn">Search</div>
 <pre>
   {{searchResults | async | json}}
 </pre>
