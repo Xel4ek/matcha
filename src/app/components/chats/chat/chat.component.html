@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="chat">
   <div class="chat__message" *ngFor="let item of chat"
   [ngClass]="item.alignment ? 'left' : 'right'">
     {{ item.text }}

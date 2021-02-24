@@ -10,11 +10,11 @@ import { ProfileService } from "@services/profile/profile.service";
   styleUrls: ['./chats.component.scss']
 })
 export class ChatsComponent implements OnInit{
-  public chats: string[];
+  public chats: string[] = [];
 
   constructor(private ps: ProfileService) {
-    this.chats = Object.keys(new User().chats);
-    // ps.data$.subscribe(profile => this.chats = Object.keys(profile.chats))
+    // this.chats = Object.keys(new User().chats);
+    ps.data$.subscribe(profile => this.chats = Object.keys(profile.chats))
   }
 
   ngOnInit(): void {
