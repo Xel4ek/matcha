@@ -1,1 +1,5 @@
-<p>search works!</p>
+<input type="text" #login>
+<div (click)="search({login: login.value})" class="btn">Search</div>
+<pre>
+  {{searchResults | async | json}}
+</pre>

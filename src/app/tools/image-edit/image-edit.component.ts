@@ -20,7 +20,7 @@ export class ImageEditComponent implements OnInit {
   }
 
   changeProfilePhoto(startPhoto: string) {
-    this.ws.send('profile', {profilePhoto: startPhoto.split('/').pop()})
+    this.ws.send('profile', {profilePhoto: startPhoto.split('\\').pop()})
   }
 
   uploadNewPhoto(event: Event) {
@@ -39,6 +39,6 @@ export class ImageEditComponent implements OnInit {
 
   removePhoto(fileName: string) {
     console.log('photo removed', fileName);
-    this.ws.send('profile', {removePhoto: fileName.split('/').pop()});
+    this.ws.send('profile', {removePhoto: fileName.split('\\').pop()});
   }
 }

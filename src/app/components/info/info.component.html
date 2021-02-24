@@ -29,8 +29,11 @@
       <mat-list-item role="listitem">
         Rating: {{user?.fameRating | json}}
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Birth day: ' + (user?.birthDay | date:'longDate')">
+      <mat-list-item role="listitem" [title]="'Birth day: ' + (user?.birthDay | date:'longDate')" *ngIf="user?.age">
         Age: {{user?.age}}
+      </mat-list-item>
+      <mat-list-item role="listitem" [title]="'Gender:'" *ngIf="user?.gender">
+        Gender: {{user?.gender}}
       </mat-list-item>
     </mat-list>
   </div>
@@ -52,7 +55,7 @@
           Location
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-map [markers]="[[32.9756, -96.89],[32,-98]]"> </app-map>
+      <app-map [markers]="[[user!.coordinates!.latitude, user!.coordinates!.longitude]]"> </app-map>
     </mat-expansion-panel>
   </mat-accordion>
   <pre> {{user | json }}</pre>

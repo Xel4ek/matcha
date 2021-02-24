@@ -23,6 +23,7 @@ export class UserInfo {
   aboutMe:string = '';
   isOnline: boolean = false;
   lastLoginTime: Date = new Date();
+  gender: string | null = null;
   constructor(user?:object) {
     this.value = user;
   }
