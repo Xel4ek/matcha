@@ -40,7 +40,11 @@ Location
         fameGap:
           { start: fameGapStart.value, end: fameGapEnd.value },
         tags: [],
-        radius: radius.value
+        location: {
+            lat: lat.value,
+            lon: lon.value,
+            radius: radius.value
+          }
         })" class="btn">Search</div>
 <pre>
   {{searchResults | async | json}}
