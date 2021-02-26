@@ -10,6 +10,7 @@ import { LatLng, LatLngExpression } from "leaflet";
 export class MapComponent implements AfterViewInit,OnInit  {
   private map: any;
   @Input() markers!: LatLngExpression[];
+  @Input() clickHandler?: Function;
   constructor( ) {
     L.Icon.Default.imagePath = './assets/img/leaflet/';
   }
@@ -35,6 +36,12 @@ export class MapComponent implements AfterViewInit,OnInit  {
     const bounds = L.latLngBounds(latLongs);
     this.map.setView(bounds.getCenter())
     this.map.fitBounds(bounds);
+    this.map.on('click', (e: any) => {
+      if (typeof this.clickHandler === 'function') {
+        this.clickHandler(e);
+      }
+      // console.log(this.map.getBounds());
+    })
   }
 
 

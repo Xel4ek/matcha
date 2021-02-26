@@ -11,7 +11,7 @@
         <div class="btn"><i class="fas fa-star"></i> Favorite</div>
         <div class="btn" (click)="startChat()"><i class="far fa-comments"></i> Chat</div>
       </div>
-      <swiper [index] ="user?.photo?.profilePhoto">
+      <swiper [index] ="index">
         <div *ngFor="let path of user?.photo?.paths">
           <img [src]="path" alt="photo">
         </div>
@@ -29,8 +29,8 @@
       <mat-list-item role="listitem">
         Rating: {{user?.fameRating | json}}
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Birth day: ' + (user?.birthDay | date:'longDate')" *ngIf="user?.age">
-        Age: {{user?.age}}
+      <mat-list-item role="listitem" [title]="'Birth day: ' + (age | date:'longDate')" *ngIf="age">
+        Age: {{age}}
       </mat-list-item>
       <mat-list-item role="listitem" [title]="'Gender:'" *ngIf="user?.gender">
         Gender: {{user?.gender}}

@@ -15,11 +15,13 @@ export class ChatService {
   public data$ = this.subject.asObservable();
   constructor(private ws: WebsocketService, private profileService: ProfileService) {
     this.profileService.data$.subscribe(({login}) => this.login = login);
-    ws.on<ChatMessage>('chat').subscribe((message) => {
-      const {from, to, date} = message;
+    ws.on<ChatMessage[]>('chat').subscribe((messages) => {
       const chats = this.subject.value;
-      if (this.login === from) {chats[to][date] = { ...message, alignment: this.login === to}}
-      if (this.login === to) {chats[from][date] = {...message, alignment: this.login === to}}
+      messages.map((message) => {
+        const {from, to, date} = message;
+        if (this.login === from) {chats[to][date] = { ...message, alignment: this.login === to}}
+        if (this.login === to) {chats[from][date] = {...message, alignment: this.login === to}}
+      })
       this.subject.next(chats);
     })
   }

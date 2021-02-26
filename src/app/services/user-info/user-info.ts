@@ -11,7 +11,7 @@ export class UserInfo {
   favorites: number[] =  [];
   blackList: number[] =  [];
   photo: {[index:string]:any} = {
-    profilePhoto: 1,
+    profilePhoto: 'original.webp',
     paths: ['assets/img/original.webp',
       'assets/img/14-48.jpg']
   };
@@ -29,17 +29,20 @@ export class UserInfo {
     this.value = user;
   }
 
-  get value() {
-    return this;
-  }
-
-  set value(data:any) {
-    Object.keys(this).forEach(key =>
-      this[key] = data?.[key] ?? this[key]
-    );
-  }
-  get age() {
-    return ((new Date().getTime() - this.birthDay.getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
-  }
-
+  // get value() {
+  //   return this;
+  // }
+  //
+  // set value(data:any) {
+  //   Object.keys(this).forEach(key =>
+  //     this[key] = data?.[key] ?? this[key]
+  //   );
+  // }
+  // get age() {
+  //   return ((new Date().getTime() - this.birthDay.getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
+  // }
+  // get index(): number {
+  //   console.log(this.photo);
+  //   return 1 + this.photo.paths.find((path:string) => path.indexOf(this.photo.profilePhoto))
+  // }
 }

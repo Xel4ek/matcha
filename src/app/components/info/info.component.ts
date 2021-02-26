@@ -14,6 +14,8 @@ export class InfoComponent implements OnInit, OnDestroy {
   private login!: string;
   public carousel: { [index:string]:string }[] = []
   // public user: UserInfo | null = new UserInfo();
+  public index: number = 0;
+  public age?: number;
   public user: UserInfo | null = null;
   public advance: {[index:string]:any } = {}
   public panelOpenState = false;
@@ -44,7 +46,17 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
   private prepareData() {
     this.notFound = !!this.user?.notFound;
-    if(!this.user?.photo.paths.length) this.user?.photo.paths.push('assets/img/4e73208be9f326816a787de2e04db80a.jpg');
+    if(!this.user?.photo.paths.length) {
+      this.user?.photo.paths.push('assets/img/4e73208be9f326816a787de2e04db80a.jpg');
+    }
+    else {
+      const paths = this.user.photo.paths;
+      const profilePhoto = this.user.photo.profilePhoto;
+      this.index = +paths.findIndex((path: string) => path.indexOf(profilePhoto) !== -1)
+    }
+    if (this.user) {
+      this.age = ((new Date().getTime() - new Date(this.user.birthDay).getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
+    }
   }
   ngOnDestroy(): void {
     this.routeSubscription?.unsubscribe();
