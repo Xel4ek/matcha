@@ -7,12 +7,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { FormsModule } from "@angular/forms";
-import { SearchComponent } from '@components/search/search.component';
 import { ChatsModule } from "@components/chats/chats.module";
 import {SettingsModule} from "@components/settings/settings.module";
+import { SearchModule } from "@components/search/search.module";
 
 @NgModule({
-  declarations: [MainLayoutComponent, SearchComponent],
+  declarations: [MainLayoutComponent],
   imports: [
     CommonModule,
     MainLayoutRoutingModule,
@@ -21,7 +21,8 @@ import {SettingsModule} from "@components/settings/settings.module";
     ScrollingModule,
     FormsModule,
     ChatsModule,
-    SettingsModule
+    SettingsModule,
+    SearchModule
   ],
   exports: [InfoModule, MainLayoutRoutingModule]
 })

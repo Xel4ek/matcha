@@ -1,26 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SearchService } from "@services/search.service";
 import { WebsocketService } from "@services/websocket/websocket.service";
+import { ProfileService } from "@services/profile/profile.service";
+import { MapComponent } from "@components/map/map.component";
+import { LatLngExpression } from "leaflet";
+import { Options } from "@angular-slider/ngx-slider";
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
-  searchResults: any;
-  constructor(private searchService: SearchService, private ws: WebsocketService) {
+export class SearchComponent implements AfterViewInit{
+  @ViewChild('map') map!: MapComponent;
+  age = {min: 18, max: 99};
+  ageOptions: Options = {
+    floor: 18,
+    ceil: 99
+  };
+  fame = {min: 0, max: 99};
+  fameOptions: Options = {
+    floor: 0,
+    ceil: 99
+  }
+  searchResults: any = {};
+  markers?: LatLngExpression;
+  constructor(private searchService: SearchService, private ws: WebsocketService, private ps: ProfileService) {
     this.searchService.data$.subscribe(data => {
       console.log('Search Service', data);
       this.searchResults = data;
     })
+    this.ps.data$.subscribe(profile => this.markers = [profile.coordinates.latitude,
+      profile.coordinates.longitude])
   }
 
-  ngOnInit(): void {
+  search(): void {
+    // console.log('Search query', map);
+    // console.log('Search age', this.age);
+    // console.log('Search fame', this.fame);
+    this.ws.send('search', {fame: this.fame, age: this.age, map: this.map.getBounds()});
   }
-  search(input: any): void {
-    console.log('Search query', input);
-    this.ws.send('search', input)
+
+  ngAfterViewInit(): void {
+    console.log(this.map);
   }
 
 }

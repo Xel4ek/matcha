@@ -1,4 +1,4 @@
-<div *ngIf="profile else loading">
+<div *ngIf="(profile && profile.login) else loading">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -77,14 +77,14 @@
         class="textarea"></textarea>
     </label>
   </mat-expansion-panel>
-<!--  <mat-expansion-panel>-->
-<!--    <mat-expansion-panel-header>-->
-<!--      <mat-panel-title>-->
-<!--        Location-->
-<!--      </mat-panel-title>-->
-<!--    </mat-expansion-panel-header>-->
-<!--    <app-map [markers]="[[profile!.coordinates!.latitude, profile!.coordinates!.longitude]]"></app-map>-->
-<!--  </mat-expansion-panel>-->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Location
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-map [markers]="[[profile.coordinates.latitude, profile.coordinates.longitude]]" (updateCoordinate)="changeLocation($event)"></app-map>
+  </mat-expansion-panel>
 </div>
 <ng-template #loading>
   <mat-spinner></mat-spinner>

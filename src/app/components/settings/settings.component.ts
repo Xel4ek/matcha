@@ -14,14 +14,14 @@ import { WebsocketService } from "@services/websocket/websocket.service";
 export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(FormControlComponent) formControl?: FormControlComponent;
   checked: boolean = true;
-  profile: User | null = null;
+  profile?: User;
   subscription: Subscription | null = null;
   public test: any;
   constructor(
     private profileService:ProfileService,
     private ws: WebsocketService
   ) {
-    this.subscription = this.profileService.data$.subscribe(profile =>this.profile = profile);
+    this.subscription = this.profileService.data$.subscribe(profile => this.profile = profile);
   }
 
   ngOnInit(): void {
@@ -49,5 +49,14 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   uploadAbout(aboutMe: string){
     this.ws.send('profile', {aboutMe})
+  }
+  changeLocation({latlng: {lat, lng}}: {[index:string]: {[index:string]: number}}) {
+    this.ws.send('profile', {
+      coordinates: {
+        latitude: lat,
+        longitude: lng,
+        accuracy: 0,
+      }
+    })
   }
 }

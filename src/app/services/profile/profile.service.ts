@@ -9,9 +9,7 @@ import { Route, Router } from "@angular/router";
   providedIn: 'root'
 })
 export class ProfileService implements OnDestroy{
-  // private profile: User = new User();
-  private profile: User = new User();
-  public subject = new BehaviorSubject(this.profile);
+  public subject = new BehaviorSubject<User>(new User());
   data$: Observable<User> = this.subject.asObservable();
   constructor(
     private ws: WebsocketService,
@@ -25,6 +23,7 @@ export class ProfileService implements OnDestroy{
           sessionStorage.setItem('auth', 'true');
         } else {
           sessionStorage.setItem('auth', 'false');
+          this.subject.next(new User())
           router.navigate(['/login']);
         }
       },
@@ -36,7 +35,7 @@ export class ProfileService implements OnDestroy{
     )
   }
   auth(): Observable<boolean> {
-    return this.ws.on<any>('profile')
+    return this.ws.on<User>('profile')
       .pipe(
         first(),
         map(profile  => {

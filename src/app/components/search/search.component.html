@@ -1,52 +1,19 @@
+
 <div>
-ageGap
-<label>
-  start
-  <input type="text" #ageGapStart>
-</label>
-<label>
-  end
-  <input type="text" #ageGapEnd>
-</label>
+  Age
+  <ngx-slider [(value)]="age.min" [(highValue)]="age.max" [options]="ageOptions"></ngx-slider>
 </div>
 <div>
-fameGap
-<label>
-  start
-  <input type="text" #fameGapStart>
-</label>
-<label>
-  end
-  <input type="text" #fameGapEnd>
-</label>
+  Fame
+  <ngx-slider [(value)]="fame.min" [(highValue)]="fame.max" [options]="fameOptions"></ngx-slider>
 </div>
 <div>
-Location
-<label>
-  lat
-  <input type="text" #lat>
-</label>
-<label>
-  lon
-  <input type="text" #lon>
-</label>
-<label>
-  radius
-  <input type="text" #radius>
-</label>
+  Location
+  <app-map *ngIf="markers" [markers]="[markers]" #map></app-map>
 </div>
-<div (click)="search({
-        ageGap:
-          {start: ageGapStart.value, end: ageGapEnd.value },
-        fameGap:
-          { start: fameGapStart.value, end: fameGapEnd.value },
-        tags: [],
-        location: {
-            lat: lat.value,
-            lon: lon.value,
-            radius: radius.value
-          }
-        })" class="btn">Search</div>
+<div class="btn__block">
+  <div (click)="search()" class="btn">Search</div>
+</div>
 <pre>
-  {{searchResults | async | json}}
+  {{ searchResults | json }}
 </pre>

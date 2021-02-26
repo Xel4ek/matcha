@@ -7,7 +7,6 @@ import { InfoComponent } from '@components/info/info.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from "@angular/material/icon";
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MapComponent } from "@components/map/map.component";
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
@@ -19,7 +18,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 @NgModule({
-  declarations: [InfoComponent, MapComponent],
+  declarations: [InfoComponent],
   imports: [
     MatListModule,
     MatButtonModule,
