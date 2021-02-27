@@ -35,7 +35,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
   startChat() {
     this.ws.send('chat', {login: this.login});
-    this.router.navigate(['./chats/' + this.login]);
+    this.router.navigate(['./chat/' + this.login]);
 
   }
   ngOnInit() {

@@ -1,8 +1,9 @@
 <mat-toolbar color="primary" class="head">
-  <mat-icon>menu</mat-icon>
+  <mat-icon class="menu" (click)="toggleMenu()">menu</mat-icon>
   <a href="/">
     <img src="assets/img/android-chrome-192x192.png" class="logo__img" alt="logo">
   </a>
+  <mat-icon (click)="backToChats()" *ngIf="chatActive" style="cursor: pointer">keyboard_arrow_left</mat-icon>
   <span class="title"> Mathca</span>
   <mat-icon>logout</mat-icon>
 </mat-toolbar>

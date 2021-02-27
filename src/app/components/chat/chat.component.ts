@@ -23,6 +23,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       chatService.data$.subscribe( (chat) => {
         if (chat[this.token]) {
           this.chat = Object.values(chat[this.token])
+        } else {
+          this.chat = [];
         }
       });
     });

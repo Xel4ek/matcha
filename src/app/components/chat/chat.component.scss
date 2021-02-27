@@ -1,8 +1,11 @@
 .wrapper {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  .chat__window {
+    flex: 1 1 auto;
+    position: relative;
+  }
 }
 .chat__message{
   max-width: 80%;
@@ -15,4 +18,10 @@
   &.left {
     align-self: flex-start;
   }
+}
+.input__message{
+  padding: .5rem;
+}
+:host {
+  height: 100%;
 }

@@ -11,7 +11,7 @@ export class MainLayoutComponent implements AfterViewInit{
   constructor() { }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.sideNav?.toggle(),0);
+    // setTimeout(() => this.sideNav?.toggle(),0);
   }
   testFunction(): void {
       if (navigator.geolocation) {

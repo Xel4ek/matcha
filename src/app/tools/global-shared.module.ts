@@ -5,6 +5,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
 import { FormControlModule } from "./form-control/form-control.module";
 import { MapComponent } from "@components/map/map.component";
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [NotFoundComponent, MapComponent],
@@ -12,6 +13,7 @@ import { MapComponent } from "@components/map/map.component";
     CommonModule
   ],
   exports:[
+    MatToolbarModule,
     NotFoundComponent,
     CommonModule,
     MatProgressSpinnerModule,

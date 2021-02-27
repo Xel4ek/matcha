@@ -10,10 +10,13 @@ import { FormsModule } from "@angular/forms";
 import { ChatsModule } from "@components/chats/chats.module";
 import {SettingsModule} from "@components/settings/settings.module";
 import { SearchModule } from "@components/search/search.module";
+import { HeaderComponent } from "@components/header/header.component";
+import { GlobalSharedModule } from "@tools/global-shared.module";
 
 @NgModule({
-  declarations: [MainLayoutComponent],
+  declarations: [MainLayoutComponent, HeaderComponent],
   imports: [
+    GlobalSharedModule,
     CommonModule,
     MainLayoutRoutingModule,
     MatSidenavModule,
@@ -22,7 +25,7 @@ import { SearchModule } from "@components/search/search.module";
     FormsModule,
     ChatsModule,
     SettingsModule,
-    SearchModule
+    SearchModule,
   ],
   exports: [InfoModule, MainLayoutRoutingModule]
 })

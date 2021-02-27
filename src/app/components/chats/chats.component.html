@@ -1,9 +1,5 @@
-<!--<p>{{chats | json}}</p>-->
-<mat-toolbar color="primary" class="toolbar">
-    <div *ngFor="let chat of chats"
-      routerLink="{{chat}}"
-      routerLinkActive="active">
-      {{chat}}
-    </div>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<mat-selection-list [multiple]="false">
+  <mat-list-option *ngFor="let user of activeChatsUsers" (click)="openChat(user)">
+    <app-user-widget [user]="user"></app-user-widget>
+  </mat-list-option>
+</mat-selection-list>

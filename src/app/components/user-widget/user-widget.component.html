@@ -1,0 +1,13 @@
+<div *ngIf="data else loading" class="widget__wrapper">
+  <div class="img__wrapper">
+    <img [src]="imgSrc" [alt]="data.login">
+  </div>
+  <div class="widget__info">
+    <div>
+      {{data.login}}
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  Loading...
+</ng-template>

@@ -1,0 +1,14 @@
+<div class="wrapper" *ngIf="chat">
+  <div class="chat__window">
+    <div class="chat__window-helper">
+      <div class="chat__message" *ngFor="let item of chat"
+      [ngClass]="item.alignment ? 'left' : 'right'">
+        {{ item.text }}
+      </div>
+    </div>
+  </div>
+  <label class="input__message">New message
+    <input type="text" #input (keydown.enter)="send(input)">
+  </label>
+</div>
+

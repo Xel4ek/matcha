@@ -1,9 +1,21 @@
-.toolbar{
-  div{
+.toolbar {
+  div {
     padding: .3rem;
-&:hover{
-  background-color: darken(#673ab7,20%);
-
+    &:hover {
+      background-color: darken(#673ab7, 20%);
+    }
+  }
 }
+:host {
+  display: flex;
+  flex-direction: column;
+  &:last-child {
+    flex: 1 1 auto;
+  }
+  .mat-list-base .mat-list-item,
+  .mat-list-base .mat-list-option {
+    height: 84px;
+    padding: 3px 16px;
+    box-shadow: 0 0 1px rgb(0 0 0 / 50%)
   }
 }
