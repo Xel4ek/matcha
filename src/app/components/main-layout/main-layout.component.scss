@@ -2,11 +2,9 @@
   flex: 1 1 auto;
 }
 
-//.sidenav-container {
-//  height: 100%;
-//  .sidenav {
-//
-//  }
+.sidenav-container {
+  height: calc(100% - 46px);
+  }
 //
 //  .sidenav-content {
 //    position: absolute;
