@@ -21,7 +21,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.subscriber = activatedRoute.params.subscribe(params=> {
       this.token = params['id'];
       chatService.data$.subscribe( (chat) => {
-        this.chat = Object.values(chat[this.token])
+        if (chat[this.token]) {
+          this.chat = Object.values(chat[this.token])
+        }
       });
     });
 
