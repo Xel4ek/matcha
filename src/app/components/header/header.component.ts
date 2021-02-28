@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, NavigationStart, Router, } from "@angula
 import {Location} from "@angular/common";
 import { filter, map, tap } from "rxjs/operators";
 import { Observable, Subscription } from "rxjs";
+import { WebsocketService } from "@services/websocket/websocket.service";
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleEvent = new EventEmitter<void>()
   subscriber: Subscription;
   chatActive = false;
-  constructor(private router: Router) {
+  constructor(private router: Router, private ws: WebsocketService) {
     this.subscriber = this.router.events.subscribe((event => {
       if (event instanceof NavigationStart)
         this.chatActive = event.url.includes('chat/')
@@ -33,5 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/chats']);
   }
   logout() {
+    this.ws.send('logout');
   }
 }
