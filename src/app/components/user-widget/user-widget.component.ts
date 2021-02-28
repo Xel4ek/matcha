@@ -30,5 +30,4 @@ export class UserWidgetComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
       this.ws.send('userInfo', {login: this.user});
   }
-
 }

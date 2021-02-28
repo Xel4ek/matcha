@@ -6,9 +6,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { FormControlModule } from "./form-control/form-control.module";
 import { MapComponent } from "@components/map/map.component";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { UserWidgetComponent } from "@components/user-widget/user-widget.component";
 
 @NgModule({
-  declarations: [NotFoundComponent, MapComponent],
+  declarations: [NotFoundComponent, MapComponent, UserWidgetComponent],
   imports: [
     CommonModule
   ],
@@ -19,7 +20,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatProgressSpinnerModule,
     MatIconModule,
     FormControlModule,
-    MapComponent
+    MapComponent,
+    UserWidgetComponent
   ]
 })
 export class GlobalSharedModule { }

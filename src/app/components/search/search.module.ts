@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GlobalSharedModule } from "@tools/global-shared.module";
 import { SearchComponent } from "@components/search/search.component";
 import { NgxSliderModule } from "@angular-slider/ngx-slider";
+import { MatListModule } from "@angular/material/list";
 
 
 
@@ -11,7 +12,8 @@ import { NgxSliderModule } from "@angular-slider/ngx-slider";
   imports: [
     GlobalSharedModule,
     CommonModule,
-    NgxSliderModule
+    NgxSliderModule,
+    MatListModule,
   ]
 })
 export class SearchModule { }
