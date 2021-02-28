@@ -59,4 +59,8 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   }
+  editList(key:string, event: Event) {
+    console.log(key, event);
+  }
+
 }

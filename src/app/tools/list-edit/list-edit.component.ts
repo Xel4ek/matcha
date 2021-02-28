@@ -10,6 +10,7 @@ export class ListEditComponent implements OnInit {
   @Input() list!: string[];
   @Output() remove = new EventEmitter();
   @Output() add = new EventEmitter();
+  @Output() editList = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -17,11 +18,12 @@ export class ListEditComponent implements OnInit {
   }
   removeEntry(entry: string) {
     console.log('removed from list', entry);
-    this.remove.emit(entry);
+    this.editList.emit({action: 'remove', data: entry});
   }
   addEntry(entry: HTMLInputElement) {
-    console.log(entry.value);
-    this.add.emit(entry.value);
+    // console.log(entry.value);
+    // this.add.emit(entry.value);
+    this.editList.emit({action: 'add', data: entry.value});
     entry.value = '';
   }
 }

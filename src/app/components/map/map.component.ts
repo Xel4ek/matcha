@@ -32,11 +32,6 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
     this.map.on('click', (e: any) => {
       this.updateCoordinate.emit(e);
     })
-    this.map.whenReady(() => {
-      if (this.map!.getZoom() > 16) {
-        this.map?.setZoom(16);
-      }
-    })
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -44,9 +39,10 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
     tiles.addTo(this.map);
     const latLongs = this.addMarkers();
     const bounds = L.latLngBounds(latLongs);
-    this.map.setView(bounds.getCenter(), 19)
-    this.map.fitBounds(bounds);
-
+    this.map.setView(bounds.getCenter(), 15)
+    if (this.markers.length > 1) {
+      this.map.fitBounds(bounds);
+    }
   }
   getBounds() {
     return this.map?.getBounds();

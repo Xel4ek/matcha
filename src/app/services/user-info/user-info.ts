@@ -8,8 +8,8 @@ export class UserInfo {
   activeChats: string[] = [];
   tag: string[] = ['dwa','daw'];
   fameRating:number = 0;
-  favorites: number[] =  [];
-  blackList: number[] =  [];
+  favorites: string[] =  [];
+  blackList: string[] =  [];
   photo: {[index:string]:any} = {
     profilePhoto: 'original.webp',
     paths: ['assets/img/original.webp',
