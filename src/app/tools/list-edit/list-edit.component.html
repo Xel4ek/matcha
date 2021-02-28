@@ -1,6 +1,6 @@
 <div>
   <span class="entry" *ngFor="let entry of list" (click)="removeEntry(entry)" style="cursor: pointer"> {{entry}} </span>
   <label>
-    <input #input type="text" (blur)="addEntry(input)" (keydown.enter)="input.blur()">
+    <input #input type="text" (blur)="addEntry(input)" (keydown.enter)="input.blur()" class="list__input" size="10">
   </label>
 </div>

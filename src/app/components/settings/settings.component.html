@@ -42,7 +42,7 @@
         Preferences
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div>
+    <div class="block">
       <mat-label>Gender</mat-label>
 <!--      <mat-select #prefGender (selectionChange)="updateGender(prefGender.value)" [value]="profile?.gender" placeholder="Gender"-->
 <!--                  style="padding:.3rem">-->
@@ -51,14 +51,20 @@
 <!--        </mat-option>-->
 <!--      </mat-select>-->
     </div>
-    <p>Tags</p>
-    <!--    <app-list-edit [list]="profile.tag"></app-list-edit>-->
-    <app-list-edit [list]="['love', 'sex', 'pain']" (editList)="editList('tag', $event)"></app-list-edit>
+    <div class="block">
+      <p>Tags</p>
+      <!--    <app-list-edit [list]="profile.tag"></app-list-edit>-->
+      <app-list-edit [list]="profile.tag" (editList)="editList('tag', $event)"></app-list-edit>
+    </div>
+    <div class="block">
     <p>BlackList
 <!--      {{profile.blackList}}--> </p>
       <app-list-edit [list]="profile.blackList" (editList)="editList('blackList', $event)"></app-list-edit>
+    </div>
+    <div class="block">
     <p>Favorites </p>
       <app-list-edit [list]="profile.favorites" (editList)="editList('favorites', $event)"></app-list-edit>
+    </div>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>

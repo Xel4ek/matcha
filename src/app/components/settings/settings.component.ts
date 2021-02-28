@@ -59,8 +59,18 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   }
-  editList(key:string, event: Event) {
-    console.log(key, event);
+  editList(key:string, {action, data}: {action:string, data: string}) {
+    const send = data.trim();
+    if (send) {
+      if (action === 'add') {
+        this.ws.send('profile', {[key]: [send]})
+      }
+      if (action === 'remove') {
+        this.ws.send('profile', {
+          ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: [send]
+        })
+      }
+    }
   }
 
 }
