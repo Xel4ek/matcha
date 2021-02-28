@@ -9,7 +9,7 @@ import { UserInfo } from "@services/user-info/user-info";
   styleUrls: ['./user-widget.component.scss']
 })
 export class UserWidgetComponent implements OnInit, AfterViewInit {
-  @Input() private user!: string;
+  @Input() user!: string;
   _data?: UserInfo;
   imgSrc: string = 'assets/img/4e73208be9f326816a787de2e04db80a.jpg';
   constructor(private userInfo: UserInfoService,

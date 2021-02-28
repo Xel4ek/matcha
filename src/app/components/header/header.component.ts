@@ -12,7 +12,7 @@ import { Observable, Subscription } from "rxjs";
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleEvent = new EventEmitter<void>()
   subscriber: Subscription;
-  chatActive = true;
+  chatActive = false;
   constructor(private router: Router) {
     this.subscriber = this.router.events.subscribe((event => {
       if (event instanceof NavigationStart)
@@ -31,5 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   backToChats() {
     this.router.navigate(['/chats']);
+  }
+  logout() {
   }
 }
