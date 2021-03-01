@@ -14,15 +14,11 @@ export class ListEditComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.list);
   }
   removeEntry(entry: string) {
-    console.log('removed from list', entry);
     this.editList.emit({action: 'remove', data: entry});
   }
   addEntry(entry: HTMLInputElement) {
-    // console.log(entry.value);
-    // this.add.emit(entry.value);
     this.editList.emit({action: 'add', data: entry.value});
     entry.value = '';
   }

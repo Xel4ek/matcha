@@ -6,13 +6,16 @@ import { InfoComponent } from "@components/info/info.component";
 import { SearchComponent } from "@components/search/search.component";
 import { ChatsComponent } from "@components/chats/chats.component";
 import { ChatComponent } from "@components/chat/chat.component";
+import { WidgetListComponent } from "@components/widget-list/widget-list.component";
 
 const routes: Routes = [
   {path: 'settings', component: SettingsComponent},
   {path: 'user/:id', component: InfoComponent},
   {path: 'search', component: SearchComponent},
   {path: 'chats', component: ChatsComponent },
-  {path: 'chat/:id', component: ChatComponent, pathMatch: 'full'}
+  {path: 'chat/:id', component: ChatComponent, pathMatch: 'full'},
+  {path: 'favorite', component: WidgetListComponent, data: {key: 'favorite'}},
+  {path: 'blacklist', component: WidgetListComponent, data: {key: 'blacklist'}}
 
 ]
 

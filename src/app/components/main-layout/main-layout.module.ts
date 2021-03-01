@@ -12,9 +12,10 @@ import {SettingsModule} from "@components/settings/settings.module";
 import { SearchModule } from "@components/search/search.module";
 import { HeaderComponent } from "@components/header/header.component";
 import { GlobalSharedModule } from "@tools/global-shared.module";
+import { WidgetListComponent } from "@components/widget-list/widget-list.component";
 
 @NgModule({
-  declarations: [MainLayoutComponent, HeaderComponent],
+  declarations: [MainLayoutComponent, HeaderComponent, WidgetListComponent],
   imports: [
     GlobalSharedModule,
     CommonModule,

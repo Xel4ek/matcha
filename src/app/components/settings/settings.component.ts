@@ -75,9 +75,10 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
   editList(key:string, {action, data}: {action:string, data: string}) {
-    const send = data.trim();
+    let send = data.trim();
     if (send) {
       if (action === 'add') {
+        send = '#' + data.replace(/^[#]*/i, '');
         this.ws.send('profile', {[key]: [send]})
       }
       if (action === 'remove') {
@@ -92,9 +93,7 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.strength = res.filter(el => el).length;
   }
   private updatePassword() {
-
     if (this.valid.confirm.status && this.valid.pass.status) {
-      console.log('sending');
       this.ws.send('profile', {
         pass: this.pass
       })

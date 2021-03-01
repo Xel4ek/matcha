@@ -38,6 +38,13 @@ export class InfoComponent implements OnInit, OnDestroy {
     this.router.navigate(['./chat/' + this.login]);
 
   }
+  addBlackList() {
+    this.ws.send('profile', {blackList: [this.login]})
+  }
+  addFavorite() {
+    this.ws.send('profile', {favorites: [this.login]})
+  }
+
   ngOnInit() {
     this.routeSubscription = this.activateRoute.params.subscribe(params=> {
       this.login = params['id'];

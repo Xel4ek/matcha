@@ -31,12 +31,4 @@ export class UserInfoService implements OnDestroy {
   ngOnDestroy(): void {
     this.subject.unsubscribe();
   }
-
-  // on<T>(user: string): Observable<UserInfo> {
-  //   if (!this._users[user]) {
-  //     this._users[user] = new UserInfo();
-  //   }
-  //   this.ws.send('userInfo', {login: user});
-  //   return this.subject.pipe(map(users => users[user]));
-  // }
 }

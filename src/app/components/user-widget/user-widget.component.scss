@@ -13,9 +13,11 @@
 
       border-radius: 50%;
     }
-
-    &__info {
-      flex: 1 1 auto;
-    }
+  }
+  &__info {
+    flex: 1 1 auto;
+  }
+  &__content{
+    align-self: center;
   }
 }
