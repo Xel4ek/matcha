@@ -3,8 +3,14 @@ import {User} from "@services/user/user";
 import { ProfileService } from "@services/profile/profile.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { FormControlComponent } from "../../tools/form-control/form-control.component";
+import { FormControlComponent } from "@tools/form-control/form-control.component";
 import { WebsocketService } from "@services/websocket/websocket.service";
+
+interface FormControl {
+  status: boolean,
+  error: string,
+  check: Function
+}
 
 @Component({
   selector: 'app-settings',
@@ -12,11 +18,17 @@ import { WebsocketService } from "@services/websocket/websocket.service";
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(FormControlComponent) formControl?: FormControlComponent;
+
   checked: boolean = true;
   profile?: User;
   subscription: Subscription | null = null;
+  strength = 0;
+  pass = '';
   public test: any;
+  public valid: { [index: string]: FormControl } = {
+    pass: {status: false, error: '', check: (pass: string) => this.checkPass(pass)},
+    confirm: {status: false, error: '', check: (confirm: string) => this.checkConfirm(confirm)}
+  };
   constructor(
     private profileService:ProfileService,
     private ws: WebsocketService
@@ -75,5 +87,42 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
   }
+  checkPassStrength(pass:string): void {
+    const res = [/[a-z]/.test(pass), /\d/.test(pass), /[A-Z]/.test(pass), /\W/.test(pass), pass.length > 6];
+    this.strength = res.filter(el => el).length;
+  }
+  private updatePassword() {
 
+    if (this.valid.confirm.status && this.valid.pass.status) {
+      console.log('sending');
+      this.ws.send('profile', {
+        pass: this.pass
+      })
+
+    }
+  }
+  checkPass(pass:string): void {
+    this.pass = pass;
+    if (this.strength < 3) {
+      this.valid.pass.error = 'Слишком слабый пароль';
+      this.valid.pass.status = false;
+    } else {
+      this.valid.pass.status = true;
+      this.valid.pass.error = '';
+      this.updatePassword();
+    }
+  }
+  checkConfirm(confirm: string) :void {
+      if( this.pass && confirm === this.pass) {
+        this.valid.confirm.status = true;
+        this.valid.confirm.error = '';
+        this.updatePassword();
+      } else {
+        this.valid.confirm.status = false;
+        this.valid.confirm.error = 'Passwords must match';
+      }
+  }
+  reset(key: string): void {
+    this.valid[key].error = '';
+  }
 }

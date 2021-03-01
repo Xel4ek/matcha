@@ -35,6 +35,29 @@
         </mat-option>
       </mat-select>
     </div>
+    <div>
+      <div class="error">{{valid.pass.error}}</div>
+      <label>
+        Change Password
+      <input class="form-field" id="password" autocomplete="off" type="password" placeholder="Password" #pass
+             (input)="checkPassStrength(pass.value)"
+             (blur)="valid.pass.check(pass.value)"
+             (focus)="reset('pass')">
+      </label>
+      <mat-progress-bar *ngIf="!!pass.value" mode="determinate" [value]="strength * 20" class="strength-{{strength}}"></mat-progress-bar>
+
+    </div>
+    <div>
+      <div class="error">{{valid.confirm.error}}</div>
+      <label>
+      <input class="form-field" id="confirm" autocomplete="off" type="password" placeholder="Confirm password"
+             #confirm
+             (blur)="valid.confirm.check(confirm.value)"
+             (focus)="reset('confirm')"
+             [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}">
+      </label>
+    </div>
+
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>

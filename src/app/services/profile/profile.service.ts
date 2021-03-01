@@ -20,10 +20,10 @@ export class ProfileService implements OnDestroy{
         console.log('get profile', profile);
         if (profile.login) {
           this.subject.next(profile);
-          sessionStorage.setItem('auth', 'true');
+          // sessionStorage.setItem('auth', 'true');
         } else {
-          sessionStorage.setItem('auth', 'false');
-          this.subject.next(new User())
+          // sessionStorage.setItem('auth', 'false');
+          // this.subject.next(new User())
           router.navigate(['/login']);
         }
       },
@@ -40,7 +40,6 @@ export class ProfileService implements OnDestroy{
         first(),
         map(profile  => {
           const login = profile?.login;
-          console.log('auth', login);
           return !!login;
         })
       )

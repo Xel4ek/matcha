@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
         }
       }, reset: () =>
         this.valid.login.error = ''
-
     },
     pass: {
       status: false, error: '', check: (form: NgForm) => {
@@ -54,18 +53,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(data: NgForm) {
-    Object.entries(this.valid).forEach(([key, entry]) => {
+    Object.entries(this.valid).map(([key, entry]) => {
       if (!entry.status) {
         entry.check(data);
       }
     })
-    if (Object.values(this.valid).some((el)=> !el.status)) {
-      this.toastr.error('Не все поля заполнены!', 'Ошибка');
-    } else {
+    if (Object.values(this.valid).every((el) => el.status)) {
       this.ws.send('login', {username: data.value.login, password: data.value.pass});
-      // this.dataService.postApi('login', {username: data.value.login, password: data.value.pass}, true);
-      data.resetForm({...data.value, pass:''});
+      data.resetForm({...data.value, pass: ''});
       this.router.navigate(['./settings']);
+    } else {
+      this.toastr.error('Не все поля заполнены!', 'Ошибка');
     }
   }
 

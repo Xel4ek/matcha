@@ -4,15 +4,29 @@
     <input class="field" id="login" autocomplete="off" type="text" placeholder="Login"
            ngModel name="login" #login="ngModel"
            (blur)="valid.login.check(f)"
-           (focus)="resetLogin()"
+           (focus)="reset('login')"
            [ngClass]="{'invalid':!!valid.login.error, 'valid':valid.login.status}"></div>
+  <div>
+    <div class="error">{{valid.firstName.error}}</div>
+    <input class="field" id="firstName" autocomplete="off" type="text" placeholder="First Name"
+           ngModel name="firstName" #firstName="ngModel"
+           (blur)="valid.firstName.check(f)"
+           (focus)="reset('firstName')"
+           [ngClass]="{'invalid':!!valid.firstName.error, 'valid':valid.firstName.status}"></div>
+  <div>
+    <div class="error">{{valid.lastName.error}}</div>
+    <input class="field" id="lastName" autocomplete="off" type="text" placeholder="Last Name"
+           ngModel name="lastName" #lastName="ngModel"
+           (blur)="valid.lastName.check(f)"
+           (focus)="reset('lastName')"
+           [ngClass]="{'invalid':!!valid.lastName.error, 'valid':valid.lastName.status}"></div>
   <div>
     <div class="error">{{valid.pass.error}}</div>
     <input class="field" id="password" autocomplete="off" type="password" placeholder="Password"
            ngModel name="pass" #pass="ngModel"
     (input)="checkPassStrength(f)"
     (blur)="valid.pass.check()"
-    (focus)="resetPass()">
+    (focus)="reset('pass')">
     <mat-progress-bar *ngIf="!!pass.value" mode="determinate" [value]="strength * 20" class="strength-{{strength}}"></mat-progress-bar>
   </div>
   <div>
@@ -20,14 +34,14 @@
     <input class="field" id="confirm" autocomplete="off" type="password" placeholder="Confirm password"
            ngModel name="confirm" #confirm="ngModel"
            (blur)="valid.confirm.check(f)"
-           (focus)="resetConfirm()"
+           (focus)="reset('confirm')"
            [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}"></div>
   <div>
     <div class="error">{{valid.mail.error}}</div>
     <input class="field" id="e-mail" autocomplete="off" type="email" placeholder="E-mail address"
            ngModel name="mail" #mail="ngModel"
            (blur)="valid.mail.check(f)"
-           (focus)="resetMail()"
+           (focus)="reset('mail')"
            [ngClass]="{'invalid':!!valid.mail.error, 'valid':valid.mail.status}"></div>
   <div>
     <button type="submit" class="btn" id="register">Register</button>

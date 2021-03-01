@@ -4,6 +4,7 @@
            [value]="value"
            (blur)="check()"
            (focus)="reset()"
+           (change)="change = true"
            [ngClass]="{'invalid':!!error,'valid':status}"
     >
   </label>

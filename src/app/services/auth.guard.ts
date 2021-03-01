@@ -12,15 +12,15 @@ export class AuthGuard implements CanActivate, OnDestroy {
 
   constructor(private profileService: ProfileService,
               private router: Router) {
-    this.auth = sessionStorage.getItem('auth') === 'true';
+    // this.auth = sessionStorage.getItem('auth') === 'true';
   }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.auth) {
-      return true;
-    }
+    // if (this.auth) {
+    //   return true;
+    // }
     return this.profileService.auth().pipe(
       tap(auth => {
         if (!auth) {

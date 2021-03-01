@@ -9,6 +9,7 @@ import { ImageEditModule } from "@tools/image-edit/image-edit.module";
 import { TextFieldModule } from "@angular/cdk/text-field";
 import { ListEditModule } from "@tools/list-edit/list-edit.module";
 import {MatSelectModule} from '@angular/material/select';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 @NgModule({
   declarations: [SettingsComponent, SettingsInputFieldComponent],
     imports: [
@@ -19,7 +20,8 @@ import {MatSelectModule} from '@angular/material/select';
         ImageEditModule,
         TextFieldModule,
         ListEditModule,
-        MatSelectModule
+        MatSelectModule,
+        MatProgressBarModule
     ]
 })
 export class SettingsModule { }

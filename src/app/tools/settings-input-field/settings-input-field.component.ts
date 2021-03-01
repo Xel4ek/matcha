@@ -11,6 +11,7 @@ export class SettingsInputFieldComponent implements OnInit {
 
   error = '';
   status?: boolean;
+  change = false;
   @ViewChild('input') inputValue!: ElementRef;
   @Input() title?: string;
   @Input() value: any;
@@ -34,12 +35,14 @@ export class SettingsInputFieldComponent implements OnInit {
   }
 
   async check() {
-    const value = this.inputValue.nativeElement.value;
-    const result = await this.vs.validate(this.validate, value);
-    this.error = result?.error ?? '';
-    this.status = result.valid;
-    if (result.valid && this.value !== value) {
-      this.ws.send('profile', {[this.name]: value});
+    if (this.change) {
+      const value = this.inputValue.nativeElement.value;
+      const result = await this.vs.validate(this.validate, value);
+      this.error = result?.error ?? '';
+      this.status = result.valid;
+      if (result.valid && this.value !== value) {
+        this.ws.send('profile', {[this.name]: value});
+      }
     }
   }
 }
