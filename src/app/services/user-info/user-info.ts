@@ -5,6 +5,7 @@ export class UserInfo {
     firstName: 'Anonymous',
     lastName: 'Anonymousov'
   };
+  sex?: string;
   activeChats: string[] = [];
   tag: string[] = ['dwa','daw'];
   fameRating:number = 0;

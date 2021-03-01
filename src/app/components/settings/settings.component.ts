@@ -50,6 +50,9 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   uploadAbout(aboutMe: string){
     this.ws.send('profile', {aboutMe})
   }
+  updatePrefGender(sex: string) {
+    this.ws.send('profile', {sex})
+  }
   changeLocation({latlng: {lat, lng}}: {[index:string]: {[index:string]: number}}) {
     this.ws.send('profile', {
       coordinates: {

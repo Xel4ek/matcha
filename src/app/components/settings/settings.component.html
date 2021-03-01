@@ -44,12 +44,12 @@
     </mat-expansion-panel-header>
     <div class="block">
       <mat-label>Gender</mat-label>
-<!--      <mat-select #prefGender (selectionChange)="updateGender(prefGender.value)" [value]="profile?.gender" placeholder="Gender"-->
-<!--                  style="padding:.3rem">-->
-<!--        <mat-option *ngFor="let pref of ['Male', 'Female', 'Both']" [value]="pref">-->
-<!--          {{pref}}-->
-<!--        </mat-option>-->
-<!--      </mat-select>-->
+      <mat-select #prefGender (selectionChange)="updatePrefGender(prefGender.value)" [value]="profile?.sex" placeholder="Gender"
+                  style="padding:.3rem">
+        <mat-option *ngFor="let pref of ['Male', 'Female', 'Both']" [value]="pref">
+          {{pref}}
+        </mat-option>
+      </mat-select>
     </div>
     <div class="block">
       <p>Tags</p>
