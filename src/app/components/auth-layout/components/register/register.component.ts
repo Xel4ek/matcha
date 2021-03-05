@@ -8,7 +8,7 @@ import {WebsocketService} from "@services/websocket/websocket.service";
 interface FormControl {
   status: boolean,
   error: string,
-  check: Function
+  check: Function;
 }
 
 @Component({
@@ -18,10 +18,10 @@ interface FormControl {
 })
 export class RegisterComponent implements OnInit {
   public valid: { [index: string]: FormControl } = {
-    login: {status: false, error: '', check: (form: NgForm) => this.checkLogin(form)},
+    login: {status: false, error: '', check: async (form: NgForm) => await this.checkLogin(form)},
     pass: {status: false, error: '', check: () => this.checkPass()},
     confirm: {status: false, error: '', check: (form: NgForm) => this.checkConfirm(form)},
-    mail: {status: false, error: '', check: (form: NgForm) => this.checkMail(form)},
+    mail: {status: false, error: '', check: async (form: NgForm) => await this.checkMail(form)},
     firstName: {status: false, error: '', check: (form: NgForm) => this.checkFirstName(form)},
     lastName: {status: false, error: '', check: (form: NgForm) => this.checkLastName(form)},
   };
@@ -89,14 +89,13 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  onSubmit(data: NgForm): void {
-    // console.log(data.value);
-    this.valid.confirm.check(data);
-    Object.entries(this.valid).map(([key, entry]) => {
+  async onSubmit(data: NgForm): Promise<void> {
+    for(let entry of Object.values(this.valid)) {
+      console.log(entry.check.constructor.name);
       if (!entry.status) {
-        entry.check(data);
+        await entry.check(data);
       }
-    })
+    }
     if (Object.values(this.valid).every((el) => el.status)) {
       const {login: username, pass: password, mail: email, firstName, lastName} = data.value;
       data.resetForm();
