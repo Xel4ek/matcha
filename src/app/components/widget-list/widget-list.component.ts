@@ -11,8 +11,7 @@ import { WebsocketService } from "@services/websocket/websocket.service";
 })
 export class WidgetListComponent implements OnInit, OnDestroy {
   list: { user: string, time: number }[] = [];
-  private field = '';
-  action = '';
+  private action = '';
   private subscriptions: Subscription[] = [];
 
   constructor(private route: ActivatedRoute,
@@ -24,15 +23,9 @@ export class WidgetListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(this.route.data.subscribe(({key}: { [index: string]: string }) => {
       this.action = key.replace(/^\w/, (c) => c.toUpperCase());
-      if (key === 'favorite') {
-        this.field = 'favoriteList';
-      }
-      if (key === 'blacklist') {
-        this.field = 'blackList';
-      }
-      if (this.field) {
+      if (key) {
         this.subscriptions.push(this.ps.data$.subscribe((profile) => {
-          this.list = profile[this.field];
+          this.list = profile[key];
         }))
       }
     }))

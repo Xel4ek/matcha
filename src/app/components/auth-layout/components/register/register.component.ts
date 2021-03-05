@@ -91,7 +91,6 @@ export class RegisterComponent implements OnInit {
 
   async onSubmit(data: NgForm): Promise<void> {
     for(let entry of Object.values(this.valid)) {
-      console.log(entry.check.constructor.name);
       if (!entry.status) {
         await entry.check(data);
       }

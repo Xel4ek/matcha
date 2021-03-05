@@ -5,40 +5,7 @@ export class User extends UserInfo{
   public authorized: boolean = false;
   favoriteList: string[] =  [];
   blackList: string[] =  [];
-  public chats = {
-    test: {
-      '2': {
-        from: 'xel',
-        date: '2',
-        to: 'test',
-        text: '12331231',
-        alignment: false,
-      },
-      '3': {
-        from: 'test',
-        date: '3',
-        to: 'xel',
-        text: '!!!!!!!!!!!!!!!!!',
-        alignment: true,
-      }
-    },
-    test2: {
-      '2': {
-        from: 'xel',
-        date: '2',
-        to: 'test2',
-        text: '123dawdawdawdwa31231',
-        alignment: false,
-      },
-      '3': {
-        from: 'test2',
-        date: '3',
-        to: 'xel',
-        text: '!!!!!dawdaw!!!!!1231!!!!!!!',
-        alignment: true,
-      }
-    }
-  }
+  activeChats: string[] = [];
   constructor() {
     super();
   }
