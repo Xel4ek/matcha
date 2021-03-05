@@ -25,7 +25,7 @@ export class WidgetListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.route.data.subscribe(({key}: { [index: string]: string }) => {
       this.action = key.replace(/^\w/, (c) => c.toUpperCase());
       if (key === 'favorite') {
-        this.field = 'myLikes';
+        this.field = 'favoriteList';
       }
       if (key === 'blacklist') {
         this.field = 'blackList';

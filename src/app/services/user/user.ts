@@ -3,6 +3,8 @@ import { ChatInterface } from "@components/chat/chat-interface";
 
 export class User extends UserInfo{
   public authorized: boolean = false;
+  favoriteList: string[] =  [];
+  blackList: string[] =  [];
   public chats = {
     test: {
       '2': {

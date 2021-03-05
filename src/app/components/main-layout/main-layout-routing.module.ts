@@ -14,8 +14,8 @@ const routes: Routes = [
   {path: 'search', component: SearchComponent},
   {path: 'chats', component: ChatsComponent },
   {path: 'chat/:id', component: ChatComponent, pathMatch: 'full'},
-  {path: 'favorite', component: WidgetListComponent, data: {key: 'favorite'}},
-  {path: 'blacklist', component: WidgetListComponent, data: {key: 'blacklist'}}
+  {path: 'favorite', component: WidgetListComponent, data: {key: 'favoriteList'}},
+  {path: 'blacklist', component: WidgetListComponent, data: {key: 'blackList'}}
 
 ]
 
