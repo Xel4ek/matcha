@@ -60,7 +60,12 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     // console.log('Search query', map);
     // console.log('Search age', this.age);
     // console.log('Search fame', this.fame);
-    this.ws.send('search', {fame: this.fame, age: this.age, map: this.map.getBounds(), sortBy: 'someField', limits: {start: 0, end: 123}});
+    this.ws.send('search', {
+      fame: this.fame,
+      age: this.age,
+      map: this.map.getBounds(),
+      sortBy: 'someField',
+      limits: {start: 0, end: 123}});
   }
 
   ngAfterViewInit(): void {

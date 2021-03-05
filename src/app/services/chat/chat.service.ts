@@ -28,7 +28,6 @@ export class ChatService {
         }
       })
       this.subject.next(chats);
-      console.log(chats);
     })
   }
   send(to: string, message: string):void {
@@ -40,8 +39,10 @@ export class ChatService {
         text: message
       }
       this.ws.send('chat', data);
-      console.log(data)
     }
+  }
+  getHistory(login: string){
+    this.ws.send('chat',{login})
   }
 }
 

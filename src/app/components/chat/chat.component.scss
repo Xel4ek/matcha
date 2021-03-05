@@ -5,6 +5,10 @@
   .chat__window {
     flex: 1 1 auto;
     position: relative;
+    .chat__window-helper{
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 .chat__message{
