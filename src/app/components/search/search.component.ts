@@ -41,9 +41,9 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     this.searchServiceSubscriber = this.searchService.data$.subscribe(data => {
       console.log('Search Service', data);
       this.searchResults = data;
-      this.searchMarkers = [];
       this.userInfoSubscriber?.unsubscribe();
       this.userInfoSubscriber = this.userInfo.data$.subscribe((users)=> {
+        this.searchMarkers = [];
         this.searchResults.profiles?.map(user => {
           if (users[user]) {
             const {latitude: lat, longitude: lng} = users[user].coordinates;
@@ -57,9 +57,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   }
 
   search(): void {
-    // console.log('Search query', map);
-    // console.log('Search age', this.age);
-    // console.log('Search fame', this.fame);
     this.ws.send('search', {
       fame: this.fame,
       age: this.age,
@@ -78,6 +75,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userInfoSubscriber?.unsubscribe();
-    this.userInfoSubscriber?.unsubscribe();
+    this.searchServiceSubscriber?.unsubscribe();
   }
 }
