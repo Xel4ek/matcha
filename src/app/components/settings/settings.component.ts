@@ -86,6 +86,9 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
           ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: send
         })
       }
+      if (action === 'change') {
+        this.ws.send('findTag', data)
+      }
     }
   }
   checkPassStrength(pass:string): void {

@@ -33,6 +33,12 @@
       <mat-list-item role="listitem" [title]="'Birth day: ' + (age | date:'longDate')" *ngIf="age">
         Age: {{age}}
       </mat-list-item>
+      <mat-list-item role="listitem" [title]="'Followers ' + user?.favoriteCount" *ngIf="user?.favoriteCount">
+        Followers: {{user?.favoriteCount}}
+      </mat-list-item>
+      <mat-list-item role="listitem" [title]="'FakeStatus ' + user?.fakeCount" *ngIf="user?.fakeCount">
+        FakeStatus: {{user?.fakeCount}}
+      </mat-list-item>
       <mat-list-item role="listitem" [title]="'Gender:'" *ngIf="user?.gender">
         Gender: {{user?.gender}}
       </mat-list-item>

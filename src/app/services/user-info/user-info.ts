@@ -5,6 +5,8 @@ export class UserInfo {
     firstName: 'Anonymous',
     lastName: 'Anonymousov'
   };
+  favoriteCount?: string;
+  fakeCount?: string;
   sex?: string;
   tag: string[] = ['dwa','daw'];
   fameRating:number = 0;

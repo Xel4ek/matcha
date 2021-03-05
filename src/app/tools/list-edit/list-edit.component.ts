@@ -8,8 +8,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ListEditComponent implements OnInit {
 
   @Input() list!: string[];
-  @Output() remove = new EventEmitter();
-  @Output() add = new EventEmitter();
   @Output() editList = new EventEmitter();
   constructor() { }
 
@@ -21,5 +19,8 @@ export class ListEditComponent implements OnInit {
   addEntry(entry: HTMLInputElement) {
     this.editList.emit({action: 'add', data: entry.value});
     entry.value = '';
+  }
+  change(value: string) {
+    this.editList.emit({ action: 'change', data: value})
   }
 }
