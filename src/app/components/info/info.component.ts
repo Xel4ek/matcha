@@ -39,10 +39,10 @@ export class InfoComponent implements OnInit, OnDestroy {
 
   }
   addBlackList() {
-    this.ws.send('profile', {blackList: [this.login]})
+    this.ws.send('profile', {blackList: this.login})
   }
   addFavorite() {
-    this.ws.send('profile', {favorites: [this.login]})
+    this.ws.send('profile', {favorites: this.login})
   }
 
   ngOnInit() {
