@@ -36,6 +36,6 @@ export class WidgetListComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
   }
   remove(user: string) {
-    this.ws.send('profile', {['remove' + this.action]: [user]})
+    this.ws.send('profile', {['remove' + this.action]: user})
   }
 }

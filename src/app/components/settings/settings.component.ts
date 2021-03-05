@@ -83,7 +83,7 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       if (action === 'remove') {
         this.ws.send('profile', {
-          ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: [send]
+          ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: send
         })
       }
     }
