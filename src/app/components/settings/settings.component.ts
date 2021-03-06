@@ -37,22 +37,11 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
     this.subscription = null;
-  }
-  onSubmit(event:Event) {
-    console.log('settings', event, typeof event);
-    if(this.profile) {
-      this.profileService.update({...this.profile, ...event});
-    }
-  }
-  validateTest(data: any){
-    console.log('from setting', data);
-    return 567;
   }
   updateGender(gender: string) {
     this.ws.send('profile', {gender});

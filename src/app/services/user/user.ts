@@ -6,6 +6,7 @@ export class User extends UserInfo{
   favoriteList: string[] =  [];
   blackList: string[] =  [];
   activeChats: string[] = [];
+  mail: string = '';
   constructor() {
     super();
   }

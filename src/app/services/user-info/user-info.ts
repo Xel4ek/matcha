@@ -25,6 +25,8 @@ export class UserInfo {
   isOnline: boolean = false;
   lastLoginTime: Date = new Date();
   gender: string | null = null;
+  isFavourite: boolean = false;
+  canActiveChat: boolean = false;
   constructor(user?:object) {
     this.value = user;
   }

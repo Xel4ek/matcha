@@ -26,23 +26,31 @@ export class InfoComponent implements OnInit, OnDestroy {
     private activateRoute: ActivatedRoute,
     private router: Router,
     private userInfoService: UserInfoService,
-    private ws: WebsocketService
+    private ws: WebsocketService,
   ) {
     this.subscription = this.userInfoService.data$.subscribe( users => {
       this.user = users[this.login];
       this.prepareData();
     })
+
   }
   startChat() {
     this.ws.send('chat', {login: this.login});
     this.router.navigate(['./chat/' + this.login]);
 
   }
+  report() {
+    this.ws.send('fakeRating', {login: this.login});
+  }
   addBlackList() {
     this.ws.send('profile', {blackList: this.login})
   }
   addFavorite() {
-    this.ws.send('profile', {favorites: this.login})
+    if (this.user?.isFavourite) {
+      this.ws.send('profile', {removeFavoriteList: this.login})
+    } else {
+      this.ws.send('profile', {favorites: this.login})
+    }
   }
 
   ngOnInit() {
