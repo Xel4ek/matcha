@@ -4,6 +4,7 @@ import {UserInfoService} from "@services/user-info/user-info.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
+import { ProfileService } from "@services/profile/profile.service";
 
 @Component({
   selector: 'app-info',
@@ -11,7 +12,8 @@ import { WebsocketService } from "@services/websocket/websocket.service";
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit, OnDestroy {
-  private login!: string;
+  login!: string;
+  profile?: string | null;
   public carousel: { [index:string]:string }[] = []
   // public user: UserInfo | null = new UserInfo();
   public index: number = 0;
@@ -21,18 +23,19 @@ export class InfoComponent implements OnInit, OnDestroy {
   public panelOpenState = false;
   private routeSubscription?: Subscription;
   public notFound = false;
-  private subscription: Subscription | null = null;
+  private subscriptions: Subscription[] = [];
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
     private userInfoService: UserInfoService,
     private ws: WebsocketService,
+    private ps: ProfileService,
   ) {
-    this.subscription = this.userInfoService.data$.subscribe( users => {
+    this.subscriptions.push(this.userInfoService.data$.subscribe( users => {
       this.user = users[this.login];
       this.prepareData();
-    })
-
+    }))
+    this.subscriptions.push(this.ps.data$.subscribe(profile => this.profile = profile.login));
   }
   startChat() {
     this.ws.send('chat', {login: this.login});
@@ -56,7 +59,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeSubscription = this.activateRoute.params.subscribe(params=> {
       this.login = params['id'];
-      this.ws.send('userInfo', {login: this.login});
+      this.ws.send('userInfo', {login: this.login, visit: true});
     });
   }
   private prepareData() {
@@ -75,7 +78,6 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.routeSubscription?.unsubscribe();
-    this.subscription?.unsubscribe();
-    this.subscription = null;
+    this.subscriptions.map(subscription => subscription.unsubscribe());
   }
 }

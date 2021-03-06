@@ -6,8 +6,8 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-settings-input-field
-      [value]="profile.login"
-      name="login"
+      [value]="profile.name.nickName"
+      name="nickName"
       title="Login"
       validate="login"></app-settings-input-field>
 
@@ -110,7 +110,9 @@
         Location
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-map [markers]="[[profile.coordinates.latitude, profile.coordinates.longitude]]" (updateCoordinate)="changeLocation($event)"></app-map>
+    <app-map [markers]="[[profile.coordinates.latitude, profile.coordinates.longitude]]" (updateCoordinate)="changeLocation($event)">
+      <i class="fas fa-search-location fa-3x" (click)="locateMe()"></i>
+    </app-map>
   </mat-expansion-panel>
 </div>
 <ng-template #loading>

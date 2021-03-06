@@ -3,7 +3,8 @@ export class UserInfo {
   login: string| null = null;
   name: {[index: string]:string | null } = {
     firstName: 'Anonymous',
-    lastName: 'Anonymousov'
+    lastName: 'Anonymousov',
+    nickName: 'anon',
   };
   favoritesCount?: string;
   countFake?: string;

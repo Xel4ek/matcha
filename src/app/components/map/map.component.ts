@@ -20,8 +20,10 @@ import { LatLng, LatLngExpression } from "leaflet";
 export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
   private map?: L.Map;
   private mapMarkers: L.Marker[] = [];
+  updateBoundsAfterGetData = false;
   @Input() markers!: LatLngExpression[];
   @ViewChild('map') private mapElement!: ElementRef<HTMLElement>;
+  // @ViewChild('content') private content!: ElementRef<HTMLElement>
   @Output() updateCoordinate = new EventEmitter<any>();
   constructor( ) {
     L.Icon.Default.imagePath = './assets/img/leaflet/';
@@ -37,12 +39,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
     tiles.addTo(this.map);
-    const latLongs = this.addMarkers();
-    const bounds = L.latLngBounds(latLongs);
-    this.map.setView(bounds.getCenter(), 15)
-    if (this.markers.length > 1) {
-      this.map.fitBounds(bounds);
-    }
+    this.updateBounds();
   }
   getBounds() {
     return this.map?.getBounds();
@@ -50,6 +47,14 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
   ngOnDestroy(): void {
     this.map?.off();
     this.map?.remove();
+  }
+  private updateBounds() {
+    const latLongs = this.addMarkers();
+    const bounds = L.latLngBounds(latLongs);
+    this.map?.setView(bounds.getCenter(), 15)
+    if (this.markers.length > 1) {
+      this.map?.fitBounds(bounds);
+    }
   }
   addMarkers() {
     this.mapMarkers.map(marker => {
@@ -66,9 +71,12 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
     return latLongs;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes.markers, this.markers);
     if (this.map && changes.markers) {
         this.addMarkers();
+    }
+    if (this.updateBoundsAfterGetData) {
+      this.updateBoundsAfterGetData = false;
+      this.updateBounds();
     }
   }
 }

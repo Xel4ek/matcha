@@ -7,12 +7,12 @@
           'Online' :
           'Was: ' + (user?.lastLoginTime ? (user?.lastLoginTime | date:'medium') : 'false')}}</span>
       </div>
-      <div class="btn__block">
+      <div class="btn__block" *ngIf="profile !== login">
         <div class="btn" (click)="report()" title="Report"><i class="far fa-thumbs-down"></i></div>
         <div class="btn" (click)="addBlackList()" title="Block"><i class="fas fa-user-alt-slash"></i></div>
         <div class="btn" (click)="addFavorite()" title="Favorite">
-          <i [class]="user.isFavourite ? 'fas' : 'far'" class="fa-star"></i></div>
-        <div class="btn" (click)="startChat()" title="Chat" *ngIf="user.canActiveChat"><i class="far fa-comments"></i></div>
+          <i [class]="user?.isFavourite ? 'fas' : 'far'" class="fa-star"></i></div>
+        <div class="btn" (click)="startChat()" title="Chat" *ngIf="user?.canActiveChat"><i class="far fa-comments"></i></div>
       </div>
       <swiper [index] ="index">
         <div *ngFor="let path of user?.photo?.paths">
@@ -22,27 +22,30 @@
     </div>
     <mat-list role="list">
       <mat-list-item role="listitem">
-        Name: {{user?.name?.firstName}} {{user?.name?.lastName}}
+        Name: {{user?.name?.firstName}} {{user?.name?.lastName}} ({{user?.name?.nickName}})
       </mat-list-item>
       <mat-chip-list>
         <mat-chip *ngFor="let tag of user?.tag">
           {{tag}}
         </mat-chip>
       </mat-chip-list>
-      <mat-list-item role="listitem">
-        Rating: {{user?.fameRating | json}}
-      </mat-list-item>
       <mat-list-item role="listitem" [title]="'Birth day: ' + (age | date:'longDate')" *ngIf="age">
-        Age: {{age}}
+        Age: {{age}} years
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        Rating: {{user?.fameRating | json}}<i class="fas fa-medal"></i>
       </mat-list-item>
       <mat-list-item role="listitem" [title]="'Followers ' + user?.favoritesCount" *ngIf="user?.favoritesCount">
-        Followers: {{user?.favoritesCount}}
+        Followers: {{user?.favoritesCount}}<i class="fas fa-star"></i>
       </mat-list-item>
       <mat-list-item role="listitem" [title]="'FakeStatus ' + user?.countFake" *ngIf="user?.countFake">
-        FakeStatus: {{user?.countFake}}
+        FakeStatus: {{user?.countFake}}<i class="far fa-thumbs-down"></i>
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Gender:'" *ngIf="user?.gender">
-        Gender: {{user?.gender}}
+      <mat-list-item role="listitem" [title]="'Gender:'" [ngSwitch]="user?.gender">
+        Gender:
+        <i *ngSwitchCase="'Male'" class="far fa-thumbs-down"></i>
+        <i *ngSwitchCase="'Female'" class="fas fa-venus-mars"></i>
+        <i *ngSwitchDefault class="fas fa-venus-mars"></i>
       </mat-list-item>
     </mat-list>
   </div>
@@ -64,7 +67,8 @@
           Location
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-map [markers]="[[user!.coordinates!.latitude, user!.coordinates!.longitude]]"> </app-map>
+      <app-map [markers]="[[user!.coordinates!.latitude, user!.coordinates!.longitude]]">
+      </app-map>
     </mat-expansion-panel>
   </mat-accordion>
   <pre> {{user | json }}</pre>

@@ -116,4 +116,18 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   reset(key: string): void {
     this.valid[key].error = '';
   }
+  locateMe() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
+        this.ws.send('profile', {
+          coordinates: {
+            latitude,
+            longitude,
+          }
+        })
+      });
+    } else {
+
+    }
+  }
 }

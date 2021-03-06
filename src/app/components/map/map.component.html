@@ -1,5 +1,8 @@
 <div class="map-container">
   <div class="map-frame">
     <div #map class="map"></div>
+    <div class="map-button" (click)="updateBoundsAfterGetData = true">
+      <ng-content></ng-content>
+    </div>
   </div>
 </div>
