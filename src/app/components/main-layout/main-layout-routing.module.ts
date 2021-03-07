@@ -16,7 +16,8 @@ const routes: Routes = [
   {path: 'chat/:id', component: ChatComponent, pathMatch: 'full'},
   {path: 'favorite', component: WidgetListComponent, data: {key: 'favoriteList'}},
   {path: 'blacklist', component: WidgetListComponent, data: {key: 'blackList'}},
-  {path: 'visitors', component: WidgetListComponent, data: {key: 'visits'}}
+  {path: 'visitors', component: WidgetListComponent, data: {key: 'visits'}},
+  {path: 'followers', component: WidgetListComponent, data: {key: 'followers'}}
 
 ]
 
