@@ -18,12 +18,11 @@ export class ProfileService implements OnDestroy{
     ws.on<User>('profile').subscribe({
       next:(profile) => {
         console.log('get profile', profile);
-        if (profile.login) {
+        if (profile?.login) {
           this.subject.next(profile);
-          // sessionStorage.setItem('auth', 'true');
         } else {
-          // sessionStorage.setItem('auth', 'false');
-          // this.subject.next(new User())
+          // @ts-ignore
+          this.subject.next({login: null});
           router.navigate(['/login']);
         }
       },

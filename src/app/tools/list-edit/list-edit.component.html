@@ -5,6 +5,7 @@
            class="list__input" size="10"
            (blur)="addEntry(input)"
            (keydown.enter)="input.blur()"
-           (keyup)="change(input.value)">
+           (keyup)="change(input.value)"
+           (keydown.space)="input.blur()">
   </label>
 </div>
