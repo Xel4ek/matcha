@@ -7,6 +7,7 @@ export class User extends UserInfo{
   blackList: string[] =  [];
   activeChats: string[] = [];
   email: string = '';
+  matches: string[] = [];
   constructor() {
     super();
   }
