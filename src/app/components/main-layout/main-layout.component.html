@@ -1,7 +1,7 @@
 <app-header (toggleEvent)="drawer.toggle()"></app-header>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav mode="side" #drawer role="navigation" class="sidenav">
-    <mat-nav-list>
+  <mat-sidenav [mode]="mode" #drawer role="navigation" class="sidenav">
+    <mat-nav-list (click)="hideSidenav()">
       <mat-list-item [routerLink]="['user','daw']"
        routerLinkActive="active">
           user
@@ -45,7 +45,6 @@
         routerLinkActive="active">
         Followers
       </mat-list-item>
-
       <mat-list-item
         routerLink="matches"
         routerLinkActive="active">

@@ -1,14 +1,16 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatSidenav } from "@angular/material/sidenav";
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDrawerMode, MatSidenav } from "@angular/material/sidenav";
+import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements AfterViewInit{
+export class MainLayoutComponent implements AfterViewInit, OnInit{
   @ViewChild(MatSidenav) sideNav? :MatSidenav;
-  constructor() { }
+  mode: MatDrawerMode = 'side';
+  constructor(public breakpointObserver: BreakpointObserver) {}
 
   ngAfterViewInit(): void {
     // setTimeout(() => this.sideNav?.toggle(),0);
@@ -23,6 +25,17 @@ export class MainLayoutComponent implements AfterViewInit{
     } else {
       console.log("No support for geolocation")
     }
-
+  }
+  ngOnInit() {
+    this.breakpointObserver
+      .observe(['(min-width: 599px)'])
+      .subscribe((state: BreakpointState) => {
+          this.mode = state.matches ? 'side' : 'over';
+      });
+  }
+  hideSidenav(){
+    if(this.mode === 'over') {
+      this.sideNav?.toggle();
+    }
   }
 }
