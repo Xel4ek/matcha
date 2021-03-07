@@ -17,7 +17,8 @@ const routes: Routes = [
   {path: 'favorite', component: WidgetListComponent, data: {key: 'favoriteList'}},
   {path: 'blacklist', component: WidgetListComponent, data: {key: 'blackList'}},
   {path: 'visitors', component: WidgetListComponent, data: {key: 'visits'}},
-  {path: 'followers', component: WidgetListComponent, data: {key: 'followers'}}
+  {path: 'followers', component: WidgetListComponent, data: {key: 'followers'}},
+  {path: 'matches', component: WidgetListComponent, data: {key: 'matches'}}
 
 ]
 

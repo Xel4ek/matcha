@@ -31,10 +31,6 @@
       name="email"
       title="Mail"
       validate="mail"></app-settings-input-field>
-    <app-settings-input-field
-      [value]="profile.matches"
-      name="matches"
-      title="Mail"></app-settings-input-field>
     <div>
       <mat-label>Gender</mat-label>
       <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender" placeholder="Gender"
