@@ -13,6 +13,7 @@ export class WidgetListComponent implements OnInit, OnDestroy {
   list: { user: string, time: number }[] = [];
   private action = '';
   private subscriptions: Subscription[] = [];
+  mode = '';
 
   constructor(private route: ActivatedRoute,
               private ps: ProfileService,
@@ -21,8 +22,9 @@ export class WidgetListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.route.data.subscribe(({key}: { [index: string]: string }) => {
+    this.subscriptions.push(this.route.data.subscribe(({key, mode}: { [index: string]: string }) => {
       this.action = key.replace(/^\w/, (c) => c.toUpperCase());
+      this.mode = mode;
       if (key) {
         this.subscriptions.push(this.ps.data$.subscribe((profile) => {
           this.list = profile[key];

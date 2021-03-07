@@ -1,7 +1,7 @@
 <mat-selection-list [multiple]="false">
   <mat-list-option *ngFor="let user of list" [routerLink]="['/user/' + user.user]">
     <app-user-widget [user]="user.user">
-      <mat-icon (click)="$event.stopPropagation();remove(user.user)"> clear </mat-icon>
+      <mat-icon *ngIf="mode !== 'freeze'" (click)="$event.stopPropagation();remove(user.user)"> clear </mat-icon>
     </app-user-widget>
   </mat-list-option>
 </mat-selection-list>

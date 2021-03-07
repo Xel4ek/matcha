@@ -27,25 +27,9 @@ export class UserInfo {
   lastLoginTime: Date = new Date();
   gender: string | null = null;
   isFavourite: boolean = false;
+  isBlocked: boolean = false;
   canActiveChat: boolean = false;
   constructor(user?:object) {
     this.value = user;
   }
-
-  // get value() {
-  //   return this;
-  // }
-  //
-  // set value(data:any) {
-  //   Object.keys(this).forEach(key =>
-  //     this[key] = data?.[key] ?? this[key]
-  //   );
-  // }
-  // get age() {
-  //   return ((new Date().getTime() - this.birthDay.getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
-  // }
-  // get index(): number {
-  //   console.log(this.photo);
-  //   return 1 + this.photo.paths.find((path:string) => path.indexOf(this.photo.profilePhoto))
-  // }
 }

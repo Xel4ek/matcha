@@ -6,6 +6,6 @@
            (blur)="addEntry(input)"
            (keydown.enter)="input.blur()"
            (keyup)="change(input.value)"
-           (keydown.space)="input.blur()">
+           (keydown.space)="$event.preventDefault();input.blur()">
   </label>
 </div>

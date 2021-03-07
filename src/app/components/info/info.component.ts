@@ -46,7 +46,11 @@ export class InfoComponent implements OnInit, OnDestroy {
     this.ws.send('fakeRating', {login: this.login});
   }
   addBlackList() {
-    this.ws.send('profile', {blackList: this.login})
+    if (this.user?.isBlocked) {
+      this.ws.send('profile', {removeBlackList: this.login})
+    } else {
+      this.ws.send('profile', {blackList: this.login})
+    }
   }
   addFavorite() {
     if (this.user?.isFavourite) {

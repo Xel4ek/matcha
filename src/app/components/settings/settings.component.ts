@@ -63,7 +63,7 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   }
-  editList(key:string, {action, data}: {action:string, data: string}) {
+  editList(key:string, {action, data }: {action:string, data: string}) {
     let send = data.trim();
     if (send) {
       if (action === 'add') {
