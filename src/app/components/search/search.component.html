@@ -13,8 +13,16 @@
 </div>
 <div class="btn__block">
   <div>
-    Sort: Distance
-   </div>
+    Sort:
+  </div>
+  <div>
+    <mat-select #sortSelect (selectionChange)="sortBy = sortSelect.value" [value]="sortBy"
+                      style="padding:.3rem">
+      <mat-option *ngFor="let sort of ['Rating', 'Distance', 'Tag', 'Age']" [value]="sort">
+        {{sort}}
+      </mat-option>
+    </mat-select>
+  </div>
   <div (click)="desk = !desk" style="cursor: pointer">
     Order:
     <i class="fas fa-angle-{{desk ? 'up' : 'down'}}" style="transform: scale(1.3)"></i></div>

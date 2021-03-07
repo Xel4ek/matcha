@@ -13,3 +13,6 @@
   padding: 3px 16px;
   box-shadow: 0 0 1px rgb(0 0 0 / 50%)
 }
+::ng-deep .mat-select-value{
+  max-width: none !important;
+}

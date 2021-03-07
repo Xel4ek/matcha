@@ -27,6 +27,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     ceil: 99
   }
   desk = false;
+  sortBy = 'Rating';
   searchResults: { profiles?: [string] } = {};
   markers: LatLngExpression[] = [];
   searchMarkers: LatLngExpression[] = [];
@@ -62,9 +63,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       fame: this.fame,
       age: this.age,
       map: this.map.getBounds(),
-      sortBy: 'someField',
-      orderBy: 'distance',
-      desk: this.desk,
+      sortBy: this.sortBy,
+      orderBy: this.desk,
       limits: {start: 0, end: 123}});
   }
 
