@@ -16,7 +16,9 @@ export class NotificationService implements OnDestroy {
   data$ = this.subject.asObservable().pipe(tap((data)=>{
     const counts:{[type: string]: number} = {};
     Object.values(data).map(notification => {
-      counts[notification.type] = counts[notification.type]++ ?? 0;
+      if(!notification.checked) {
+        counts[notification.type] = counts[notification.type]++ ?? 0;
+      }
     })
     this.subjectCounts.next(counts);
   }));
