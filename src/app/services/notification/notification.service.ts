@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { BehaviorSubject, Subscription } from "rxjs";
-import { NotificationMessage, NotificationType } from "@components/notificationsList/notification.interface";
+import { NotificationMessage } from "@components/notificationsList/notification.interface";
 import { tap } from "rxjs/operators";
 
 

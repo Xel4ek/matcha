@@ -1,0 +1,14 @@
+.notification__wrapper{
+  position: relative;
+  .label {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    background-color: #ff7c14;
+    border-radius: 1rem;
+    padding: 0.2rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+    box-shadow: 1px 1px 5px #727171;
+  }
+}
