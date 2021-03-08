@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AutocompleteService } from "@services/autocomlete/autocomplite.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-list-edit[list]',
@@ -6,10 +8,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./list-edit.component.scss']
 })
 export class ListEditComponent implements OnInit {
-
+  autoCompleteList: Observable<string[]>;
   @Input() list!: string[];
   @Output() editList = new EventEmitter();
-  constructor() { }
+  constructor(
+    private autoComplete: AutocompleteService
+  ) {
+    this.autoCompleteList = this.autoComplete.data$
+  }
 
   ngOnInit(): void {
   }
@@ -19,8 +25,10 @@ export class ListEditComponent implements OnInit {
   addEntry(entry: HTMLInputElement) {
     this.editList.emit({action: 'add', data: entry.value});
     entry.value = '';
+    this.autoComplete.query(entry.value);
   }
   change(value: string) {
+    this.autoComplete.query(value);
     this.editList.emit({ action: 'change', data: value})
   }
 }

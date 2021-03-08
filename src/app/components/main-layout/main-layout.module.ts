@@ -13,6 +13,9 @@ import { SearchModule } from "@components/search/search.module";
 import { HeaderComponent } from "@components/header/header.component";
 import { GlobalSharedModule } from "@tools/global-shared.module";
 import { WidgetListComponent } from "@components/widget-list/widget-list.component";
+import { AutocompleteService } from "@services/autocomlete/autocomplite.service";
+import { UserService } from "@services/user/user.service";
+import { UserInfoService } from "@services/user-info/user-info.service";
 
 @NgModule({
   declarations: [MainLayoutComponent, HeaderComponent, WidgetListComponent],
@@ -28,6 +31,7 @@ import { WidgetListComponent } from "@components/widget-list/widget-list.compone
     SettingsModule,
     SearchModule,
   ],
+  providers:[AutocompleteService, UserService, UserInfoService],
   exports: [InfoModule, MainLayoutRoutingModule]
 })
 export class MainLayoutModule {

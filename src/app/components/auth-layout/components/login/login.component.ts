@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {HttpService} from "@services/http.service";
+import {HttpService} from "@services/http/http.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {WebsocketService} from "@services/websocket/websocket.service";

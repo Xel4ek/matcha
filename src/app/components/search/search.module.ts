@@ -6,6 +6,8 @@ import { NgxSliderModule } from "@angular-slider/ngx-slider";
 import { MatListModule } from "@angular/material/list";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { ListEditModule } from "@tools/list-edit/list-edit.module";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 
 
@@ -18,6 +20,8 @@ import { MatSelectModule } from "@angular/material/select";
     MatListModule,
     MatInputModule,
     MatSelectModule,
+    ListEditModule,
+    MatExpansionModule,
   ]
 })
 export class SearchModule { }

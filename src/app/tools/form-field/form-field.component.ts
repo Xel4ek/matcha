@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { ValidatorService } from "@services/validator.service";
+import { ValidatorService } from "@services/validator/validator.service";
 
 @Component({
   selector: 'app-form-field[name]',

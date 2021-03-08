@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import {User} from "@services/user/user";
 import { ProfileService } from "@services/profile/profile.service";
-import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { FormControlComponent } from "@tools/form-control/form-control.component";
 import { WebsocketService } from "@services/websocket/websocket.service";
 
 interface FormControl {
@@ -21,7 +19,7 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   checked: boolean = true;
   profile?: User;
-  subscription: Subscription | null = null;
+  subscription: Subscription;
   strength = 0;
   pass = '';
   public test: any;
@@ -41,7 +39,6 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
-    this.subscription = null;
   }
   updateGender(gender: string) {
     this.ws.send('profile', {gender});
@@ -64,19 +61,15 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
   editList(key:string, {action, data }: {action:string, data: string}) {
-    let send = data.trim();
+    let send = data.replace(/[\W]/g, '');
     if (send) {
       if (action === 'add') {
-        send = '#' + data.replace(/^[#]*/i, '');
-        this.ws.send('profile', {[key]: send})
+        this.ws.send('profile', {[key]: '#' + send})
       }
       if (action === 'remove') {
         this.ws.send('profile', {
-          ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: send
+          ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: data
         })
-      }
-      if (action === 'change') {
-        this.ws.send('findTag', data)
       }
     }
   }

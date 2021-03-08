@@ -5,7 +5,7 @@ import { RegisterComponent } from "@components/auth-layout/components/register/r
 import { RestoreComponent } from "@components/auth-layout/components/restore/restore.component";
 import { LoginComponent } from "@components/auth-layout/components/login/login.component";
 import { MainLayoutComponent } from "@components/main-layout/main-layout.component";
-import { AuthGuard } from "@services/auth.guard";
+import { AuthGuard } from "@services/auth/auth.guard";
 
 const routes: Routes = [
   {path: '', redirectTo: 'settings', pathMatch: 'full'},

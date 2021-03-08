@@ -2,9 +2,8 @@
   <label>{{title}}
     <input #input class="form-field" autocomplete="off" [type]="type" [placeholder]="placeholder"
            [value]="value"
-           (blur)="check()"
            (focus)="reset()"
-           (change)="change = true"
+           (change)="apply()"
            [ngClass]="{'invalid':!!error,'valid':status}"
     >
   </label>

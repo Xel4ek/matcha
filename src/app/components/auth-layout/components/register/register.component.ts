@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {ValidatorService} from "@services/validator.service";
+import {ValidatorService} from "@services/validator/validator.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {WebsocketService} from "@services/websocket/websocket.service";

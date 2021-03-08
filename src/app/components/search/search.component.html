@@ -1,16 +1,26 @@
-<div class="search__wrapper">
-<div>
-  Age
-  <ngx-slider [(value)]="age.min" [(highValue)]="age.max" [options]="ageOptions"></ngx-slider>
-</div>
-<div>
-  Fame
-  <ngx-slider [(value)]="fame.min" [(highValue)]="fame.max" [options]="fameOptions"></ngx-slider>
-</div>
-<div>
-  Location
-  <app-map *ngIf="markers" [markers]="markers.concat(searchMarkers)" #map></app-map>
-</div>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filters
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+    <app-list-edit [list]="tagList" (editList)="editList('tag', $event)"></app-list-edit>
+    <div>
+      Age
+      <ngx-slider [(value)]="age.min" [(highValue)]="age.max" [options]="ageOptions"></ngx-slider>
+    </div>
+    <div>
+      Fame
+      <ngx-slider [(value)]="fame.min" [(highValue)]="fame.max" [options]="fameOptions"></ngx-slider>
+    </div>
+    <div>
+      Location
+      <app-map *ngIf="markers" [markers]="markers.concat(searchMarkers)" #map></app-map>
+    </div>
+
+</mat-expansion-panel>
+
+
 <div class="btn__block">
   <div>
     Sort:
@@ -39,4 +49,3 @@
   <pre>
   {{ searchMarkers | json }}
 </pre>
-</div>

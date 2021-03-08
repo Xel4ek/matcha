@@ -9,6 +9,7 @@ export class UserInfo {
   favoritesCount?: string;
   countFake?: string;
   sex?: string;
+  distance?: number;
   tag: string[] = ['dwa','daw'];
   fameRating:number = 0;
   photo: {[index:string]:any} = {

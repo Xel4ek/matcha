@@ -46,9 +46,19 @@
       </mat-list-item>
       <mat-list-item role="listitem" [title]="'Gender:'" [ngSwitch]="user?.gender">
         Gender:
-        <i *ngSwitchCase="'Male'" class="far fa-thumbs-down"></i>
-        <i *ngSwitchCase="'Female'" class="fas fa-venus-mars"></i>
+        <i *ngSwitchCase="'Male'" class="fas fa-mars"></i>
+        <i *ngSwitchCase="'Female'" class="fas fa-venus"></i>
         <i *ngSwitchDefault class="fas fa-venus-mars"></i>
+      </mat-list-item>
+      <mat-list-item role="listitem" [title]="'Looking for:'" [ngSwitch]="user?.sex">
+        Looking for:
+        <i *ngSwitchCase="'Male'" class="fas fa-mars"></i>
+        <i *ngSwitchCase="'Female'" class="fas fa-venus"></i>
+        <i *ngSwitchDefault class="fas fa-venus-mars"></i>
+      </mat-list-item>
+      <mat-list-item role="listitem" [title]="'Distance:'">
+        <i class="fas fa-map-marker-alt" style="margin-left: 0"></i>
+        {{user?.distance}} km from you
       </mat-list-item>
     </mat-list>
   </div>

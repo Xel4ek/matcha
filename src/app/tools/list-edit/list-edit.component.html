@@ -9,3 +9,4 @@
            (keydown.space)="$event.preventDefault();input.blur()">
   </label>
 </div>
+{{autoCompleteList | async | json}}

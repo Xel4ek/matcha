@@ -2,43 +2,10 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [mode]="mode" #drawer role="navigation" class="sidenav">
     <mat-nav-list (click)="hideSidenav()">
-      <mat-list-item [routerLink]="['user','daw']"
-       routerLinkActive="active">
-          user
-      </mat-list-item>
-      <mat-list-item [routerLink]="['user', 'xel']"
-       routerLinkActive="active">
-          user-test
-      </mat-list-item>
       <mat-list-item
-        routerLink="chats"
+        routerLink="matches"
         routerLinkActive="active">
-        Chats
-      </mat-list-item>
-      <mat-list-item
-        routerLink="settings"
-        routerLinkActive="active">
-        Settings
-      </mat-list-item>
-      <mat-list-item
-        routerLink="search"
-        routerLinkActive="active">
-        Search
-      </mat-list-item>
-      <mat-list-item
-        routerLink="favorite"
-        routerLinkActive="active">
-        Favorite
-      </mat-list-item>
-      <mat-list-item
-        routerLink="blacklist"
-        routerLinkActive="active">
-        Blacklist
-      </mat-list-item>
-      <mat-list-item
-        routerLink="visitors"
-        routerLinkActive="active">
-        Visitors
+        Matches
       </mat-list-item>
       <mat-list-item
         routerLink="followers"
@@ -46,9 +13,34 @@
         Followers
       </mat-list-item>
       <mat-list-item
-        routerLink="matches"
+        routerLink="search"
         routerLinkActive="active">
-        Matches
+        Search
+      </mat-list-item>
+      <mat-list-item
+        routerLink="chats"
+        routerLinkActive="active">
+        Chats
+      </mat-list-item>
+      <mat-list-item
+        routerLink="favorite"
+        routerLinkActive="active">
+        Favorite
+      </mat-list-item>
+      <mat-list-item
+        routerLink="visitors"
+        routerLinkActive="active">
+        Visitors
+      </mat-list-item>
+      <mat-list-item
+        routerLink="settings"
+        routerLinkActive="active">
+        Settings
+      </mat-list-item>
+      <mat-list-item
+        routerLink="blacklist"
+        routerLinkActive="active">
+        Blacklist
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>

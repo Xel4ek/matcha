@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { SearchService } from "@services/search.service";
+import { SearchService } from "@services/search/search.service";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
 import { MapComponent } from "@components/map/map.component";
@@ -8,6 +8,7 @@ import { Options } from "@angular-slider/ngx-slider";
 import { Router } from "@angular/router";
 import { UserInfoService } from "@services/user-info/user-info.service";
 import { Subscription } from "rxjs";
+import { AutocompleteService } from "@services/autocomlete/autocomplite.service";
 
 @Component({
   selector: 'app-search',
@@ -31,6 +32,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   searchResults: { profiles?: [string] } = {};
   markers: LatLngExpression[] = [];
   searchMarkers: LatLngExpression[] = [];
+  tagList: string[] = [];
   private userInfoSubscriber?: Subscription;
   private searchServiceSubscriber?: Subscription;
   constructor(
@@ -38,7 +40,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     private ws: WebsocketService,
     private ps: ProfileService,
     private router: Router,
-    private userInfo: UserInfoService
+    private userInfo: UserInfoService,
   ) {
     this.searchServiceSubscriber = this.searchService.data$.subscribe(data => {
       console.log('Search Service', data);
@@ -79,5 +81,17 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.userInfoSubscriber?.unsubscribe();
     this.searchServiceSubscriber?.unsubscribe();
+  }
+  editList(key:string, {action, data }: {action:string, data: string}) {
+    let send = data.trim().toLowerCase();
+    if (send) {
+      if (action === 'add') {
+        send = '#' + data.replace(/^[#]*/i, '');
+        this.tagList.push(send);
+      }
+      if (action === 'remove') {
+        this.tagList = this.tagList.filter(tag => tag !== data);
+      }
+    }
   }
 }
