@@ -16,9 +16,11 @@ import { WidgetListComponent } from "@components/widget-list/widget-list.compone
 import { AutocompleteService } from "@services/autocomlete/autocomplite.service";
 import { UserService } from "@services/user/user.service";
 import { UserInfoService } from "@services/user-info/user-info.service";
+import { NotificationsComponent } from "@components/notificationsList/notifications.component";
+import { NotificationService } from "@services/notification/notification.service";
 
 @NgModule({
-  declarations: [MainLayoutComponent, HeaderComponent, WidgetListComponent],
+  declarations: [MainLayoutComponent, HeaderComponent, WidgetListComponent, NotificationsComponent],
   imports: [
     GlobalSharedModule,
     CommonModule,
@@ -31,7 +33,7 @@ import { UserInfoService } from "@services/user-info/user-info.service";
     SettingsModule,
     SearchModule,
   ],
-  providers:[AutocompleteService, UserService, UserInfoService],
+  providers:[AutocompleteService, UserService, UserInfoService, NotificationService],
   exports: [InfoModule, MainLayoutRoutingModule]
 })
 export class MainLayoutModule {

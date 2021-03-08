@@ -7,6 +7,7 @@ import { SearchComponent } from "@components/search/search.component";
 import { ChatsComponent } from "@components/chats/chats.component";
 import { ChatComponent } from "@components/chat/chat.component";
 import { WidgetListComponent } from "@components/widget-list/widget-list.component";
+import { NotificationsComponent } from "@components/notificationsList/notifications.component";
 
 const routes: Routes = [
   {path: 'settings', component: SettingsComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'blacklist', component: WidgetListComponent, data: {key: 'blackList'}},
   {path: 'visitors', component: WidgetListComponent, data: {key: 'visits', mode: 'freeze'}},
   {path: 'followers', component: WidgetListComponent, data: {key: 'followers'}},
-  {path: 'matches', component: WidgetListComponent, data: {key: 'matches'}}
+  {path: 'matches', component: WidgetListComponent, data: {key: 'matches'}},
+  {path: 'notification', component: NotificationsComponent}
 
 ]
 
