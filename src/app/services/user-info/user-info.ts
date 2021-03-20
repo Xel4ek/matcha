@@ -30,6 +30,7 @@ export class UserInfo {
   isFavourite: boolean = false;
   isBlocked: boolean = false;
   canActiveChat: boolean = false;
+  age?: number;
   constructor(user?:object) {
     this.value = user;
   }

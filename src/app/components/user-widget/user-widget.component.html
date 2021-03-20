@@ -6,6 +6,22 @@
     <div>
       {{data.login}}
     </div>
+    <div [ngSwitch]="data?.gender">
+      Gender:
+      <i *ngSwitchCase="'Male'" class="fas fa-mars"></i>
+      <i *ngSwitchCase="'Female'" class="fas fa-venus"></i>
+      <i *ngSwitchDefault class="fas fa-venus-mars"></i>
+    </div>
+    <div>
+      <i class="fas fa-map-marker-alt" style="margin-left: 0"></i>
+      {{data?.distance | number: '1.0-1' }} km
+    </div>
+    <div>
+      {{data?.age}} years
+    </div>
+    <div>
+      <i class="fas fa-medal"></i>{{data?.fameRating }}
+    </div>
   </div>
   <div class="widget__content">
     <ng-content></ng-content>

@@ -33,7 +33,7 @@ import { GlobalSharedModule } from "@tools/global-shared.module";
     }),
     MainLayoutModule,
     MatIconModule,
-    GlobalSharedModule
+    GlobalSharedModule,
   ],
   providers: [HttpService, PluginsService],
   bootstrap: [AppComponent],

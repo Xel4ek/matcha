@@ -111,7 +111,7 @@ export class RegisterComponent implements OnInit {
           lastName,
         }
       });
-      this.router.navigate(['/settings']);
+      this.router.navigate(['/login']);
     } else {
       this.toastr.error('Не все поля заполнены!', 'Ошибка');
     }

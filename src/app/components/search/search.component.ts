@@ -8,7 +8,6 @@ import { Options } from "@angular-slider/ngx-slider";
 import { Router } from "@angular/router";
 import { UserInfoService } from "@services/user-info/user-info.service";
 import { Subscription } from "rxjs";
-import { AutocompleteService } from "@services/autocomlete/autocomplite.service";
 
 @Component({
   selector: 'app-search',
@@ -27,7 +26,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     floor: 0,
     ceil: 99
   }
-  desk = false;
+  desc = false;
   sortBy = 'Rating';
   searchResults: { profiles?: [string] } = {};
   markers: LatLngExpression[] = [];
@@ -66,7 +65,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       age: this.age,
       map: this.map.getBounds(),
       sortBy: this.sortBy,
-      orderBy: this.desk,
+      orderBy: this.desc,
       limits: {start: 0, end: 123}});
   }
 

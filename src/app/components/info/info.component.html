@@ -32,11 +32,11 @@
           {{tag}}
         </mat-chip>
       </mat-chip-list>
-      <mat-list-item role="listitem" [title]="'Birth day: ' + (age | date:'longDate')" *ngIf="age">
-        Age: {{age}} years
+      <mat-list-item role="listitem" [title]="'Birth day: ' + (age | date:'longDate')" *ngIf="user?.age">
+        Age: {{user?.age}} years
       </mat-list-item>
       <mat-list-item role="listitem">
-        Rating: {{user?.fameRating | json}}<i class="fas fa-medal"></i>
+        Rating: {{user?.fameRating }}<i class="fas fa-medal"></i>
       </mat-list-item>
       <mat-list-item role="listitem" [title]="'Followers ' + user?.favoritesCount" *ngIf="user?.favoritesCount">
         Followers: {{user?.favoritesCount}}<i class="fas fa-star"></i>
@@ -58,7 +58,7 @@
       </mat-list-item>
       <mat-list-item role="listitem" [title]="'Distance:'">
         <i class="fas fa-map-marker-alt" style="margin-left: 0"></i>
-        {{user?.distance}} km from you
+        {{user?.distance | number: '1.0-1' }} km from you
       </mat-list-item>
     </mat-list>
   </div>
