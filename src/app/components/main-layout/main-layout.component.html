@@ -2,13 +2,11 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [mode]="mode" #drawer role="navigation" class="sidenav">
     <mat-nav-list (click)="hideSidenav()">
-      <app-widget-notification key="123">
-        <mat-list-item
-          routerLink="matches"
-          routerLinkActive="active">
-          Matches
-        </mat-list-item>
-      </app-widget-notification>
+      <mat-list-item
+        routerLink="matches"
+        routerLinkActive="active">
+        Matches
+      </mat-list-item>
       <mat-list-item
         routerLink="followers"
         routerLinkActive="active">
@@ -34,11 +32,13 @@
         routerLinkActive="active">
         Visitors
       </mat-list-item>
-      <mat-list-item
-        routerLink="notification"
-        routerLinkActive="active">
-        Notification
-      </mat-list-item>
+      <app-widget-notification key="all">
+        <mat-list-item
+          routerLink="notification"
+          routerLinkActive="active">
+          Notification
+        </mat-list-item>
+      </app-widget-notification>
       <mat-list-item
         routerLink="settings"
         routerLinkActive="active">

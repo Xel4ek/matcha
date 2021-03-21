@@ -4,6 +4,6 @@ export interface NotificationMessage {
   time: number,
   text: string,
   checked: boolean,
-  id: string,
+  id: number,
   type: NotificationType;
 }

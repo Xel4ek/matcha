@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawerMode, MatSidenav } from "@angular/material/sidenav";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 
@@ -7,10 +7,13 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements AfterViewInit, OnInit{
+export class MainLayoutComponent implements AfterViewInit, OnInit, OnDestroy{
   @ViewChild(MatSidenav) sideNav? :MatSidenav;
   mode: MatDrawerMode = 'side';
-  constructor(public breakpointObserver: BreakpointObserver) {}
+  notificationCount: number = 0;
+  constructor(public breakpointObserver: BreakpointObserver) {
+
+  }
 
   ngAfterViewInit(): void {
     // setTimeout(() => this.sideNav?.toggle(),0);
@@ -37,5 +40,8 @@ export class MainLayoutComponent implements AfterViewInit, OnInit{
     if(this.mode === 'over') {
       this.sideNav?.toggle();
     }
+  }
+
+  ngOnDestroy(): void {
   }
 }

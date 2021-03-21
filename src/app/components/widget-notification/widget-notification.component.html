@@ -1,6 +1,6 @@
 <div class="notification__wrapper">
 <ng-content></ng-content>
-  <div class="label">
-    {{key}}
+  <div class="label" *ngIf="notificationCount">
+    {{notificationCount}}
   </div>
 </div>

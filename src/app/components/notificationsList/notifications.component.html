@@ -1,6 +1,1 @@
-<pre>
-  {{list | async | json}}
-</pre>
-<pre>
-  {{counts | async | json }}
-</pre>
+<app-notification *ngFor="let entry of list" [entry]="entry"></app-notification>

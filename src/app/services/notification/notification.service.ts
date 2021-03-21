@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { BehaviorSubject, Subscription } from "rxjs";
 import { NotificationMessage } from "@components/notificationsList/notification.interface";
-import { tap } from "rxjs/operators";
 
 
 @Injectable({
@@ -10,42 +9,49 @@ import { tap } from "rxjs/operators";
 })
 export class NotificationService implements OnDestroy {
   subscriptions: Subscription[] = [];
-  private subject = new BehaviorSubject<{[id: string]: NotificationMessage}>({});
-  private subjectCounts = new BehaviorSubject<{[type: string]: number}>({});
-  counts$ = this.subjectCounts.asObservable();
-  data$ = this.subject.asObservable().pipe(tap((data)=>{
-    const counts:{[type: string]: number} = {};
-    Object.values(data).map(notification => {
-      if(!notification.checked) {
-        counts[notification.type] = counts[notification.type]++ ?? 0;
-      }
-    })
-    this.subjectCounts.next(counts);
-  }));
+  private subject = new BehaviorSubject<{[id: string]: NotificationMessage}>({})
+  private countSubject = new BehaviorSubject<{[type: string]: number}>({});
+  data$ = this.subject.asObservable();
+  count$ = this.countSubject.asObservable();
   constructor(private ws: WebsocketService) {
     this.subscriptions.push(this.ws.on<{history: NotificationMessage[]}>('notification')
       .subscribe(list => {
-        const data = this.subject.value;
+        const data = this.subject.getValue();
         list.history.map(message => {
           data[message.id] = message;
         })
-        this.subject.next(data);
+        this.update(data);
       }))
+  }
+
+  update(data: {[id: string]: NotificationMessage}) {
+    const count: {[type:string]: number} = {all: 0};
+
+    Object.values(data).map(entry => {
+      if(!entry.checked) {
+        count[entry.type] = (count[entry.type] ?? 0) + 1;
+        count.all++;
+      }
+    })
+    this.subject.next(data);
+    this.countSubject.next(count);
   }
 
   fetch(id = 0) {
     this.ws.send('notification', {since: id})
   }
 
-  edit({action, id}: {action: 'remove' | 'edit', id: string}) {
-    const data = this.subject.value;
+  edit({action, id}: {action: 'remove' | 'edit', id: number}) {
+    const data = this.subject.getValue();
     if(action === 'remove') {
         delete data[id];
+        this.ws.send('notification', {id, removed: true});
       }
     if(action === 'edit') {
       data[id].checked = true;
+      this.ws.send('notification', {id, checked: true});
     }
-    this.subject.next(data);
+    this.update(data);
   }
 
   ngOnDestroy(): void {

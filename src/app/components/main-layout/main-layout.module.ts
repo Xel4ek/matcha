@@ -13,15 +13,18 @@ import { SearchModule } from "@components/search/search.module";
 import { HeaderComponent } from "@components/header/header.component";
 import { GlobalSharedModule } from "@tools/global-shared.module";
 import { WidgetListComponent } from "@components/widget-list/widget-list.component";
-import { AutocompleteService } from "@services/autocomlete/autocomplite.service";
-import { UserService } from "@services/user/user.service";
-import { UserInfoService } from "@services/user-info/user-info.service";
 import { NotificationsComponent } from "@components/notificationsList/notifications.component";
-import { NotificationService } from "@services/notification/notification.service";
+import { NotificationComponent } from "@components/notificationsList/notification/notification.component";
 import { WidgetNotificationComponent } from "@components/widget-notification/widget-notification.component";
 
 @NgModule({
-  declarations: [MainLayoutComponent, HeaderComponent, WidgetListComponent, NotificationsComponent, WidgetNotificationComponent],
+  declarations: [
+    MainLayoutComponent,
+    HeaderComponent,
+    WidgetListComponent,
+    WidgetNotificationComponent,
+    NotificationsComponent,
+    NotificationComponent],
   imports: [
     GlobalSharedModule,
     CommonModule,
@@ -34,7 +37,6 @@ import { WidgetNotificationComponent } from "@components/widget-notification/wid
     SettingsModule,
     SearchModule,
   ],
-  providers: [AutocompleteService, UserService, UserInfoService, NotificationService],
   exports: [InfoModule, MainLayoutRoutingModule]
 })
 export class MainLayoutModule {

@@ -6,7 +6,7 @@
              class="list__input"
              size="25"
              type="text">
-    <div *ngIf="input.value && (autoCompleteList | async).length && (autoCompleteList | async) as entries" class="autocomplete">
+    <div *ngIf="input.value && (autoCompleteList | async)?.length && (autoCompleteList | async) as entries" class="autocomplete">
       <ul>
         <li (click)="input.value = entry; addEntry(input)" *ngFor="let entry of entries">
           {{entry}}

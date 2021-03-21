@@ -12,7 +12,6 @@ export class HttpService {
 
   constructor(private http: HttpClient,
               private plugin: PluginsService) {
-
   }
 
   public getApi(command: string, message?: boolean) {

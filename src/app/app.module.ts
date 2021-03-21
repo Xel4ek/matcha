@@ -18,6 +18,7 @@ import { environment } from "../environments/environment";
 import { MainLayoutModule } from "@components/main-layout/main-layout.module";
 import { MatIconModule } from "@angular/material/icon";
 import { GlobalSharedModule } from "@tools/global-shared.module";
+import { WebsocketService } from "@services/websocket/websocket.service";
 
 @NgModule({
   declarations: [AppComponent, FooterComponent],
@@ -35,7 +36,6 @@ import { GlobalSharedModule } from "@tools/global-shared.module";
     MatIconModule,
     GlobalSharedModule,
   ],
-  providers: [HttpService, PluginsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
