@@ -2,21 +2,25 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [mode]="mode" #drawer role="navigation" class="sidenav">
     <mat-nav-list (click)="hideSidenav()">
-      <mat-list-item
-        routerLink="followers"
-        routerLinkActive="active">
-        Followers
-      </mat-list-item>
+      <app-widget-notification key="like">
+        <mat-list-item
+          routerLink="followers"
+          routerLinkActive="active">
+          Followers
+        </mat-list-item>
+      </app-widget-notification>
       <mat-list-item
         routerLink="search"
         routerLinkActive="active">
         Search
       </mat-list-item>
-      <mat-list-item
-        routerLink="chats"
-        routerLinkActive="active">
-        Chats
-      </mat-list-item>
+      <app-widget-notification key="chat">
+        <mat-list-item
+          routerLink="chats"
+          routerLinkActive="active">
+          Chats
+        </mat-list-item>
+      </app-widget-notification>
       <mat-list-item
         routerLink="favorite"
         routerLinkActive="active">

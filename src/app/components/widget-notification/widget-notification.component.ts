@@ -9,7 +9,7 @@ import { NotificationService } from "@services/notification/notification.service
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class WidgetNotificationComponent implements OnInit, OnDestroy  {
-  @Input() key!: 'all' | 'likes';
+  @Input() key!: 'all' | 'like' | 'chat';
   subscription?: Subscription;
   notificationCount: number = 0;
   constructor(private ns: NotificationService) {
