@@ -19,7 +19,6 @@ const routes: Routes = [
   {path: 'blacklist', component: WidgetListComponent, data: {key: 'blackList'}},
   {path: 'visitors', component: WidgetListComponent, data: {key: 'visits', mode: 'freeze'}},
   {path: 'followers', component: WidgetListComponent, data: {key: 'followers'}},
-  {path: 'matches', component: WidgetListComponent, data: {key: 'matches'}},
   {path: 'notification', component: NotificationsComponent}
 
 ]

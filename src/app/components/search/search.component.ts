@@ -27,7 +27,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     ceil: 99
   }
   desc = false;
-  sortBy = 'Rating';
+  sortBy = 'Match';
   searchResults: { profiles?: [string] } = {};
   markers: LatLngExpression[] = [];
   searchMarkers: LatLngExpression[] = [];

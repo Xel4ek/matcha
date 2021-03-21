@@ -28,7 +28,7 @@
   <div>
     <mat-select #sortSelect (selectionChange)="sortBy = sortSelect.value" [value]="sortBy"
                       style="padding:.3rem">
-      <mat-option *ngFor="let sort of ['Rating', 'Distance', 'Tag', 'Age']" [value]="sort">
+      <mat-option *ngFor="let sort of ['Match', 'Rating', 'Distance', 'Tag', 'Age']" [value]="sort">
         {{sort}}
       </mat-option>
     </mat-select>
