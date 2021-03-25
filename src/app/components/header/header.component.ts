@@ -4,6 +4,7 @@ import {Location} from "@angular/common";
 import { filter, map, tap } from "rxjs/operators";
 import { Observable, Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
+import { DeviceDetectorService } from "@services/device-detector/device-detector.service";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleEvent = new EventEmitter<void>()
   subscriber: Subscription;
   chatActive = false;
-  constructor(private router: Router, private ws: WebsocketService) {
+  mobile: any;
+  constructor(private router: Router, private ws: WebsocketService,
+              private dd: DeviceDetectorService) {
+    this.mobile = this.dd.isMobile$
     this.subscriber = this.router.events.subscribe((event => {
       if (event instanceof NavigationStart)
         this.chatActive = event.url.includes('chat/')

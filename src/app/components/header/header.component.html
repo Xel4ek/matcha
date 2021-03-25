@@ -5,6 +5,7 @@
   </a>
   <mat-icon (click)="backToChats()" *ngIf="chatActive" style="cursor: pointer">keyboard_arrow_left</mat-icon>
   <span class="title"> Matcha</span>
+  <span>{{mobile|async}}</span>
   <mat-icon style="cursor: pointer" (click)="logout()">logout</mat-icon>
 </mat-toolbar>
 

@@ -66,7 +66,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       map: this.map.getBounds(),
       sortBy: this.sortBy,
       orderBy: this.desc,
-      limits: {start: 0, end: 123}});
+      offset: 0});
   }
 
   ngAfterViewInit(): void {
