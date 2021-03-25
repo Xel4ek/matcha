@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SearchService } from "@services/search/search.service";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
@@ -14,7 +14,7 @@ import { Subscription } from "rxjs";
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements AfterViewInit, OnDestroy {
+export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('map') map!: MapComponent;
   age = {min: 18, max: 99};
   ageOptions: Options = {
@@ -34,6 +34,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   tagList: string[] = [];
   private userInfoSubscriber?: Subscription;
   private searchServiceSubscriber?: Subscription;
+
   constructor(
     private searchService: SearchService,
     private ws: WebsocketService,
@@ -45,7 +46,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       console.log('Search Service', data);
       this.searchResults = data;
       this.userInfoSubscriber?.unsubscribe();
-      this.userInfoSubscriber = this.userInfo.data$.subscribe((users)=> {
+      this.userInfoSubscriber = this.userInfo.data$.subscribe((users) => {
         this.searchMarkers = [];
         this.searchResults.profiles?.map(user => {
           if (users[user]) {
@@ -66,11 +67,12 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       map: this.map.getBounds(),
       sortBy: this.sortBy,
       orderBy: this.desc,
-      offset: 0});
+      offset: 0
+    });
   }
 
   ngAfterViewInit(): void {
-    console.log(this.map);
+    console.log(this.map.getBounds());
   }
 
   openInfo(user: string) {
@@ -81,7 +83,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     this.userInfoSubscriber?.unsubscribe();
     this.searchServiceSubscriber?.unsubscribe();
   }
-  editList(key:string, {action, data }: {action:string, data: string}) {
+
+  editList(key: string, {action, data}: { action: string, data: string }) {
     let send = data.trim().toLowerCase();
     if (send) {
       if (action === 'add') {
@@ -92,5 +95,19 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
         this.tagList = this.tagList.filter(tag => tag !== data);
       }
     }
+  }
+
+  ngOnInit(): void {
+    this.ws.send('search', {
+      fame: this.fame,
+      age: this.age,
+      map: {
+        _northEast: {lat: 90, lng: 180},
+        _southWest: {lat: -90, lng: -180}
+      },
+      sortBy: this.sortBy,
+      orderBy: this.desc,
+      offset: 0
+    });
   }
 }
