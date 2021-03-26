@@ -2,7 +2,7 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [mode]="mode" #drawer role="navigation" class="sidenav">
     <mat-nav-list (click)="hideSidenav()">
-      <app-widget-notification key="like">
+      <app-widget-notification [key]="notificationCount?.like">
         <mat-list-item
           routerLink="followers"
           routerLinkActive="active">
@@ -14,7 +14,7 @@
         routerLinkActive="active">
         Search
       </mat-list-item>
-      <app-widget-notification key="chat">
+      <app-widget-notification [key]="newMessagesCount">
         <mat-list-item
           routerLink="chats"
           routerLinkActive="active">
@@ -31,7 +31,7 @@
         routerLinkActive="active">
         Visitors
       </mat-list-item>
-      <app-widget-notification key="all">
+      <app-widget-notification [key]="notificationCount?.all">
         <mat-list-item
           routerLink="notification"
           routerLinkActive="active">

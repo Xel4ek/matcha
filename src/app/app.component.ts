@@ -35,10 +35,6 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
   }
 
-  test() {
-    this.wsService.send('userInfo', {id:12});
-  }
-
   ngOnDestroy(): void {
       this.subscription?.unsubscribe();
       this.subscription = null;

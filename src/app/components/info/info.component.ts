@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {UserInfo} from "@services/user-info/user-info";
-import {UserInfoService} from "@services/user-info/user-info.service";
+import { UserInfo } from "@services/user-info/user-info";
+import { UserInfoService } from "@services/user-info/user-info.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Observable, Subject, Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: 'app-info',
@@ -14,16 +15,16 @@ import { ProfileService } from "@services/profile/profile.service";
 export class InfoComponent implements OnInit, OnDestroy {
   login!: string;
   profile?: string | null;
-  public carousel: { [index:string]:string }[] = []
+  public carousel: { [index: string]: string }[] = []
   // public user: UserInfo | null = new UserInfo();
   public index: number = 0;
   public age?: number;
   public user: UserInfo | null = null;
-  public advance: {[index:string]:any } = {}
+  public advance: { [index: string]: any } = {}
   public panelOpenState = false;
-  private routeSubscription?: Subscription;
   public notFound = false;
-  private subscriptions: Subscription[] = [];
+  private destroy = new Subject<void>();
+  likeAvailable: boolean = false;
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
@@ -31,20 +32,27 @@ export class InfoComponent implements OnInit, OnDestroy {
     private ws: WebsocketService,
     private ps: ProfileService,
   ) {
-    this.subscriptions.push(this.userInfoService.data$.subscribe( users => {
+    this.userInfoService.data$.pipe(takeUntil(this.destroy)).subscribe(users => {
       this.user = users[this.login];
       this.notFound = !!this.user?.notFound;
-    }))
-    this.subscriptions.push(this.ps.data$.subscribe(profile => this.profile = profile.login));
+    })
+    this.ps.data$.pipe(takeUntil(this.destroy)).subscribe(profile =>
+    {
+      this.profile = profile.login;
+      this.likeAvailable = profile.photo.paths.length !== 0;
+    });
   }
+
   startChat() {
     this.ws.send('chat', {login: this.login});
     this.router.navigate(['./chat/' + this.login]);
 
   }
+
   report() {
     this.ws.send('fakeRating', {login: this.login});
   }
+
   addBlackList() {
     if (this.user?.isBlocked) {
       this.ws.send('profile', {removeBlackList: this.login})
@@ -52,6 +60,7 @@ export class InfoComponent implements OnInit, OnDestroy {
       this.ws.send('profile', {blackList: this.login})
     }
   }
+
   addFavorite() {
     if (this.user?.isFavourite) {
       this.ws.send('profile', {removeFavoriteList: this.login})
@@ -61,13 +70,14 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.routeSubscription = this.activateRoute.params.subscribe(params=> {
+    this.activateRoute.params.pipe(takeUntil(this.destroy)).subscribe(params => {
       this.login = params['id'];
       this.ws.send('userInfo', {login: this.login, visit: true});
     });
   }
+
   ngOnDestroy(): void {
-    this.routeSubscription?.unsubscribe();
-    this.subscriptions.map(subscription => subscription.unsubscribe());
+    this.destroy.next();
+    this.destroy.complete();
   }
 }

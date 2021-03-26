@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subject, Subscription } from "rxjs";
 import { ChatService } from "@services/chat/chat.service";
 import { ChatMessage } from "@services/chat/chat-message";
+import { map, switchMap, takeUntil } from "rxjs/operators";
+import { WebsocketService } from "@services/websocket/websocket.service";
 
 @Component({
   selector: 'app-chat',
@@ -10,36 +12,44 @@ import { ChatMessage } from "@services/chat/chat-message";
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  public token!: string;
+  private id!: string;
   public key!: string;
   public chat: ChatMessage[] = [];
-  private subscriber: Subscription;
+  private destroy = new Subject<void>();
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
+    private ws: WebsocketService
   ) {
-    this.subscriber = activatedRoute.params.subscribe(params=> {
-      this.token = params['id'];
-      chatService.getHistory(this.token);
-      chatService.data$.subscribe( (chat) => {
-        if (chat[this.token]) {
-          this.chat = Object.values(chat[this.token])
+    activatedRoute.params.pipe(takeUntil(this.destroy))
+      .pipe(switchMap( ({id}) => {
+        this.id = id;
+        return chatService.data$;
+      }),map(chats => chats[this.id]))
+      .subscribe( chat => {
+        if (chat) {
+          Object.values(chat).map(message => {
+            const {from, to, timestamp } = message;
+            this.ws.send('chat', { from, to, timestamp, isRead :true});
+          });
+          this.chat = Object.values(chat).sort((a, b) => a.timestamp - b.timestamp);
         } else {
           this.chat = [];
         }
-      });
     });
 
   }
 
   ngOnInit(): void {
+
   }
   send(text: HTMLInputElement) {
     console.log(text.value);
-    this.chatService.send(this.token, text.value);
+    this.chatService.send(this.id, text.value);
     text.value = '';
   }
   ngOnDestroy(): void {
-    this.subscriber?.unsubscribe();
+    this.destroy.next();
+    this.destroy.complete();
   }
 }

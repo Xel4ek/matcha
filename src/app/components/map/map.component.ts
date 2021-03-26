@@ -23,7 +23,6 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
   updateBoundsAfterGetData = false;
   @Input() markers!: LatLngExpression[];
   @ViewChild('map') private mapElement!: ElementRef<HTMLElement>;
-  // @ViewChild('content') private content!: ElementRef<HTMLElement>
   @Output() updateCoordinate = new EventEmitter<any>();
   constructor( ) {
     L.Icon.Default.imagePath = './assets/img/leaflet/';

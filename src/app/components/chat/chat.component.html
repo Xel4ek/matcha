@@ -1,9 +1,10 @@
 <div class="wrapper" *ngIf="chat">
   <div class="chat__window">
     <div class="chat__window-helper">
-      <div class="chat__message" *ngFor="let item of chat"
-      [ngClass]="item.alignment ? 'left' : 'right'">
-        {{ item.text }}
+      <div class="chat__message" *ngFor="let item of chat">
+        <div class="img__wrapper" [routerLink]="['/user/' + item.from]">
+          <img alt="" [src]="item.img | async" class="chat__img" >
+        </div><div class="chat__text" [ngClass]="{'unread': !item.isRead}">{{ item.text }}</div>
       </div>
     </div>
   </div>

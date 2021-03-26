@@ -4,6 +4,7 @@ import { User } from "@services/user/user";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { first, map, tap } from "rxjs/operators";
 import { Route, Router } from "@angular/router";
+import { ChatService } from "@services/chat/chat.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ProfileService implements OnDestroy{
   data$: Observable<User> = this.subject.asObservable();
   constructor(
     private ws: WebsocketService,
-    private router: Router
+    private router: Router,
   ) {
     ws.on<User>('profile').subscribe({
       next:(profile) => {

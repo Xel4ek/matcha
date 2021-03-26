@@ -13,7 +13,7 @@
           <i *ngIf="!user?.isBlocked" class="fas fa-user-alt-slash"></i>
           <i *ngIf="user?.isBlocked" class="fas fa-user-check"></i>
         </div>
-        <div class="btn" (click)="addFavorite()" title="Favorite">
+        <div class="btn" (click)="addFavorite()" title="Favorite" *ngIf="likeAvailable">
           <i [class]="user?.isFavourite ? 'fas' : 'far'" class="fa-star"></i></div>
         <div class="btn" (click)="startChat()" title="Chat" *ngIf="user?.canActiveChat"><i class="far fa-comments"></i></div>
       </div>

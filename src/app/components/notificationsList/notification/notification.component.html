@@ -1,8 +1,9 @@
 <div [routerLink]="['/user/' + entry.user]" (mouseover)="checked()"
   [ngClass]="{'unchecked': !entry.checked}"
   class="notification">
-  <div class="text" [title]="entry.time*1000 | date:'medium'">
-    <span class="date">{{entry.time*1000 | date:'H:mm:ss'}}</span>: {{entry.text}}
+  <div class="text" [title]="entry.time * 1000 | date:'medium'">
+<!--    <span class="date">{{entry.time*1000 | date:'H:mm:ss'}}</span>: {{entry.text}}-->
+    <span class="date">{{ entry.time * 1000 | timeAgo }}:</span> {{entry.text}}
   </div>
   <mat-icon (click)="$event.stopPropagation();remove()"> clear </mat-icon>
 </div>

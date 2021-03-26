@@ -7,7 +7,8 @@ import { LatLngExpression } from "leaflet";
 import { Options } from "@angular-slider/ngx-slider";
 import { Router } from "@angular/router";
 import { UserInfoService } from "@services/user-info/user-info.service";
-import { Subscription } from "rxjs";
+import { Subject, Subscription } from "rxjs";
+import { switchMap, takeUntil } from "rxjs/operators";
 
 @Component({
   selector: 'app-search',
@@ -32,9 +33,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   markers: LatLngExpression[] = [];
   searchMarkers: LatLngExpression[] = [];
   tagList: string[] = [];
+  private destroy = new Subject<void>();
   private userInfoSubscriber?: Subscription;
-  private searchServiceSubscriber?: Subscription;
-
   constructor(
     private searchService: SearchService,
     private ws: WebsocketService,
@@ -42,11 +42,12 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     private router: Router,
     private userInfo: UserInfoService,
   ) {
-    this.searchServiceSubscriber = this.searchService.data$.subscribe(data => {
+    this.searchService.data$.pipe(takeUntil(this.destroy)).subscribe(data => {
       console.log('Search Service', data);
       this.searchResults = data;
       this.userInfoSubscriber?.unsubscribe();
-      this.userInfoSubscriber = this.userInfo.data$.subscribe((users) => {
+      this.userInfoSubscriber = this.userInfo.data$.pipe(takeUntil(this.destroy))
+        .subscribe((users) => {
         this.searchMarkers = [];
         this.searchResults.profiles?.map(user => {
           if (users[user]) {
@@ -56,8 +57,10 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
         })
       })
     })
-    this.ps.data$.subscribe(profile => this.markers.push([profile.coordinates.latitude,
-      profile.coordinates.longitude]))
+
+    this.ps.data$.pipe(takeUntil(this.destroy))
+      .subscribe(profile => this.markers.push([profile.coordinates?.latitude,
+      profile.coordinates?.longitude]))
   }
 
   search(): void {
@@ -80,8 +83,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.userInfoSubscriber?.unsubscribe();
-    this.searchServiceSubscriber?.unsubscribe();
+    this.destroy.next();
+    this.destroy.complete();
   }
 
   editList(key: string, {action, data}: { action: string, data: string }) {

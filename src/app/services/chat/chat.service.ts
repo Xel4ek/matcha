@@ -1,35 +1,65 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ChatMessage } from "@services/chat/chat-message";
 import { ProfileService } from "@services/profile/profile.service";
-import { User } from "@services/user/user";
+import { UserInfoService } from "@services/user-info/user-info.service";
+import { map, takeUntil } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class ChatService implements OnDestroy{
   private login: string | null = null;
-  private subject = new BehaviorSubject<{[index:string]: { [index:string]: ChatMessage }}>({});
-  // private subject = new BehaviorSubject<{[index:string]: { [index:string]: ChatMessage }}>(new User().chats);
+  private subject = new BehaviorSubject<{[index:string]: { [index:number]: ChatMessage }}>({});
   public data$ = this.subject.asObservable();
-  constructor(private ws: WebsocketService, private profileService: ProfileService) {
-    this.profileService.data$.subscribe(({login}) => this.login = login);
-    ws.on<{ messages: ChatMessage[] }>('chat').subscribe(({messages}) => {
-      const chats = this.subject.value;
-      console.log(messages, chats);
+  private countSubject = new BehaviorSubject<{ [key: string]: number }>({_all: 0});
+  messageCount$ = this.countSubject.asObservable();
+  private destroy = new Subject<void>();
+  constructor(private ws: WebsocketService, private profileService: ProfileService, private userInfo: UserInfoService) {
+    this.profileService.data$.pipe(takeUntil(this.destroy)).subscribe(({login}) => this.login = login);
+    ws.on<{ messages: ChatMessage[] }>('chat').pipe(takeUntil(this.destroy),
+      map(({messages}) => {
+      const chats = this.subject.getValue();
       messages.map((message) => {
         const {from, to, timestamp} = message;
         if (this.login === from) {
-          chats[to] = {...chats[to], ...{ [timestamp]: { ...message, alignment: this.login === to}}}
+          chats[to] = {...chats[to], ...{ [timestamp]: { ...message, img: this.getImg(from)}}}
           }
         if (this.login === to) {
-          chats[from] = {...chats[from], ...{ [timestamp]: { ...message, alignment: this.login === to}}}
+          chats[from] = {...chats[from], ...{ [timestamp]: { ...message, img: this.getImg(from)}}}
         }
       })
       this.subject.next(chats);
-    })
+      return chats;
+    }), map(chats => {
+      let count = { _all: 0};
+      Object.entries(chats).map(([key,  value]) => {
+        console.log(key, value);
+        const unReads = Object.values(value).reduce((acc, cur) => {
+          if(!cur.isRead) {
+            return acc + 1;
+          }
+          return acc;
+        }, 0);
+        count = {...count, _all: count._all + unReads, [key]: unReads};
+      })
+        console.log(count);
+        this.countSubject.next(count);
+      })).subscribe();
   }
+  private getImg(login: string): Observable<string> {
+    return this.userInfo.data$.pipe(map(userData => {
+      const  data = userData[login];
+      if (!data) this.ws.send('userInfo', {login});
+      return data?.photo.paths.find( (src:string) => src.includes(data?.photo.profilePhoto));
+    }))
+  }
+
+  ngOnDestroy(): void {
+        this.destroy.next();
+        this.destroy.complete();
+    }
   send(to: string, message: string):void {
     if (to && message) {
       const data = {

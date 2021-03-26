@@ -6,8 +6,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { WebsocketModule } from '@services/websocket/websocket.module';
-import { HttpService } from '@services/http/http.service';
-import { PluginsService } from '@services/plugins/plugins.service';
 import { AppComponent } from './app.component';
 
 import { FooterComponent } from "@components/footer/footer.component";
@@ -18,25 +16,25 @@ import { environment } from "../environments/environment";
 import { MainLayoutModule } from "@components/main-layout/main-layout.module";
 import { MatIconModule } from "@angular/material/icon";
 import { GlobalSharedModule } from "@tools/global-shared.module";
-import { WebsocketService } from "@services/websocket/websocket.service";
+
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AuthLayoutModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    WebsocketModule.config({
-      url: environment.ws
-    }),
-    MainLayoutModule,
-    MatIconModule,
-    GlobalSharedModule,
-  ],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, FooterComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AuthLayoutModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        WebsocketModule.config({
+            url: environment.ws
+        }),
+        MainLayoutModule,
+        MatIconModule,
+        GlobalSharedModule,
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }

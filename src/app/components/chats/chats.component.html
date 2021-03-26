@@ -1,5 +1,10 @@
 <mat-selection-list [multiple]="false">
   <mat-list-option *ngFor="let user of activeChatsUsers" (click)="openChat(user)">
-    <app-user-widget [user]="user"></app-user-widget>
+    <app-widget-notification [key]="newMessageCount ? newMessageCount[user] : 0">
+    <app-user-widget [user]="user">
+<!--        <mat-icon (click)="$event.stopPropagation();removeActive(user)" style="cursor: pointer"> clear </mat-icon>-->
+    </app-user-widget>
+    </app-widget-notification>
+
   </mat-list-option>
 </mat-selection-list>

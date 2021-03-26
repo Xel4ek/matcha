@@ -14,7 +14,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.subscription = ns.data$.subscribe(list => {
       this.list = Object.values(list).sort((a, b) => (b.id - a.id));
     });
-    ns.fetch();
   }
   ngOnInit(): void {
   }

@@ -16,28 +16,30 @@ import { WidgetListComponent } from "@components/widget-list/widget-list.compone
 import { NotificationsComponent } from "@components/notificationsList/notifications.component";
 import { NotificationComponent } from "@components/notificationsList/notification/notification.component";
 import { WidgetNotificationComponent } from "@components/widget-notification/widget-notification.component";
+import { TimeAgoPipe } from "../../pipes/time-ago/time-ago.pipe";
+
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     WidgetListComponent,
-    WidgetNotificationComponent,
     NotificationsComponent,
-    NotificationComponent],
-  imports: [
-    GlobalSharedModule,
-    CommonModule,
-    MainLayoutRoutingModule,
-    MatSidenavModule,
-    MatListModule,
-    ScrollingModule,
-    FormsModule,
-    ChatsModule,
-    SettingsModule,
-    SearchModule,
-  ],
-  exports: [InfoModule, MainLayoutRoutingModule]
+    NotificationComponent,
+    TimeAgoPipe],
+    imports: [
+        GlobalSharedModule,
+        CommonModule,
+        MainLayoutRoutingModule,
+        MatSidenavModule,
+        MatListModule,
+        ScrollingModule,
+        FormsModule,
+        ChatsModule,
+        SettingsModule,
+        SearchModule,
+    ],
+  exports: [InfoModule, MainLayoutRoutingModule, WidgetNotificationComponent]
 })
 export class MainLayoutModule {
 }

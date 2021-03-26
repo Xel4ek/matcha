@@ -3,9 +3,10 @@
     display: flex;
     .img__wrapper {
       width: 64px;
+      min-width: 64px;
       height: 64px;
       overflow: hidden;
-      margin-right: 16px;
+      margin-right: 6px;
       img {
         transform: scale(1.08);
         display: block;
@@ -19,8 +20,12 @@
     align-items: center;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
   }
   &__content{
     align-self: center;
   }
+}
+::ng-deep :host .mat-list-option {
+  height: auto;
 }

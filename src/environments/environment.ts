@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  ws: 'ws://3.139.109.247:8080/api'
-  // ws: 'wss://echo.websocket.org'
+  ws: 'ws://3.139.109.247:8080/api',
+  // ws: 'ws://localhost:5000/api',
 };
 
 /*

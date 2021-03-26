@@ -2,15 +2,12 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { UserInfo } from "@services/user-info/user-info";
 import { BehaviorSubject, Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { User } from "@services/user/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserInfoService implements OnDestroy {
-  private _users: { [index: string]: UserInfo } = {};
-  private subject: BehaviorSubject<{ [index: string]: UserInfo }> = new BehaviorSubject(this._users);
+  private subject: BehaviorSubject<{ [index: string]: UserInfo }> = new BehaviorSubject({});
   data$: Observable<{[index:string]: UserInfo}> = this.subject.asObservable();
 
   constructor(
@@ -19,8 +16,9 @@ export class UserInfoService implements OnDestroy {
     ws.on<UserInfo>('userInfo').subscribe({
       next: (user) => {
         if (user.login) {
-          this._users[user.login] = this.prepareData(user)
-          this.subject.next(this._users);
+          const data = this.subject.getValue();
+          data[user.login] = this.prepareData(user)
+          this.subject.next(data);
         }
       },
       error: error => console.log(error),

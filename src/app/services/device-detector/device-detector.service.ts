@@ -12,10 +12,9 @@ export class DeviceDetectorService implements OnDestroy{
   isMobile$ = this.isMobileSubject.asObservable();
   constructor(breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe([
-      Breakpoints.XSmall
+      '(max-width: 480px)'
     ]).pipe(takeUntil(this.destroy))
       .subscribe(result => {
-        console.log(Breakpoints);
         this.isMobileSubject.next(result.matches);
     });
   }

@@ -1,7 +1,11 @@
+import { Observable } from "rxjs";
+
 export interface ChatMessage {
   from: string,
   to: string,
-  timestamp: string,
+  timestamp: number,
   text: string,
-  alignment?: boolean;
+  alignment?: boolean,
+  img: Observable<string>,
+  isRead: boolean;
 }
