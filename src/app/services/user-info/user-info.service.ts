@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export class UserInfoService implements OnDestroy {
   private subject: BehaviorSubject<{ [index: string]: UserInfo }> = new BehaviorSubject({});
-  data$: Observable<{[index:string]: UserInfo}> = this.subject.asObservable();
+  data$: Observable<{ [index: string]: UserInfo }> = this.subject.asObservable();
 
   constructor(
     private ws: WebsocketService,
@@ -24,11 +24,15 @@ export class UserInfoService implements OnDestroy {
     })
 
   }
+
+  ngOnDestroy(): void {
+    this.subject.unsubscribe();
+  }
+
   private prepareData(user: UserInfo): UserInfo {
-    if(!user?.photo.paths.length) {
+    if (!user?.photo.paths.length) {
       user?.photo.paths.push('assets/img/4e73208be9f326816a787de2e04db80a.jpg');
-    }
-    else {
+    } else {
       const paths = user.photo.paths;
       const profilePhoto = user.photo.profilePhoto;
       user.index = +paths.findIndex((path: string) => path.indexOf(profilePhoto) !== -1)
@@ -37,8 +41,5 @@ export class UserInfoService implements OnDestroy {
       user.age = ((new Date().getTime() - new Date(user.birthDay).getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
     }
     return user;
-  }
-  ngOnDestroy(): void {
-    this.subject.unsubscribe();
   }
 }

@@ -2,11 +2,12 @@
   <span (click)="removeEntry(entry)" *ngFor="let entry of list" class="entry" style="cursor: pointer"> {{entry}} </span>
   <div class="autocomplete__wrapper">
     <input #input (keydown.enter)="addEntry(input)"
-             (keydown.space)="$event.preventDefault();addEntry(input)" (keyup)="change(input.value)"
-             class="list__input"
-             size="25"
-             type="text">
-    <div *ngIf="input.value && (autoCompleteList | async)?.length && (autoCompleteList | async) as entries" class="autocomplete">
+           (keydown.space)="$event.preventDefault();addEntry(input)" (keyup)="change(input.value)"
+           class="list__input"
+           size="25"
+           type="text">
+    <div *ngIf="input.value && (autoCompleteList | async)?.length && (autoCompleteList | async) as entries"
+         class="autocomplete">
       <ul>
         <li (click)="input.value = entry; addEntry(input)" *ngFor="let entry of entries">
           {{entry}}

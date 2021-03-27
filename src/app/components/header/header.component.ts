@@ -1,8 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router, } from "@angular/router";
-import {Location} from "@angular/common";
-import { filter, map, tap } from "rxjs/operators";
-import { Observable, Subscription } from "rxjs";
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { NavigationStart, Router, } from "@angular/router";
+import { Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { DeviceDetectorService } from "@services/device-detector/device-detector.service";
 
@@ -16,6 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subscriber: Subscription;
   chatActive = false;
   mobile: any;
+
   constructor(private router: Router, private ws: WebsocketService,
               private dd: DeviceDetectorService) {
     this.mobile = this.dd.isMobile$
@@ -27,9 +26,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriber.unsubscribe();
-    }
+  }
+
   ngOnInit(): void {
   }
+
   toggleMenu() {
     this.toggleEvent.emit();
   }
@@ -37,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   backToChats() {
     this.router.navigate(['/chats']);
   }
+
   logout() {
     this.ws.send('logout');
   }

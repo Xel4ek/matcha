@@ -5,16 +5,16 @@ import { FormFieldComponent } from "../form-field/form-field.component";
 import { CommonModule } from "@angular/common";
 
 
-
 @NgModule({
   declarations: [FormControlComponent],
   imports: [
     CommonModule,
     FormFieldModule
   ],
-  exports:[
+  exports: [
     FormControlComponent,
     FormFieldComponent
   ]
 })
-export class FormControlModule { }
+export class FormControlModule {
+}

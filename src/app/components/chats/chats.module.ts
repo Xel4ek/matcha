@@ -10,13 +10,14 @@ import { WidgetNotificationComponent } from "@components/widget-notification/wid
 
 @NgModule({
   declarations: [ChatsComponent, ChatComponent, WidgetNotificationComponent],
-    imports: [
-        GlobalSharedModule,
-        CommonModule,
-        MatToolbarModule,
-        MatListModule,
-        RouterModule
-    ],
+  imports: [
+    GlobalSharedModule,
+    CommonModule,
+    MatToolbarModule,
+    MatListModule,
+    RouterModule
+  ],
   exports: [WidgetNotificationComponent]
 })
-export class ChatsModule { }
+export class ChatsModule {
+}

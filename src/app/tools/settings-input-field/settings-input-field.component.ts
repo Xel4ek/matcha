@@ -34,12 +34,12 @@ export class SettingsInputFieldComponent implements OnInit {
   }
 
   async apply() {
-      const value = this.inputValue.nativeElement.value;
-      const result = await this.vs.validate(this.validate, value);
-      this.error = result?.error ?? '';
-      this.status = result.valid;
-      if (result.valid && this.value !== value) {
-        this.ws.send('profile', {[this.name]: value});
-      }
+    const value = this.inputValue.nativeElement.value;
+    const result = await this.vs.validate(this.validate, value);
+    this.error = result?.error ?? '';
+    this.status = result.valid;
+    if (result.valid && this.value !== value) {
+      this.ws.send('profile', {[this.name]: value});
+    }
   }
 }

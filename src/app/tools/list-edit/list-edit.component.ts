@@ -11,6 +11,7 @@ export class ListEditComponent implements OnInit {
   autoCompleteList: Observable<string[]>;
   @Input() list!: string[];
   @Output() editList = new EventEmitter();
+
   constructor(
     private autoComplete: AutocompleteService
   ) {
@@ -19,16 +20,19 @@ export class ListEditComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   removeEntry(entry: string) {
     this.editList.emit({action: 'remove', data: entry});
   }
+
   addEntry(entry: HTMLInputElement) {
     this.editList.emit({action: 'add', data: entry.value});
     entry.value = '';
     this.autoComplete.query(entry.value);
   }
+
   change(value: string) {
     this.autoComplete.query(value);
-    this.editList.emit({ action: 'change', data: value})
+    this.editList.emit({action: 'change', data: value})
   }
 }

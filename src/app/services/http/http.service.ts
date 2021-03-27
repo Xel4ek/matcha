@@ -1,8 +1,6 @@
-import {Injectable} from '@angular/core';
-import {catchError, map} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-import {Observable, throwError} from "rxjs";
-import {PluginsService} from "@services/plugins/plugins.service";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { PluginsService } from "@services/plugins/plugins.service";
 
 @Injectable({
   providedIn: 'root'

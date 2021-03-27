@@ -7,9 +7,7 @@ import { InfoComponent } from '@components/info/info.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from "@angular/material/icon";
 import { MatExpansionModule } from '@angular/material/expansion';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG, SwiperConfigInterface, SwiperModule } from 'ngx-swiper-wrapper';
 import { GlobalSharedModule } from "@tools/global-shared.module";
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -29,7 +27,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     SwiperModule,
     GlobalSharedModule
   ],
-  providers:[{
+  providers: [{
     provide: SWIPER_CONFIG,
     useValue: DEFAULT_SWIPER_CONFIG
   }]

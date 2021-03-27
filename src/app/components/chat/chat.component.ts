@@ -9,7 +9,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Observable, Observer, Subject, Subscription } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { ChatService } from "@services/chat/chat.service";
 import { ChatMessage } from "@services/chat/chat-message";
 import { map, switchMap, takeUntil } from "rxjs/operators";
@@ -25,12 +25,13 @@ import { ProfileService } from "@services/profile/profile.service";
 export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('chatWindow', {static: false}) chatWindow!: ElementRef;
   @ViewChildren('chatMessage') elements?: QueryList<any>;
-  private id!: string;
   key!: string;
   chat: ChatMessage[] = [];
-  private destroy = new Subject<void>();
   isMobile$: Observable<boolean>;
   login$: Observable<string | null>;
+  private id!: string;
+  private destroy = new Subject<void>();
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
@@ -39,15 +40,15 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     private ps: ProfileService
   ) {
     activatedRoute.params.pipe(takeUntil(this.destroy))
-      .pipe(switchMap( ({id}) => {
+      .pipe(switchMap(({id}) => {
         this.id = id;
         return chatService.data$;
-      }),map(chats => chats[this.id]))
-      .subscribe( chat => {
+      }), map(chats => chats[this.id]))
+      .subscribe(chat => {
         if (chat) {
           Object.values(chat).map(message => {
-            const {from, to, timestamp, isRead } = message;
-            if(!isRead) {
+            const {from, to, timestamp, isRead} = message;
+            if (!isRead) {
               this.ws.send('chat', {from, to, timestamp, isRead: true});
             }
           });
@@ -55,7 +56,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.chat = [];
         }
-    });
+      });
     this.isMobile$ = deviceDetector.isMobile$
     this.login$ = ps.data$.pipe(map(({login}) => login));
   }
@@ -63,10 +64,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
 
   }
+
   send(text: HTMLInputElement) {
     this.chatService.send(this.id, text.value);
     text.value = '';
   }
+
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
@@ -78,12 +81,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       this.scrollToBottom()
     )
   }
+
   private scrollToBottom() {
     console.warn('scrolling', this.chatWindow.nativeElement.scrollHeight);
-      this.chatWindow.nativeElement.scroll({
-        top: this.chatWindow.nativeElement.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
-      })
+    this.chatWindow.nativeElement.scroll({
+      top: this.chatWindow.nativeElement.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    })
   }
 }

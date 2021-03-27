@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserInfo } from "@services/user-info/user-info";
 import { UserInfoService } from "@services/user-info/user-info.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, Subject, Subscription } from "rxjs";
+import { Subject } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
 import { takeUntil } from "rxjs/operators";
@@ -18,15 +18,16 @@ export class InfoComponent implements OnInit, OnDestroy {
   profile?: string | null;
   public carousel: { [index: string]: string }[] = []
   // public user: UserInfo | null = new UserInfo();
-  marker: {[user:string]: CustomMarker} = {}
+  marker: { [user: string]: CustomMarker } = {}
   public index: number = 0;
   public age?: number;
   public user: UserInfo | null = null;
   public advance: { [index: string]: any } = {}
   public panelOpenState = false;
   public notFound = false;
-  private destroy = new Subject<void>();
   likeAvailable: boolean = false;
+  private destroy = new Subject<void>();
+
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
@@ -36,14 +37,18 @@ export class InfoComponent implements OnInit, OnDestroy {
   ) {
     this.userInfoService.data$.pipe(takeUntil(this.destroy)).subscribe(users => {
       this.user = users[this.login];
-      if(this.user) {
+      if (this.user) {
         const {latitude: lat, longitude: lng} = this.user.coordinates;
-        this.marker = {[this.login]:{latlng: [lat, lng], popup: this.user.name.firstName + ' ' + this.user.name.lastName}}
+        this.marker = {
+          [this.login]: {
+            latlng: [lat, lng],
+            popup: this.user.name.firstName + ' ' + this.user.name.lastName
+          }
+        }
       }
       this.notFound = !!this.user?.notFound;
     })
-    this.ps.data$.pipe(takeUntil(this.destroy)).subscribe(profile =>
-    {
+    this.ps.data$.pipe(takeUntil(this.destroy)).subscribe(profile => {
       this.profile = profile.login;
       this.likeAvailable = profile.photo.paths.length !== 0;
     });

@@ -1,17 +1,21 @@
 .toolbar {
   div {
     padding: .3rem;
+
     &:hover {
       background-color: darken(#673ab7, 20%);
     }
   }
 }
+
 :host {
   display: flex;
   flex-direction: column;
+
   &:last-child {
     flex: 1 1 auto;
   }
+
   .mat-list-base .mat-list-item,
   .mat-list-base .mat-list-option {
     height: 84px;

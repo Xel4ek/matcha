@@ -1,18 +1,19 @@
-<div class="wrapper" *ngIf="chat">
-  <div class="chat__window" #chatWindow>
+<div *ngIf="chat" class="wrapper">
+  <div #chatWindow class="chat__window">
     <div class="chat__window-helper">
-      <div class="chat__message" *ngFor="let item of chat" #chatMessage
-           [ngClass]="{'revers': (login$ | async) === item.from && (isMobile$ |async)}"
-           [ngStyle]="{'max-width: 80%' : (isMobile$ |async)}">
-        <div class="img__wrapper" [routerLink]="['/user/' + item.from]"
-        [title]="item.from">
-          <img alt="" [src]="item.img | async" class="chat__img" >
-        </div><div class="chat__text" [ngClass]="{'unread': !item.isRead}">{{ item.text }}</div>
+      <div #chatMessage *ngFor="let item of chat" [ngClass]="{'revers': (login$ | async) === item.from && (isMobile$ |async)}"
+           [ngStyle]="{'max-width: 80%' : (isMobile$ |async)}"
+           class="chat__message">
+        <div [routerLink]="['/user/' + item.from]" [title]="item.from"
+             class="img__wrapper">
+          <img [src]="item.img | async" alt="" class="chat__img">
+        </div>
+        <div [ngClass]="{'unread': !item.isRead}" class="chat__text">{{ item.text }}</div>
       </div>
     </div>
   </div>
   <label class="input__message">New message
-    <input type="text" #input (keydown.enter)="send(input)">
+    <input #input (keydown.enter)="send(input)" type="text">
   </label>
 </div>
 

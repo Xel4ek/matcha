@@ -7,17 +7,18 @@
           'Online' :
           'Was: ' + (user?.lastLoginTime ? (user?.lastLoginTime | date:'medium') : 'false')}}</span>
       </div>
-      <div class="btn__block" *ngIf="profile !== login">
-        <div class="btn" (click)="report()" title="Report"><i class="far fa-thumbs-down"></i></div>
-        <div class="btn" (click)="addBlackList()" title="Block">
+      <div *ngIf="profile !== login" class="btn__block">
+        <div (click)="report()" class="btn" title="Report"><i class="far fa-thumbs-down"></i></div>
+        <div (click)="addBlackList()" class="btn" title="Block">
           <i *ngIf="!user?.isBlocked" class="fas fa-user-alt-slash"></i>
           <i *ngIf="user?.isBlocked" class="fas fa-user-check"></i>
         </div>
-        <div class="btn" (click)="addFavorite()" title="Favorite" *ngIf="likeAvailable">
+        <div (click)="addFavorite()" *ngIf="likeAvailable" class="btn" title="Favorite">
           <i [class]="user?.isFavourite ? 'fas' : 'far'" class="fa-star"></i></div>
-        <div class="btn" (click)="startChat()" title="Chat" *ngIf="user?.canActiveChat"><i class="far fa-comments"></i></div>
+        <div (click)="startChat()" *ngIf="user?.canActiveChat" class="btn" title="Chat"><i class="far fa-comments"></i>
+        </div>
       </div>
-      <swiper [index] ="index">
+      <swiper [index]="index">
         <div *ngFor="let path of user?.photo?.paths">
           <img [src]="path" alt="photo">
         </div>
@@ -32,31 +33,31 @@
           {{tag}}
         </mat-chip>
       </mat-chip-list>
-      <mat-list-item role="listitem" [title]="'Birth day: ' + (age | date:'longDate')" *ngIf="user?.age">
+      <mat-list-item *ngIf="user?.age" [title]="'Birth day: ' + (age | date:'longDate')" role="listitem">
         Age: {{user?.age}} years
       </mat-list-item>
       <mat-list-item role="listitem">
         Rating: {{user?.fameRating }}<i class="fas fa-medal"></i>
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Followers ' + user?.favoritesCount" *ngIf="user?.favoritesCount">
+      <mat-list-item *ngIf="user?.favoritesCount" [title]="'Followers ' + user?.favoritesCount" role="listitem">
         Followers: {{user?.favoritesCount}}<i class="fas fa-star"></i>
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'FakeStatus ' + user?.countFake" *ngIf="user?.countFake">
+      <mat-list-item *ngIf="user?.countFake" [title]="'FakeStatus ' + user?.countFake" role="listitem">
         FakeStatus: {{user?.countFake}}<i class="far fa-thumbs-down"></i>
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Gender:'" [ngSwitch]="user?.gender">
+      <mat-list-item [ngSwitch]="user?.gender" [title]="'Gender:'" role="listitem">
         Gender:
         <i *ngSwitchCase="'Male'" class="fas fa-mars"></i>
         <i *ngSwitchCase="'Female'" class="fas fa-venus"></i>
         <i *ngSwitchDefault class="fas fa-venus-mars"></i>
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Looking for:'" [ngSwitch]="user?.sex">
+      <mat-list-item [ngSwitch]="user?.sex" [title]="'Looking for:'" role="listitem">
         Looking for:
         <i *ngSwitchCase="'Male'" class="fas fa-mars"></i>
         <i *ngSwitchCase="'Female'" class="fas fa-venus"></i>
         <i *ngSwitchDefault class="fas fa-venus-mars"></i>
       </mat-list-item>
-      <mat-list-item role="listitem" [title]="'Distance:'">
+      <mat-list-item [title]="'Distance:'" role="listitem">
         <i class="fas fa-map-marker-alt" style="margin-left: 0"></i>
         {{user?.distance | number: '1.0-1' }} km from you
       </mat-list-item>
@@ -84,8 +85,12 @@
       </app-map>
     </mat-expansion-panel>
   </mat-accordion>
-<!--  <pre> {{user | json }}</pre>-->
+  <!--  <pre> {{user | json }}</pre>-->
 </ng-template>
-<ng-template #loading><mat-spinner></mat-spinner></ng-template>
-<ng-template #userNotFound><app-not-found></app-not-found></ng-template>
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
+<ng-template #userNotFound>
+  <app-not-found></app-not-found>
+</ng-template>
 

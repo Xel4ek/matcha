@@ -2,11 +2,13 @@
   display: flex;
   padding: 1rem;
 }
-@media only screen and (max-width: 599px){
+
+@media only screen and (max-width: 599px) {
   .info {
     flex-direction: column;
   }
 }
+
 .carousel__wrapper {
   max-width: 300px;
   min-width: 300px;
@@ -50,6 +52,7 @@
   }
 
 }
-.btn__block{
+
+.btn__block {
   padding: .5rem 0;
 }

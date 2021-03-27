@@ -39,6 +39,7 @@ export class ImageEditComponent implements OnInit {
   removePhoto(fileName: string) {
     this.ws.send('profile', {removePhoto: this.extractName(fileName)});
   }
+
   extractName(path: string): string {
     return path.split('\\').pop()!.split('/').pop() ?? '';
   }

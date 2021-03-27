@@ -3,11 +3,13 @@
   flex-direction: column;
   justify-content: flex-end;
   height: calc(100% - 20px);
+
   .chat__window {
     flex: 1 1 auto;
     position: relative;
     overflow-y: scroll;
-    .chat__window-helper{
+
+    .chat__window-helper {
       display: flex;
       flex-direction: column;
       position: absolute;
@@ -15,27 +17,33 @@
     }
   }
 }
-.chat__message{
+
+.chat__message {
   border-bottom: 1px solid #a9a8a8;
   display: flex;
   padding: .3rem;
   align-items: flex-end;
+
   .chat__text {
     padding: .1rem 1rem;
   }
 }
-.input__message{
+
+.input__message {
   padding: .5rem;
   display: flex;
   align-items: center;
+
   input {
     flex: 1 1 auto;
     margin: 0 .5rem;
   }
 }
+
 :host {
   height: 100%;
 }
+
 .img__wrapper {
   width: 32px;
   height: 32px;
@@ -43,14 +51,17 @@
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
+
   .chat__img {
     transform: scale(1.08);
     display: block;
   }
 }
-.unread{
+
+.unread {
   font-weight: bold;
 }
+
 .revers {
   flex-direction: row-reverse;
 }

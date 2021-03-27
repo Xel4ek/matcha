@@ -4,24 +4,26 @@ import { GlobalSharedModule } from "@tools/global-shared.module";
 import { FormControlModule } from "@tools/form-control/form-control.module";
 import { SettingsInputFieldComponent } from "@tools/settings-input-field/settings-input-field.component";
 import { MatExpansionModule } from "@angular/material/expansion";
-import {MatSlideToggleModule} from '@angular/material/slide-toggle'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ImageEditModule } from "@tools/image-edit/image-edit.module";
 import { TextFieldModule } from "@angular/cdk/text-field";
 import { ListEditModule } from "@tools/list-edit/list-edit.module";
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+
 @NgModule({
   declarations: [SettingsComponent, SettingsInputFieldComponent],
-    imports: [
-        GlobalSharedModule,
-        FormControlModule,
-        MatExpansionModule,
-        MatSlideToggleModule,
-        ImageEditModule,
-        TextFieldModule,
-        ListEditModule,
-        MatSelectModule,
-        MatProgressBarModule
-    ]
+  imports: [
+    GlobalSharedModule,
+    FormControlModule,
+    MatExpansionModule,
+    MatSlideToggleModule,
+    ImageEditModule,
+    TextFieldModule,
+    ListEditModule,
+    MatSelectModule,
+    MatProgressBarModule
+  ]
 })
-export class SettingsModule { }
+export class SettingsModule {
+}

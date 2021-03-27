@@ -1,10 +1,10 @@
 <div>
   <label>{{title}}
-    <input #input class="form-field" autocomplete="off" [type]="type" [placeholder]="placeholder"
+    <input #input (change)="apply()" (focus)="reset()" [ngClass]="{'invalid':!!error,'valid':status}" [placeholder]="placeholder"
+           [type]="type"
            [value]="value"
-           (focus)="reset()"
-           (change)="apply()"
-           [ngClass]="{'invalid':!!error,'valid':status}"
+           autocomplete="off"
+           class="form-field"
     >
   </label>
   <div class="error">{{error}}</div>

@@ -13,7 +13,7 @@ import { UserWidgetComponent } from "@components/user-widget/user-widget.compone
   imports: [
     CommonModule
   ],
-  exports:[
+  exports: [
     MatToolbarModule,
     NotFoundComponent,
     CommonModule,
@@ -24,4 +24,5 @@ import { UserWidgetComponent } from "@components/user-widget/user-widget.compone
     UserWidgetComponent
   ]
 })
-export class GlobalSharedModule { }
+export class GlobalSharedModule {
+}

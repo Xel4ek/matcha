@@ -10,7 +10,6 @@ import { ListEditModule } from "@tools/list-edit/list-edit.module";
 import { MatExpansionModule } from "@angular/material/expansion";
 
 
-
 @NgModule({
   declarations: [SearchComponent],
   imports: [
@@ -24,4 +23,5 @@ import { MatExpansionModule } from "@angular/material/expansion";
     MatExpansionModule,
   ]
 })
-export class SearchModule { }
+export class SearchModule {
+}

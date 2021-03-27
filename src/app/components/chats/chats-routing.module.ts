@@ -4,11 +4,12 @@ import { CommonModule } from "@angular/common";
 import { ChatComponent } from "@components/chat/chat.component";
 
 const routes: Routes = [
-     {path: ':id', component: ChatComponent, pathMatch: 'full'}
+  {path: ':id', component: ChatComponent, pathMatch: 'full'}
 ]
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ChatsRoutingModule { }
+export class ChatsRoutingModule {
+}

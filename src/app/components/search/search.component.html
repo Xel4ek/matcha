@@ -43,7 +43,7 @@
     <app-user-widget [user]="user"></app-user-widget>
   </mat-list-option>
 </mat-selection-list>
-<div [ngStyle]="{'display: none': loading}" #trigger>Loading</div>
+<div #trigger [ngStyle]="{'display: none': loading}">Loading</div>
 <!--<pre>-->
 <!--  {{ searchResults | json }}-->
 <!--</pre>-->

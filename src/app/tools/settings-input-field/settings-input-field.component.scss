@@ -8,10 +8,12 @@
   text-overflow: ellipsis;
   transition: 0.4s all;
 }
-input:focus{
+
+input:focus {
   box-shadow: 0 4px 2px -2px purple;
   border-bottom: 1px solid purple;
 }
+
 .invalid {
   box-shadow: 0 4px 2px -2px #9d0000;
   border-bottom: 1px solid #830000;

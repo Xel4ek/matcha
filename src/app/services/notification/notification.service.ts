@@ -9,12 +9,13 @@ import { NotificationMessage } from "@components/notificationsList/notification.
 })
 export class NotificationService implements OnDestroy {
   subscriptions: Subscription[] = [];
-  private subject = new BehaviorSubject<{[id: string]: NotificationMessage}>({})
-  private countSubject = new BehaviorSubject<{[type: string]: number}>({});
+  private subject = new BehaviorSubject<{ [id: string]: NotificationMessage }>({})
   data$ = this.subject.asObservable();
+  private countSubject = new BehaviorSubject<{ [type: string]: number }>({});
   count$ = this.countSubject.asObservable();
+
   constructor(private ws: WebsocketService) {
-    this.subscriptions.push(this.ws.on<{history: NotificationMessage[]}>('notification')
+    this.subscriptions.push(this.ws.on<{ history: NotificationMessage[] }>('notification')
       .subscribe(list => {
         const data = this.subject.getValue();
         list.history.map(message => {
@@ -24,11 +25,11 @@ export class NotificationService implements OnDestroy {
       }))
   }
 
-  update(data: {[id: string]: NotificationMessage}) {
-    const count: {[type:string]: number} = {all: 0};
+  update(data: { [id: string]: NotificationMessage }) {
+    const count: { [type: string]: number } = {all: 0};
 
     Object.values(data).map(entry => {
-      if(!entry.checked) {
+      if (!entry.checked) {
         count[entry.type] = (count[entry.type] ?? 0) + 1;
         count.all++;
       }
@@ -41,13 +42,13 @@ export class NotificationService implements OnDestroy {
     this.ws.send('notification', {since: id})
   }
 
-  edit({action, id}: {action: 'remove' | 'edit', id: number}) {
+  edit({action, id}: { action: 'remove' | 'edit', id: number }) {
     const data = this.subject.getValue();
-    if(action === 'remove') {
-        delete data[id];
-        this.ws.send('notification', {id, removed: true});
-      }
-    if(action === 'edit') {
+    if (action === 'remove') {
+      delete data[id];
+      this.ws.send('notification', {id, removed: true});
+    }
+    if (action === 'edit') {
       data[id].checked = true;
       this.ws.send('notification', {id, checked: true});
     }

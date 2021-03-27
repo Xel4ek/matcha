@@ -44,22 +44,23 @@
       <div class="error">{{valid.pass.error}}</div>
       <label>
         Change Password
-      <input class="form-field" id="password" autocomplete="off" type="password" placeholder="Password" #pass
-             (input)="checkPassStrength(pass.value)"
-             (blur)="valid.pass.check(pass.value)"
-             (focus)="reset('pass')">
+        <input #pass (blur)="valid.pass.check(pass.value)" (focus)="reset('pass')" (input)="checkPassStrength(pass.value)" autocomplete="off" class="form-field"
+               id="password"
+               placeholder="Password"
+               type="password">
       </label>
-      <mat-progress-bar *ngIf="!!pass.value" mode="determinate" [value]="strength * 20" class="strength-{{strength}}"></mat-progress-bar>
+      <mat-progress-bar *ngIf="!!pass.value" [value]="strength * 20" class="strength-{{strength}}"
+                        mode="determinate"></mat-progress-bar>
 
     </div>
     <div>
       <div class="error">{{valid.confirm.error}}</div>
       <label>
-      <input class="form-field" id="confirm" autocomplete="off" type="password" placeholder="Confirm password"
-             #confirm
-             (blur)="valid.confirm.check(confirm.value)"
-             (focus)="reset('confirm')"
-             [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}">
+        <input #confirm (blur)="valid.confirm.check(confirm.value)" (focus)="reset('confirm')" [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}" autocomplete="off"
+               class="form-field"
+               id="confirm"
+               placeholder="Confirm password"
+               type="password">
       </label>
     </div>
 
@@ -72,7 +73,8 @@
     </mat-expansion-panel-header>
     <div class="block">
       <mat-label>Gender</mat-label>
-      <mat-select #prefGender (selectionChange)="updatePrefGender(prefGender.value)" [value]="profile?.sex" placeholder="Gender"
+      <mat-select #prefGender (selectionChange)="updatePrefGender(prefGender.value)" [value]="profile?.sex"
+                  placeholder="Gender"
                   style="padding:.3rem">
         <mat-option *ngFor="let pref of ['Male', 'Female', 'Both']" [value]="pref">
           {{pref}}
@@ -81,7 +83,7 @@
     </div>
     <div class="block">
       <p>Tags</p>
-      <app-list-edit [list]="profile.tag" (editList)="editList('tag', $event)"></app-list-edit>
+      <app-list-edit (editList)="editList('tag', $event)" [list]="profile.tag"></app-list-edit>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel>
@@ -110,8 +112,8 @@
         Location
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-map [markers]="marker" (updateCoordinate)="changeLocation($event)">
-      <i class="fas fa-search-location fa-3x" (click)="locateMe()"></i>
+    <app-map (updateCoordinate)="changeLocation($event)" [markers]="marker">
+      <i (click)="locateMe()" class="fas fa-search-location fa-3x"></i>
     </app-map>
   </mat-expansion-panel>
 </div>

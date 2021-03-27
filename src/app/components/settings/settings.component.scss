@@ -6,29 +6,35 @@
   }
 
 }
-::ng-deep .settings form{
+
+::ng-deep .settings form {
   display: flex;
   flex-direction: column;
   gap: .5rem;
   margin: .5rem;
-  .btn{
+
+  .btn {
     width: auto;
     align-self: flex-end;
   }
 }
-.textarea{
+
+.textarea {
   width: 100%;
   border: none;
   box-shadow: 0 4px 2px -2px purple;
   border-bottom: 1px solid purple;
-  &:focus{
+
+  &:focus {
     outline: none;
   }
 }
+
 .block {
   padding-bottom: .3rem;
   border-bottom: 1px solid silver;
 }
+
 .form-field {
   border: none;
   background-color: inherit;
@@ -39,10 +45,12 @@
   text-overflow: ellipsis;
   transition: 0.4s all;
 }
-input:focus{
+
+input:focus {
   box-shadow: 0 4px 2px -2px purple;
   border-bottom: 1px solid purple;
 }
+
 .invalid {
   box-shadow: 0 4px 2px -2px #9d0000;
   border-bottom: 1px solid #830000;

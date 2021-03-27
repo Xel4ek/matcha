@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ListEditComponent } from "@tools/list-edit/list-edit.component";
 
 
-
 @NgModule({
   declarations: [ListEditComponent],
   imports: [
@@ -13,4 +12,5 @@ import { ListEditComponent } from "@tools/list-edit/list-edit.component";
     ListEditComponent
   ]
 })
-export class ListEditModule { }
+export class ListEditModule {
+}

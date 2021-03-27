@@ -15,8 +15,8 @@ export class FormFieldComponent implements OnInit {
   @Input() value: any;
   @Input() type: string = 'text';
   @Input() validate?: string
-  @Input() placeholder:string = '';
-  @Input() name:string = '';
+  @Input() placeholder: string = '';
+  @Input() name: string = '';
   @Output() data?: { [index: string]: any };
 
   constructor(
@@ -35,7 +35,7 @@ export class FormFieldComponent implements OnInit {
     const result = await this.vs.validate(this.validate, this.value);
     this.error = result?.error ?? '';
     this.status = result.valid;
-    this.data = {status: result.valid, value: this.value, name:this.name}
+    this.data = {status: result.valid, value: this.value, name: this.name}
     return this.data;
   }
 }

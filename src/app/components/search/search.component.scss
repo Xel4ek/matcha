@@ -1,28 +1,35 @@
 .btn__block {
   justify-content: flex-end;
 }
+
 .btn {
   width: auto;
 }
-.search__wrapper{
+
+.search__wrapper {
   padding: 0 .5rem;
 }
+
 .mat-list-base .mat-list-item,
 .mat-list-base .mat-list-option {
   height: auto;
   padding: 0.3rem 0;
   box-shadow: 0 0 1px rgb(0 0 0 / 50%)
 }
-::ng-deep .mat-select-value{
+
+::ng-deep .mat-select-value {
   max-width: none !important;
 }
-.search__btn{
+
+.search__btn {
   padding: 1rem 1rem 0 1rem;
 }
-.upload-block{
+
+.upload-block {
   height: 30px;
   background: green;
 }
-.search__btn{
+
+.search__btn {
   padding: 1rem 1rem 0 1rem;
 }

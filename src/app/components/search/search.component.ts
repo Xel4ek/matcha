@@ -55,7 +55,14 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
           this.userInfo.data$.pipe(takeUntil(this.update$)).subscribe(({[user]: info}) => {
             if (info) {
               const {latitude: lat, longitude: lng} = info.coordinates;
-                this.markers = {...this.markers, ...{[user]: {latlng: [lat, lng], popup: info.name.firstName + ' ' + info.name.lastName}}}
+              this.markers = {
+                ...this.markers, ...{
+                  [user]: {
+                    latlng: [lat, lng],
+                    popup: info.name.firstName + ' ' + info.name.lastName
+                  }
+                }
+              }
             }
           })
         }
@@ -66,7 +73,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
       .subscribe(profile => {
         if (profile.login) {
           this.login = profile.login;
-          this.markers = {...this.markers, ...{
+          this.markers = {
+            ...this.markers, ...{
               [profile.login]: {
                 latlng: [profile.coordinates?.latitude,
                   profile.coordinates?.longitude],

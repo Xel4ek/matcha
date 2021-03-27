@@ -1,5 +1,5 @@
 export class ChatInterface {
-  subscriber!:string;
-  key!:string;
+  subscriber!: string;
+  key!: string;
 }
 

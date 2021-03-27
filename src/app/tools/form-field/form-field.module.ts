@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
-import { FormFieldComponent} from "./form-field.component";
+import { FormFieldComponent } from "./form-field.component";
 
 
 @NgModule({
@@ -10,8 +10,9 @@ import { FormFieldComponent} from "./form-field.component";
     CommonModule,
     FormsModule
   ],
-  exports:[
+  exports: [
     FormFieldComponent
   ]
 })
-export class FormFieldModule { }
+export class FormFieldModule {
+}

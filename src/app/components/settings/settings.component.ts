@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import {User} from "@services/user/user";
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { User } from "@services/user/user";
 import { ProfileService } from "@services/profile/profile.service";
 import { Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
@@ -23,21 +23,27 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   subscription: Subscription;
   strength = 0;
   pass = '';
-  marker: {[user:string]: CustomMarker} = {}
+  marker: { [user: string]: CustomMarker } = {}
   public test: any;
   public valid: { [index: string]: FormControl } = {
     pass: {status: false, error: '', check: (pass: string) => this.checkPass(pass)},
     confirm: {status: false, error: '', check: (confirm: string) => this.checkConfirm(confirm)}
   };
+
   constructor(
-    private profileService:ProfileService,
+    private profileService: ProfileService,
     private ws: WebsocketService
   ) {
     this.subscription = this.profileService.data$.subscribe(profile => {
-      if(profile && profile.login) {
+      if (profile && profile.login) {
         this.profile = profile;
         const {latitude: lat, longitude: lng} = profile.coordinates;
-        this.marker = {[profile.login]: {latlng: [lat, lng], popup: profile.name.firstName + ' ' + profile.name.lastName}}
+        this.marker = {
+          [profile.login]: {
+            latlng: [lat, lng],
+            popup: profile.name.firstName + ' ' + profile.name.lastName
+          }
+        }
       }
     });
   }
@@ -48,27 +54,33 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
+
   updateGender(gender: string) {
     this.ws.send('profile', {gender});
   }
+
   ngAfterViewInit(): void {
   }
-  uploadAbout(aboutMe: string){
+
+  uploadAbout(aboutMe: string) {
     this.ws.send('profile', {aboutMe})
   }
+
   updatePrefGender(sex: string) {
     this.ws.send('profile', {sex})
   }
-  changeLocation({latlng: {lat, lng}}: {[index:string]: {[index:string]: number}}) {
+
+  changeLocation({latlng: {lat: latitude, lng: longitude}}: { latlng: { [index: string]: number } }) {
     this.ws.send('profile', {
       coordinates: {
-        latitude: lat,
-        longitude: lng,
+        latitude,
+        longitude,
         accuracy: 0,
       }
     })
   }
-  editList(key:string, {action, data }: {action:string, data: string}) {
+
+  editList(key: string, {action, data}: { action: string, data: string }) {
     let send = data.replace(/[\W]/g, '');
     if (send) {
       if (action === 'add') {
@@ -81,19 +93,13 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
   }
-  checkPassStrength(pass:string): void {
+
+  checkPassStrength(pass: string): void {
     const res = [/[a-z]/.test(pass), /\d/.test(pass), /[A-Z]/.test(pass), /\W/.test(pass), pass.length > 6];
     this.strength = res.filter(el => el).length;
   }
-  private updatePassword() {
-    if (this.valid.confirm.status && this.valid.pass.status) {
-      this.ws.send('profile', {
-        pass: this.pass
-      })
 
-    }
-  }
-  checkPass(pass:string): void {
+  checkPass(pass: string): void {
     this.pass = pass;
     if (this.strength < 3) {
       this.valid.pass.error = 'Слишком слабый пароль';
@@ -104,19 +110,22 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updatePassword();
     }
   }
-  checkConfirm(confirm: string) :void {
-      if( this.pass && confirm === this.pass) {
-        this.valid.confirm.status = true;
-        this.valid.confirm.error = '';
-        this.updatePassword();
-      } else {
-        this.valid.confirm.status = false;
-        this.valid.confirm.error = 'Passwords must match';
-      }
+
+  checkConfirm(confirm: string): void {
+    if (this.pass && confirm === this.pass) {
+      this.valid.confirm.status = true;
+      this.valid.confirm.error = '';
+      this.updatePassword();
+    } else {
+      this.valid.confirm.status = false;
+      this.valid.confirm.error = 'Passwords must match';
+    }
   }
+
   reset(key: string): void {
     this.valid[key].error = '';
   }
+
   locateMe() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
@@ -128,6 +137,15 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
         })
       });
     } else {
+
+    }
+  }
+
+  private updatePassword() {
+    if (this.valid.confirm.status && this.valid.pass.status) {
+      this.ws.send('profile', {
+        pass: this.pass
+      })
 
     }
   }
