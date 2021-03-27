@@ -26,7 +26,6 @@ export class AppComponent implements OnInit, OnDestroy{
       });
     this.wsService.on<any>('error')
       .subscribe((message) => {
-        console.log(message)
         this.toastr.error(message.text, message.title);
       });
 

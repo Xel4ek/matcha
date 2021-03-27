@@ -40,7 +40,6 @@ export class RegisterComponent implements OnInit {
 
   async checkLogin(form: NgForm): Promise<void> {
     const {valid, error} = await this.validate.login(form.value.login);
-    console.log('login', valid, error);
     this.valid.login.status = valid;
     this.valid.login.error = error ?? '';
   }

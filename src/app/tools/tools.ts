@@ -5,7 +5,6 @@ export function session (target: Object, method: string, descriptor: PropertyDes
     const originalMethod = descriptor.value;
     descriptor.value = function (...args: any) {
       return fetch('http://localhost:5000/session').then(data => {
-        console.log(data);
         return originalMethod.apply(this, args);
       })
     }

@@ -1,8 +1,11 @@
 <div class="wrapper" *ngIf="chat">
-  <div class="chat__window">
+  <div class="chat__window" #chatWindow>
     <div class="chat__window-helper">
-      <div class="chat__message" *ngFor="let item of chat">
-        <div class="img__wrapper" [routerLink]="['/user/' + item.from]">
+      <div class="chat__message" *ngFor="let item of chat" #chatMessage
+           [ngClass]="{'revers': (login$ | async) === item.from && (isMobile$ |async)}"
+           [ngStyle]="{'max-width: 80%' : (isMobile$ |async)}">
+        <div class="img__wrapper" [routerLink]="['/user/' + item.from]"
+        [title]="item.from">
           <img alt="" [src]="item.img | async" class="chat__img" >
         </div><div class="chat__text" [ngClass]="{'unread': !item.isRead}">{{ item.text }}</div>
       </div>

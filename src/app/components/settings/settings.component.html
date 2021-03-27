@@ -110,7 +110,7 @@
         Location
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-map [markers]="[[profile.coordinates.latitude, profile.coordinates.longitude]]" (updateCoordinate)="changeLocation($event)">
+    <app-map [markers]="marker" (updateCoordinate)="changeLocation($event)">
       <i class="fas fa-search-location fa-3x" (click)="locateMe()"></i>
     </app-map>
   </mat-expansion-panel>
@@ -118,5 +118,5 @@
 <ng-template #loading>
   <mat-spinner></mat-spinner>
 </ng-template>
-<pre>{{profile | json}}</pre>
+<!--<pre>{{profile | json}}</pre>-->
 

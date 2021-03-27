@@ -32,14 +32,12 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
       url: wsConfig.url,
       closeObserver: {
         next: (event: CloseEvent) => {
-          console.log('WebSocket close!');
           this.websocket$ = null;
           this.connection$?.next(false);
         }
       },
       openObserver: {
         next: (event: Event) => {
-          console.log('WebSocket connected!');
           this.connection$?.next(true);
         }
       }

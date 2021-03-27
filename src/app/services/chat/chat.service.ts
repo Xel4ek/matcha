@@ -35,7 +35,6 @@ export class ChatService implements OnDestroy{
     }), map(chats => {
       let count = { _all: 0};
       Object.entries(chats).map(([key,  value]) => {
-        console.log(key, value);
         const unReads = Object.values(value).reduce((acc, cur) => {
           if(!cur.isRead) {
             return acc + 1;
@@ -44,7 +43,6 @@ export class ChatService implements OnDestroy{
         }, 0);
         count = {...count, _all: count._all + unReads, [key]: unReads};
       })
-        console.log(count);
         this.countSubject.next(count);
       })).subscribe();
   }

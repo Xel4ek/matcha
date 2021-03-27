@@ -1,14 +1,14 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SearchService } from "@services/search/search.service";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
 import { MapComponent } from "@components/map/map.component";
-import { LatLngExpression } from "leaflet";
 import { Options } from "@angular-slider/ngx-slider";
 import { Router } from "@angular/router";
 import { UserInfoService } from "@services/user-info/user-info.service";
-import { Subject, Subscription } from "rxjs";
-import { switchMap, takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
+import { map, mergeMap, takeUntil } from "rxjs/operators";
+import { CustomMarker } from "@components/map/map";
 
 @Component({
   selector: 'app-search',
@@ -17,6 +17,7 @@ import { switchMap, takeUntil } from "rxjs/operators";
 })
 export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('map') map!: MapComponent;
+  @ViewChild('trigger') trigger!: ElementRef;
   age = {min: 18, max: 99};
   ageOptions: Options = {
     floor: 18,
@@ -29,12 +30,14 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
   desc = false;
   sortBy = 'Match';
-  searchResults: { profiles?: [string] } = {};
-  markers: LatLngExpression[] = [];
-  searchMarkers: LatLngExpression[] = [];
+  searchResults: string[] = [];
+  markers: { [user: string]: CustomMarker } = {};
   tagList: string[] = [];
-  private destroy = new Subject<void>();
-  private userInfoSubscriber?: Subscription;
+  loading = false;
+  private update$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
+  private login?: string;
+
   constructor(
     private searchService: SearchService,
     private ws: WebsocketService,
@@ -42,40 +45,72 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     private router: Router,
     private userInfo: UserInfoService,
   ) {
-    this.searchService.data$.pipe(takeUntil(this.destroy)).subscribe(data => {
-      console.log('Search Service', data);
-      this.searchResults = data;
-      this.userInfoSubscriber?.unsubscribe();
-      this.userInfoSubscriber = this.userInfo.data$.pipe(takeUntil(this.destroy))
-        .subscribe((users) => {
-        this.searchMarkers = [];
-        this.searchResults.profiles?.map(user => {
-          if (users[user]) {
-            const {latitude: lat, longitude: lng} = users[user].coordinates;
-            this.searchMarkers.push([lat, lng]);
-          }
-        })
-      })
-    })
+    this.searchService.data$.pipe(takeUntil(this.destroy$),
+      mergeMap(({profiles}: { profiles: string[] }) => {
+        if (Array.isArray(profiles))
+          this.searchResults.push(...profiles);
+        return profiles ?? [];
+      }),
+      map((user: string) => {
+          this.userInfo.data$.pipe(takeUntil(this.update$)).subscribe(({[user]: info}) => {
+            if (info) {
+              const {latitude: lat, longitude: lng} = info.coordinates;
+                this.markers = {...this.markers, ...{[user]: {latlng: [lat, lng], popup: info.name.firstName + ' ' + info.name.lastName}}}
+            }
+          })
+        }
+      )
+    ).subscribe();
 
-    this.ps.data$.pipe(takeUntil(this.destroy))
-      .subscribe(profile => this.markers.push([profile.coordinates?.latitude,
-      profile.coordinates?.longitude]))
+    this.ps.data$.pipe(takeUntil(this.destroy$))
+      .subscribe(profile => {
+        if (profile.login) {
+          this.login = profile.login;
+          this.markers = {...this.markers, ...{
+              [profile.login]: {
+                latlng: [profile.coordinates?.latitude,
+                  profile.coordinates?.longitude],
+                popup: profile.name.firstName + ' ' + profile.name.lastName
+              }
+            }
+          }
+        }
+      })
   }
 
-  search(): void {
+  search(offset = 0): void {
+    if (offset === 0) {
+      this.update$.next();
+      this.searchResults = [];
+      if (this.login)
+        this.markers = {[this.login]: this.markers[this.login]};
+    }
     this.ws.send('search', {
       fame: this.fame,
       age: this.age,
       map: this.map.getBounds(),
       sortBy: this.sortBy,
       orderBy: this.desc,
-      offset: 0
+      offset
     });
   }
 
   ngAfterViewInit(): void {
+    this.map.setZoom(4);
+    new IntersectionObserver(() => {
+      if (!this.loading && this.searchResults.length % 20 === 0) {
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = this.searchResults.length % 20 !== 0;
+        }, 300);
+        this.search(this.searchResults.length);
+      }
+    }, {
+      rootMargin: '0px',
+      threshold: .3
+    }).observe(this.trigger.nativeElement);
     // console.log(this.map.getBounds());
+
   }
 
   openInfo(user: string) {
@@ -83,8 +118,10 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.destroy.next();
-    this.destroy.complete();
+    this.update$.next();
+    this.update$.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   editList(key: string, {action, data}: { action: string, data: string }) {
@@ -101,16 +138,5 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.ws.send('search', {
-      fame: this.fame,
-      age: this.age,
-      map: {
-        _northEast: {lat: 90, lng: 180},
-        _southWest: {lat: -90, lng: -180}
-      },
-      sortBy: this.sortBy,
-      orderBy: this.desc,
-      offset: 0
-    });
   }
 }

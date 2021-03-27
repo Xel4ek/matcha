@@ -22,7 +22,6 @@ export class FormControlComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this._fields);
   }
   async onSubmit(event: Event){
     event.preventDefault();

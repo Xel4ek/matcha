@@ -3,6 +3,7 @@ import {User} from "@services/user/user";
 import { ProfileService } from "@services/profile/profile.service";
 import { Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
+import { CustomMarker } from "@components/map/map";
 
 interface FormControl {
   status: boolean,
@@ -22,6 +23,7 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   subscription: Subscription;
   strength = 0;
   pass = '';
+  marker: {[user:string]: CustomMarker} = {}
   public test: any;
   public valid: { [index: string]: FormControl } = {
     pass: {status: false, error: '', check: (pass: string) => this.checkPass(pass)},
@@ -31,7 +33,13 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
     private profileService:ProfileService,
     private ws: WebsocketService
   ) {
-    this.subscription = this.profileService.data$.subscribe(profile => this.profile = profile);
+    this.subscription = this.profileService.data$.subscribe(profile => {
+      if(profile && profile.login) {
+        this.profile = profile;
+        const {latitude: lat, longitude: lng} = profile.coordinates;
+        this.marker = {[profile.login]: {latlng: [lat, lng], popup: profile.name.firstName + ' ' + profile.name.lastName}}
+      }
+    });
   }
 
   ngOnInit(): void {

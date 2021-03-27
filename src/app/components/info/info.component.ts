@@ -6,6 +6,7 @@ import { Observable, Subject, Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
 import { takeUntil } from "rxjs/operators";
+import { CustomMarker } from "@components/map/map";
 
 @Component({
   selector: 'app-info',
@@ -17,6 +18,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   profile?: string | null;
   public carousel: { [index: string]: string }[] = []
   // public user: UserInfo | null = new UserInfo();
+  marker: {[user:string]: CustomMarker} = {}
   public index: number = 0;
   public age?: number;
   public user: UserInfo | null = null;
@@ -34,6 +36,10 @@ export class InfoComponent implements OnInit, OnDestroy {
   ) {
     this.userInfoService.data$.pipe(takeUntil(this.destroy)).subscribe(users => {
       this.user = users[this.login];
+      if(this.user) {
+        const {latitude: lat, longitude: lng} = this.user.coordinates;
+        this.marker = {[this.login]:{latlng: [lat, lng], popup: this.user.name.firstName + ' ' + this.user.name.lastName}}
+      }
       this.notFound = !!this.user?.notFound;
     })
     this.ps.data$.pipe(takeUntil(this.destroy)).subscribe(profile =>

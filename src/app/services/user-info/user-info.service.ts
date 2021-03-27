@@ -21,7 +21,6 @@ export class UserInfoService implements OnDestroy {
           this.subject.next(data);
         }
       },
-      error: error => console.log(error),
     })
 
   }

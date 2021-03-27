@@ -14,7 +14,6 @@ export class UserService {
       next: (user) => {
         this._user.value = user;
       },
-      error: error => console.log(error),
     })
 
   }

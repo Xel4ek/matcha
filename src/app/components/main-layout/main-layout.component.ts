@@ -38,14 +38,14 @@ export class MainLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
-        console.log('geo', longitude, latitude);
       });
     }
   }
 
   ngOnInit() {
     this.ns.fetch();
-    this.ps.data$.pipe(takeUntil(this.destroy)).subscribe(({activeChats}) => activeChats.map(user => this.chatService.getHistory(user)));
+    this.ps.data$.pipe(takeUntil(this.destroy))
+      .subscribe(({activeChats}) => activeChats?.map(user => this.chatService.getHistory(user)));
     this.ns.count$.pipe(takeUntil(this.destroy)).subscribe(count => this.notificationCount = count);
     this.chatService.messageCount$.pipe(takeUntil(this.destroy)).subscribe(({ _all }) => this.newMessagesCount = _all);
   }

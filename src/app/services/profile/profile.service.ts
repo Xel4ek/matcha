@@ -18,7 +18,6 @@ export class ProfileService implements OnDestroy{
   ) {
     ws.on<User>('profile').subscribe({
       next:(profile) => {
-        console.log('get profile', profile);
         if (profile?.login) {
           this.subject.next(profile);
         } else {
@@ -45,6 +44,5 @@ export class ProfileService implements OnDestroy{
       )
   }
   ngOnDestroy(): void {
-    console.log('settings.destroy')
   }
 }

@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import { LatLng, LatLngExpression } from "leaflet";
+import { CustomMarker } from "@components/map/map";
 
 @Component({
   selector: 'app-map',
@@ -21,7 +22,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
   private map?: L.Map;
   private mapMarkers: L.Marker[] = [];
   updateBoundsAfterGetData = false;
-  @Input() markers!: LatLngExpression[];
+  @Input() markers!: { [user:string]: CustomMarker  };
   @ViewChild('map') private mapElement!: ElementRef<HTMLElement>;
   @Output() updateCoordinate = new EventEmitter<any>();
   constructor( ) {
@@ -43,6 +44,9 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
   getBounds() {
     return this.map?.getBounds();
   }
+  setZoom(zoom: number) {
+    return this.map?.setZoom(zoom);
+  }
   ngOnDestroy(): void {
     this.map?.off();
     this.map?.remove();
@@ -51,7 +55,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
     const latLongs = this.addMarkers();
     const bounds = L.latLngBounds(latLongs);
     this.map?.setView(bounds.getCenter(), 15)
-    if (this.markers.length > 1) {
+    if (Object.keys(this.markers).length > 1) {
       this.map?.fitBounds(bounds);
     }
   }
@@ -62,10 +66,12 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges  {
     this.mapMarkers = [];
     const icon = new L.Icon.Default();
     const latLongs: LatLng[] = [];
-    this.markers?.forEach((marker:LatLngExpression) => {
-      const point = L.marker(marker, {icon}).addTo(this.map!);
+    Object.entries(this.markers).map(([key, {latlng, popup}]) => {
+      const point = L.marker(latlng, {icon}).addTo(this.map!);
+      if(popup)
+        point.bindPopup('<h3>' + popup + '</h3>').openPopup();
       this.mapMarkers.push(point);
-      latLongs.push(L.latLng(marker));
+      latLongs.push(L.latLng(latlng));
     })
     return latLongs;
   }

@@ -31,14 +31,12 @@ export class ImageEditComponent implements OnInit {
         const photo = reader.result;
         this.ws.send('profile', {photo});
         (event.target as HTMLInputElement).value = '';
-        console.log('uploadNewPhoto', {photo});
       }
       reader.readAsDataURL(file);
     }
   }
 
   removePhoto(fileName: string) {
-    console.log('photo removed', fileName);
     this.ws.send('profile', {removePhoto: this.extractName(fileName)});
   }
   extractName(path: string): string {

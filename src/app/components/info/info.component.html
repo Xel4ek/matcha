@@ -80,11 +80,11 @@
           Location
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-map [markers]="[[user!.coordinates!.latitude, user!.coordinates!.longitude]]">
+      <app-map [markers]="marker">
       </app-map>
     </mat-expansion-panel>
   </mat-accordion>
-  <pre> {{user | json }}</pre>
+<!--  <pre> {{user | json }}</pre>-->
 </ng-template>
 <ng-template #loading><mat-spinner></mat-spinner></ng-template>
 <ng-template #userNotFound><app-not-found></app-not-found></ng-template>
