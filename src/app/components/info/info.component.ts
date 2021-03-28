@@ -82,7 +82,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.activateRoute.params.pipe(takeUntil(this.destroy)).subscribe(params => {
       this.login = params['id'];
-      this.ws.send('userInfo', {login: this.login, visit: true});
+        this.ws.send('userInfo', {login: this.login, visit: this.profile !== this.login});
     });
   }
 
