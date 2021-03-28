@@ -20,7 +20,7 @@ export class ProfileService implements OnDestroy {
     ).subscribe({
       next: (profile) => {
         console.log(profile);
-        profile.firstAccess = true;
+        // profile.firstAccess = true;
           this.subject.next(profile);
         if (!profile?.login)
           router.navigate(['/login']);

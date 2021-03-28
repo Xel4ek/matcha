@@ -107,10 +107,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   ngAfterViewInit(): void {
     this.map.setZoom(4);
     new IntersectionObserver(() => {
+      console.log('event');
       if (!this.loading && this.searchResults.length % 20 === 0) {
         this.loading = true;
         setTimeout(() => {
-          this.loading = this.searchResults.length % 20 !== 0;
+          this.loading = false;
         }, 300);
         this.search(this.searchResults.length);
       }
