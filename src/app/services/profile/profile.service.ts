@@ -19,8 +19,6 @@ export class ProfileService implements OnDestroy {
     ws.on<User>('profile').pipe(takeUntil(this.destroy$)
     ).subscribe({
       next: (profile) => {
-        console.log(profile);
-        // profile.firstAccess = true;
           this.subject.next(profile);
         if (!profile?.login)
           router.navigate(['/login']);

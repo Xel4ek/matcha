@@ -13,7 +13,6 @@ export class ThrottleClickDirective {
 
   @HostListener('click', ['$event'])
   clickEvent(event: Event) {
-    console.log(this.elementRef.nativeElement);
     this.elementRef.nativeElement.classList.add('disabled')
     setTimeout(() => {
       this.elementRef.nativeElement.classList.remove('disabled')
