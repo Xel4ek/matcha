@@ -62,3 +62,7 @@
   pointer-events: none;
   background: #5a5d5d;
 }
+
+::ng-deep .purple.mat-chip {
+  background: rebeccapurple !important;
+}

@@ -26,7 +26,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   public notFound = false;
   likeAvailable: boolean = false;
   private destroy = new Subject<void>();
-
+  tags: string[] = [];
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
@@ -50,6 +50,7 @@ export class InfoComponent implements OnInit, OnDestroy {
     this.ps.data$.pipe(takeUntil(this.destroy)).subscribe(profile => {
       this.profile = profile.login;
       this.likeAvailable = profile.photo?.paths.length !== 0;
+      this.tags = profile.tag;
     });
   }
 
