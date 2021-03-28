@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ValidatorService } from "@services/validator/validator.service";
 import { WebsocketService } from "@services/websocket/websocket.service";
 
@@ -7,7 +7,7 @@ import { WebsocketService } from "@services/websocket/websocket.service";
   templateUrl: './settings-input-field.component.html',
   styleUrls: ['./settings-input-field.component.scss']
 })
-export class SettingsInputFieldComponent implements OnInit {
+export class SettingsInputFieldComponent {
 
   error = '';
   status?: boolean;
@@ -18,28 +18,31 @@ export class SettingsInputFieldComponent implements OnInit {
   @Input() validate?: string
   @Input() placeholder: string = '';
   @Input() name: string = '';
-  @Output() data?: { [index: string]: any };
+  @Output() result = new EventEmitter();
 
   constructor(
     private vs: ValidatorService,
-    private ws: WebsocketService
   ) {
   }
 
-  ngOnInit(): void {
-  }
 
   reset() {
     this.error = '';
   }
 
   async apply() {
-    const value = this.inputValue.nativeElement.value;
+    let value = '';
+    if (this.type === 'date'){
+      value = this.inputValue.nativeElement.valueAsNumber;
+    } else {
+      value = this.inputValue.nativeElement.value;
+    }
     const result = await this.vs.validate(this.validate, value);
     this.error = result?.error ?? '';
     this.status = result.valid;
     if (result.valid && this.value !== value) {
-      this.ws.send('profile', {[this.name]: value});
+      this.result.emit({[this.name]: value});
     }
   }
+
 }

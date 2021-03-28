@@ -7,7 +7,7 @@ export class User extends UserInfo {
   activeChats: string[] = [];
   email: string = '';
   matches: string[] = [];
-
+  firstAccess: boolean = true;
   constructor() {
     super();
   }

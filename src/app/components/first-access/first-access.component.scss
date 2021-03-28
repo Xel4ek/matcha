@@ -1,0 +1,68 @@
+.textarea {
+  width: 100%;
+  border: none;
+  box-shadow: 0 4px 2px -2px purple;
+  border-bottom: 1px solid purple;
+
+  &:focus {
+    outline: none;
+  }
+}
+.block {
+  padding-bottom: .3rem;
+  border-bottom: 1px solid silver;
+}
+
+:host {
+  flex: 1 1 auto;
+}
+.content {
+  flex-direction: column;
+}
+
+.logo__img {
+  height: 2.5rem;
+  display: block;
+  padding-right: 1ch;
+}
+
+.head {
+  display: flex;
+  gap: 1rem;
+  ::ng-deep .notification__wrapper {
+    display: flex;
+    .label {
+      top: -10px !important;
+      right: -14px !important;
+      line-height: 20px !important;
+    }
+  }
+  .content {
+    flex-direction: row;
+    align-items: center;
+  }
+  :focus {
+    outline: none;
+  }
+  .title {
+    flex: 1 1 auto;
+  }
+}
+
+.menu {
+  cursor: pointer;
+}
+.block__group {
+  display: flex;
+}
+
+.info {
+  padding: .5rem 1rem;
+  margin: .3rem .3rem 1.3rem .3rem;
+  border: 1px solid;
+  border-radius: 3px;
+  font-style: italic;
+  box-shadow: 1px 1px 5px;
+  display: flex;
+  align-items: center;
+}

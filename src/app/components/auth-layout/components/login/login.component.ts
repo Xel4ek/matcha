@@ -5,7 +5,8 @@ import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {WebsocketService} from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
-import { Subscription } from "rxjs";
+import { Subject } from "rxjs";
+import { map, takeUntil, tap } from "rxjs/operators";
 
 interface FormControl {
   status: boolean,
@@ -19,7 +20,7 @@ interface FormControl {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public valid: { [index: string]: FormControl } = {
     login: {
       status: false, error: '', check: (form: NgForm) => {
@@ -39,15 +40,21 @@ export class LoginComponent implements OnInit {
 
     },
   };
-
+  private destroy$ = new Subject<void>();
   constructor(
     private dataService: HttpService,
     private toastr: ToastrService,
     private ws: WebsocketService,
-    private router: Router
+    private router: Router,
+    private profileService: ProfileService,
   ) {
 
   }
+
+  ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
 
   ngOnInit(): void {
   }
@@ -61,7 +68,15 @@ export class LoginComponent implements OnInit {
     if (Object.values(this.valid).every((el) => el.status)) {
       this.ws.send('login', {username: data.value.login, password: data.value.pass});
       data.resetForm({...data.value, pass: ''});
-      this.router.navigate(['./settings']);
+      this.profileService.data$.pipe(takeUntil(this.destroy$), tap(({firstAccess, login}) => {
+        if (login) {
+          if (firstAccess) {
+            this.router.navigate(['./firstAccess']);
+          } else {
+            this.router.navigate(['./settings']);
+          }
+        }
+      })).subscribe();
     } else {
       this.toastr.error('Не все поля заполнены!', 'Ошибка');
     }

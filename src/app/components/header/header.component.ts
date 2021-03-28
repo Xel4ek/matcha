@@ -1,8 +1,12 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationStart, Router, } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Observable, Subject, Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { DeviceDetectorService } from "@services/device-detector/device-detector.service";
+import { ChatService } from "@services/chat/chat.service";
+import { NotificationService } from "@services/notification/notification.service";
+import { map, switchMap, takeUntil } from "rxjs/operators";
+import { ProfileService } from "@services/profile/profile.service";
 
 @Component({
   selector: 'app-header',
@@ -11,24 +15,30 @@ import { DeviceDetectorService } from "@services/device-detector/device-detector
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleEvent = new EventEmitter<void>()
-  subscriber: Subscription;
+  private destroy$ = new Subject<void>();
   chatActive = false;
-  mobile: any;
-
+  newChatMessage = 0;
+  newNotifications = 0;
+  login: string = '';
   constructor(private router: Router, private ws: WebsocketService,
-              private dd: DeviceDetectorService) {
-    this.mobile = this.dd.isMobile$
-    this.subscriber = this.router.events.subscribe((event => {
+              private chatService: ChatService,
+              private notificationService: NotificationService,
+              private ps: ProfileService) {
+    this.router.events.pipe(takeUntil((this.destroy$))).subscribe((event => {
       if (event instanceof NavigationStart)
         this.chatActive = event.url.includes('chat/')
     }))
+    this.ps.data$.pipe(takeUntil(this.destroy$), map(({login}) => {if (login) this.login = login})).subscribe()
   }
 
   ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
+   this.destroy$.next();
+   this.destroy$.complete();
   }
 
   ngOnInit(): void {
+    this.chatService.messageCount$.pipe(takeUntil(this.destroy$), map(({_all}) => this.newChatMessage = _all)).subscribe();
+    this.notificationService.count$.pipe(takeUntil(this.destroy$), map(({all}) => this.newNotifications = all)).subscribe();
   }
 
   toggleMenu() {

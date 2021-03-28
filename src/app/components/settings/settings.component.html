@@ -9,28 +9,32 @@
       [value]="profile.name.nickName"
       name="nickName"
       title="Login"
-      validate="login"></app-settings-input-field>
+      validate="login"
+    (result)="send($event)"></app-settings-input-field>
 
     <app-settings-input-field
       [value]="profile.name.firstName"
       name="firstName"
-      title="FirstName"></app-settings-input-field>
+      validate="required"
+      title="FirstName"
+      (result)="send($event)"></app-settings-input-field>
 
     <app-settings-input-field
       [value]="profile.name.lastName"
       name="lastName"
-      title="LastName"></app-settings-input-field>
+      validate="required"
+      title="LastName" (result)="send($event)"></app-settings-input-field>
     <app-settings-input-field
       [value]="profile.birthDay | date:'yyyy-MM-dd'"
       name="birthDay"
       title="BirthDay"
       type="date"
-      validate="birthDay"></app-settings-input-field>
+      validate="birthDay" (result)="send($event)"></app-settings-input-field>
     <app-settings-input-field
       [value]="profile.email"
       name="email"
       title="Mail"
-      validate="mail"></app-settings-input-field>
+      validate="mail" (result)="send($event)"></app-settings-input-field>
     <div>
       <mat-label>Gender</mat-label>
       <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender" placeholder="Gender"
@@ -63,7 +67,6 @@
                type="password">
       </label>
     </div>
-
   </mat-expansion-panel>
   <mat-expansion-panel style="overflow: unset">
     <mat-expansion-panel-header>
@@ -94,7 +97,8 @@
     </mat-expansion-panel-header>
     <app-image-edit
       [images]="profile.photo.paths"
-      [profilePhoto]="profile.photo.profilePhoto">
+      [profilePhoto]="profile.photo.profilePhoto"
+      (result)="send($event)">
     </app-image-edit>
     <p>About Me</p>
     <label>

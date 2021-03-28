@@ -59,7 +59,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
 
     this.websocketSub = this.wsMessages$.subscribe({
       next: () => null,
-      error: (error: ErrorEvent) => console.error('WebSocket error!', error)
+      error: () => null
     });
 
     this.connect();
@@ -92,7 +92,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
     } else {
       this.status.pipe(first()).subscribe({
         next: _ => this.websocket$!.next({event, data}),
-        error: err => console.error('Send error!', event, data, err),
+        error: () => null,
       })
     }
   }
@@ -113,8 +113,8 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
       (message) => {
         this.wsMessages$.next(message)
       },
-      (error: Event) => {
-        console.error('error', error);
+      () => {
+        // console.error('error', error);
         if (!this.websocket$) {
           // run reconnect if errors
           this.reconnect();

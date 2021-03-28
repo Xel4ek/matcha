@@ -83,7 +83,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private scrollToBottom() {
-    console.warn('scrolling', this.chatWindow.nativeElement.scrollHeight);
     this.chatWindow.nativeElement.scroll({
       top: this.chatWindow.nativeElement.scrollHeight,
       left: 0,

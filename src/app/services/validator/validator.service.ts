@@ -14,6 +14,8 @@ export class ValidatorService {
   private availableValidators: { [index: string]: Function } = {
     login: (data: string) => this.login(data),
     mail: (data: string) => this.mail(data),
+    required: (data: string) => this.required(data),
+    birthDay: (data: string) => this.birthDay(data),
   }
 
   constructor(
@@ -51,5 +53,23 @@ export class ValidatorService {
       return await this.availableValidators[action](value);
     } else
       return {valid: true}
+  }
+
+  async required(text: string) {
+    const data = text.trim();
+    if (data.length < 3) {
+      return {valid: false, error: 'Required 3 letters'};
+    } else if (!(/^[a-z]*$/i.test(data.toLowerCase()))) {
+      return {valid: false, error: 'Use letter please'};
+    } else {
+      return {valid: true};
+    }
+  }
+  async birthDay(date: string){
+    const years = (+Date.now() - new Date(date).getTime()) / 3.154e+10; //years
+    if( years < 18 || years > 120) {
+      return {valid: false, error: 'Permissible age from 18 to 120 years old'}
+    }
+    return {valid: true};
   }
 }

@@ -39,7 +39,7 @@ import { TimeAgoPipe } from "../../pipes/time-ago/time-ago.pipe";
         SettingsModule,
         SearchModule,
     ],
-  exports: [InfoModule, MainLayoutRoutingModule, WidgetNotificationComponent]
+  exports: [InfoModule, MainLayoutRoutingModule, WidgetNotificationComponent, HeaderComponent]
 })
 export class MainLayoutModule {
 }

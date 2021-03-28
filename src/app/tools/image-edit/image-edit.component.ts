@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-image-edit[images]',
@@ -10,8 +11,10 @@ export class ImageEditComponent implements OnInit {
   @Input() images: string[] = [];
   @Input() profilePhoto: string = '';
 
+  @Output() result = new EventEmitter;
   constructor(
-    private ws: WebsocketService
+    private ws: WebsocketService,
+    private ts: ToastrService
   ) {
   }
 
@@ -20,16 +23,21 @@ export class ImageEditComponent implements OnInit {
   }
 
   changeProfilePhoto(startPhoto: string) {
-    this.ws.send('profile', {profilePhoto: this.extractName(startPhoto)})
+    this.result.emit({profilePhoto: this.extractName(startPhoto)});
+    // this.ws.send('profile', {profilePhoto: this.extractName(startPhoto)})
   }
 
   uploadNewPhoto(event: Event) {
     const file = (event.target as HTMLInputElement).files?.item(0);
     if (file) {
+      if (file.size > 2e6) {
+        this.ts.error('You can upload files less 2M only', 'File too large');
+        return;
+      }
       const reader = new FileReader();
       reader.onloadend = () => {
         const photo = reader.result;
-        this.ws.send('profile', {photo});
+        this.result.emit({photo});
         (event.target as HTMLInputElement).value = '';
       }
       reader.readAsDataURL(file);
@@ -37,7 +45,7 @@ export class ImageEditComponent implements OnInit {
   }
 
   removePhoto(fileName: string) {
-    this.ws.send('profile', {removePhoto: this.extractName(fileName)});
+    this.result.emit({removePhoto: this.extractName(fileName)});
   }
 
   extractName(path: string): string {

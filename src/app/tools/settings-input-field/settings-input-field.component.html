@@ -1,6 +1,8 @@
 <div>
   <label>{{title}}
-    <input #input (change)="apply()" (focus)="reset()" [ngClass]="{'invalid':!!error,'valid':status}" [placeholder]="placeholder"
+    <input #input (change)="apply()"
+           (focus)="reset()"
+           [ngClass]="{'invalid':!!error,'valid':status}" [placeholder]="placeholder"
            [type]="type"
            [value]="value"
            autocomplete="off"

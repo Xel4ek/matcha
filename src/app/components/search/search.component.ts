@@ -99,6 +99,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
       map: this.map.getBounds(),
       sortBy: this.sortBy,
       orderBy: this.desc,
+      tagList: this.tagList,
       offset
     });
   }

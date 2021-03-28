@@ -7,9 +7,10 @@ import { FormControlModule } from "./form-control/form-control.module";
 import { MapComponent } from "@components/map/map.component";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { UserWidgetComponent } from "@components/user-widget/user-widget.component";
+import { SettingsInputFieldComponent } from "@tools/settings-input-field/settings-input-field.component";
 
 @NgModule({
-  declarations: [NotFoundComponent, MapComponent, UserWidgetComponent],
+  declarations: [NotFoundComponent, MapComponent, UserWidgetComponent, SettingsInputFieldComponent],
   imports: [
     CommonModule
   ],
@@ -21,7 +22,8 @@ import { UserWidgetComponent } from "@components/user-widget/user-widget.compone
     MatIconModule,
     FormControlModule,
     MapComponent,
-    UserWidgetComponent
+    UserWidgetComponent,
+    SettingsInputFieldComponent
   ]
 })
 export class GlobalSharedModule {

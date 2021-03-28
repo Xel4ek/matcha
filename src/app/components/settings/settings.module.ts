@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
-  declarations: [SettingsComponent, SettingsInputFieldComponent],
+  declarations: [SettingsComponent],
   imports: [
     GlobalSharedModule,
     FormControlModule,
