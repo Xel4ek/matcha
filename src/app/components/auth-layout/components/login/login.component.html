@@ -1,27 +1,27 @@
-<form class="menu__content" #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="menu__content">
   <div>
     <div class="error">{{valid.login.error}}</div>
-    <input class="field"
-           autocomplete="off"
-           type="text"
-           placeholder="Login"
-           ngModel name="login" #login="ngModel"
+    <input #login="ngModel"
+           (blur)="valid.login.check(f)"
+           (focus)="valid.login.reset()"
            [ngClass]="{'invalid':!!valid.login.error}"
-    (blur)="valid.login.check(f)"
-    (focus)="valid.login.reset()"></div>
+           autocomplete="off" class="field" name="login"
+           ngModel
+           placeholder="Login"
+           type="text"></div>
   <div>
     <div class="error">{{valid.pass.error}}</div>
-    <input class="field"
-           autocomplete="off"
-           type="password"
-           placeholder="Password"
-           ngModel name="pass" #pass="ngModel"
-           [ngClass]="{'invalid':!!valid.pass.error}"
+    <input #pass="ngModel"
            (blur)="valid.pass.check(f)"
-           (focus)="valid.pass.reset()"></div>
-  <button type="submit" class="btn">Sign In</button>
+           (focus)="valid.pass.reset()"
+           [ngClass]="{'invalid':!!valid.pass.error}"
+           autocomplete="off" class="field" name="pass"
+           ngModel
+           placeholder="Password"
+           type="password"></div>
+  <button class="btn" type="submit">Sign In</button>
   <div class="login__helper">
-    <a routerLink="/restore" class="link" routerLinkActive="active">Forgot password?</a>
-    <a routerLink="/register" class="link" routerLinkActive="active">Sign Up</a>
+    <a class="link" routerLink="/restore" routerLinkActive="active">Forgot password?</a>
+    <a class="link" routerLink="/register" routerLinkActive="active">Sign Up</a>
   </div>
 </form>

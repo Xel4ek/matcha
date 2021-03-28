@@ -32,6 +32,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   private id!: string;
   private destroy = new Subject<void>();
   private login?: string | null;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,

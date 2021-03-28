@@ -1,7 +1,8 @@
 <div *ngIf="chat" class="wrapper">
   <div #chatWindow class="chat__window">
     <div class="chat__window-helper">
-      <div #chatMessage *ngFor="let item of chat" [ngClass]="{'revers': (login$ | async) === item.from && (isMobile$ |async)}"
+      <div #chatMessage *ngFor="let item of chat"
+           [ngClass]="{'revers': (login$ | async) === item.from && (isMobile$ |async)}"
            [ngStyle]="{'max-width: 80%' : (isMobile$ |async)}"
            class="chat__message">
         <div [routerLink]="['/user/' + item.from]" [title]="item.from"

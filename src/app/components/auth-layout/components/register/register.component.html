@@ -1,54 +1,55 @@
-<form class="menu__content" #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="menu__content">
   <div>
     <div class="error">{{valid.login.error}}</div>
-    <input class="field" id="login" autocomplete="off" type="text" placeholder="Login"
-           ngModel name="login" #login="ngModel"
-           (blur)="valid.login.check(f)"
-           (focus)="reset('login')"
-           [ngClass]="{'invalid':!!valid.login.error, 'valid':valid.login.status}"></div>
+    <input #login="ngModel" (blur)="valid.login.check(f)" (focus)="reset('login')" [ngClass]="{'invalid':!!valid.login.error, 'valid':valid.login.status}" autocomplete="off"
+           class="field" id="login" name="login"
+           ngModel
+           placeholder="Login"
+           type="text"></div>
   <div>
     <div class="error">{{valid.firstName.error}}</div>
-    <input class="field" id="firstName" autocomplete="off" type="text" placeholder="First Name"
-           ngModel name="firstName" #firstName="ngModel"
-           (blur)="valid.firstName.check(f)"
-           (focus)="reset('firstName')"
-           [ngClass]="{'invalid':!!valid.firstName.error, 'valid':valid.firstName.status}"></div>
+    <input #firstName="ngModel" (blur)="valid.firstName.check(f)" (focus)="reset('firstName')" [ngClass]="{'invalid':!!valid.firstName.error, 'valid':valid.firstName.status}" autocomplete="off"
+           class="field" id="firstName" name="firstName"
+           ngModel
+           placeholder="First Name"
+           type="text"></div>
   <div>
     <div class="error">{{valid.lastName.error}}</div>
-    <input class="field" id="lastName" autocomplete="off" type="text" placeholder="Last Name"
-           ngModel name="lastName" #lastName="ngModel"
-           (blur)="valid.lastName.check(f)"
-           (focus)="reset('lastName')"
-           [ngClass]="{'invalid':!!valid.lastName.error, 'valid':valid.lastName.status}"></div>
+    <input #lastName="ngModel" (blur)="valid.lastName.check(f)" (focus)="reset('lastName')" [ngClass]="{'invalid':!!valid.lastName.error, 'valid':valid.lastName.status}" autocomplete="off"
+           class="field" id="lastName" name="lastName"
+           ngModel
+           placeholder="Last Name"
+           type="text"></div>
   <div>
     <div class="error">{{valid.pass.error}}</div>
-    <input class="field" id="password" autocomplete="off" type="password" placeholder="Password"
-           ngModel name="pass" #pass="ngModel"
-    (input)="checkPassStrength(f)"
-    (blur)="valid.pass.check()"
-    (focus)="reset('pass')">
-    <mat-progress-bar *ngIf="!!pass.value" mode="determinate" [value]="strength * 20" class="strength-{{strength}}"></mat-progress-bar>
+    <input #pass="ngModel" (blur)="valid.pass.check()" (focus)="reset('pass')" (input)="checkPassStrength(f)" autocomplete="off"
+           class="field" id="password" name="pass"
+           ngModel
+           placeholder="Password"
+           type="password">
+    <mat-progress-bar *ngIf="!!pass.value" [value]="strength * 20" class="strength-{{strength}}"
+                      mode="determinate"></mat-progress-bar>
   </div>
   <div>
     <div class="error">{{valid.confirm.error}}</div>
-    <input class="field" id="confirm" autocomplete="off" type="password" placeholder="Confirm password"
-           ngModel name="confirm" #confirm="ngModel"
-           (blur)="valid.confirm.check(f)"
-           (focus)="reset('confirm')"
-           [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}"></div>
+    <input #confirm="ngModel" (blur)="valid.confirm.check(f)" (focus)="reset('confirm')" [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}" autocomplete="off"
+           class="field" id="confirm" name="confirm"
+           ngModel
+           placeholder="Confirm password"
+           type="password"></div>
   <div>
     <div class="error">{{valid.mail.error}}</div>
-    <input class="field" id="e-mail" autocomplete="off" type="email" placeholder="E-mail address"
-           ngModel name="mail" #mail="ngModel"
-           (blur)="valid.mail.check(f)"
-           (focus)="reset('mail')"
-           [ngClass]="{'invalid':!!valid.mail.error, 'valid':valid.mail.status}"></div>
+    <input #mail="ngModel" (blur)="valid.mail.check(f)" (focus)="reset('mail')" [ngClass]="{'invalid':!!valid.mail.error, 'valid':valid.mail.status}" autocomplete="off"
+           class="field" id="e-mail" name="mail"
+           ngModel
+           placeholder="E-mail address"
+           type="email"></div>
   <div>
-    <button type="submit" class="btn" id="register">Register</button>
+    <button class="btn" id="register" type="submit">Register</button>
   </div>
   <div class="login__helper">
 
     <span class="info">Have an account?</span>
-    <a routerLink="/login" class="link" routerLinkActive="active">Sign In</a>
+    <a class="link" routerLink="/login" routerLinkActive="active">Sign In</a>
   </div>
 </form>

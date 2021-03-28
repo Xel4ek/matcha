@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProfileService } from "@services/profile/profile.service";
-import { map, tap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        return this.canActivate(childRoute, state);
-    }
+    return this.canActivate(childRoute, state);
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,

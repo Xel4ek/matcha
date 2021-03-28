@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { UserInfo } from "@services/user-info/user-info";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,12 @@ import { BehaviorSubject, Observable } from "rxjs";
 export class UserInfoService implements OnDestroy {
   private subject: BehaviorSubject<{ [index: string]: UserInfo }> = new BehaviorSubject({});
   data$: Observable<{ [index: string]: UserInfo }> = this.subject.asObservable();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private ws: WebsocketService,
   ) {
-    ws.on<UserInfo>('userInfo').subscribe({
+    ws.on<UserInfo>('userInfo').pipe(takeUntil(this.destroy$)).subscribe({
       next: (user) => {
         if (user.login) {
           const data = this.subject.getValue();
@@ -26,7 +28,9 @@ export class UserInfoService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subject.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.subject.complete();
   }
 
   private prepareData(user: UserInfo): UserInfo {

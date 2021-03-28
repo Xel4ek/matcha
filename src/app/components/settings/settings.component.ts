@@ -1,19 +1,9 @@
-import {
-  AfterViewInit,
-  Component,
-  ComponentRef, ContentChild, ContentChildren,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChildren,
-  ViewContainerRef
-} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from "@services/user/user";
 import { ProfileService } from "@services/profile/profile.service";
 import { Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { CustomMarker } from "@components/map/map";
-import { SettingsInputFieldComponent } from "@tools/settings-input-field/settings-input-field.component";
 
 interface FormControl {
   status: boolean,
@@ -151,6 +141,10 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  send(message: { [key: string]: string }) {
+    this.ws.send('profile', message)
+  }
+
   private updatePassword() {
     if (this.valid.confirm.status && this.valid.pass.status) {
       this.ws.send('profile', {
@@ -158,8 +152,5 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
       })
 
     }
-  }
-  send(message: {[key: string]: string}) {
-    this.ws.send('profile', message)
   }
 }

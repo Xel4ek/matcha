@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { ToastrService } from "ngx-toastr";
 
@@ -12,6 +12,7 @@ export class ImageEditComponent implements OnInit {
   @Input() profilePhoto: string = '';
 
   @Output() result = new EventEmitter;
+
   constructor(
     private ws: WebsocketService,
     private ts: ToastrService

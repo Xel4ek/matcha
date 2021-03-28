@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {HttpService} from "@services/http/http.service";
-import {ToastrService} from "ngx-toastr";
-import {Router} from "@angular/router";
-import {WebsocketService} from "@services/websocket/websocket.service";
+import { NgForm } from '@angular/forms';
+import { HttpService } from "@services/http/http.service";
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
+import { WebsocketService } from "@services/websocket/websocket.service";
 import { ProfileService } from "@services/profile/profile.service";
 import { Subject } from "rxjs";
-import { map, takeUntil, tap } from "rxjs/operators";
+import { takeUntil, tap } from "rxjs/operators";
 
 interface FormControl {
   status: boolean,
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public valid: { [index: string]: FormControl } = {
     login: {
       status: false, error: '', check: (form: NgForm) => {
-        if(!(this.valid.login.status = !!form.value.login.length)){
+        if (!(this.valid.login.status = !!form.value.login.length)) {
           this.valid.login.error = 'Логин не может быть пустым';
         }
       }, reset: () =>
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     },
     pass: {
       status: false, error: '', check: (form: NgForm) => {
-        if(!(this.valid.pass.status = !!form.value.pass.length)){
+        if (!(this.valid.pass.status = !!form.value.pass.length)) {
           this.valid.pass.error = 'Пароль не может быть пустым';
         }
       }, reset: () =>
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     },
   };
   private destroy$ = new Subject<void>();
+
   constructor(
     private dataService: HttpService,
     private toastr: ToastrService,
@@ -52,9 +53,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   ngOnInit(): void {
   }

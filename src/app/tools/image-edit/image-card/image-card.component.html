@@ -8,9 +8,9 @@
     <span>Add photo </span>
     <span class="material-icons">add_a_photo</span>
     <input (change)="handleFileInput($event)"
+           accept="image/*"
            hidden
            id="file"
-           type="file"
-           accept="image/*">
+           type="file">
   </label>
 </ng-template>

@@ -8,6 +8,7 @@ export class User extends UserInfo {
   email: string = '';
   matches: string[] = [];
   firstAccess: boolean = true;
+
   constructor() {
     super();
   }

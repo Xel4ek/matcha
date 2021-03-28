@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ValidatorService } from "@services/validator/validator.service";
-import { WebsocketService } from "@services/websocket/websocket.service";
 
 @Component({
   selector: 'app-settings-input-field[name]',
@@ -32,7 +31,7 @@ export class SettingsInputFieldComponent {
 
   async apply() {
     let value = '';
-    if (this.type === 'date'){
+    if (this.type === 'date') {
       value = this.inputValue.nativeElement.valueAsNumber;
     } else {
       value = this.inputValue.nativeElement.value;

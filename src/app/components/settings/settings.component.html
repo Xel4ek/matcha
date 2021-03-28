@@ -6,35 +6,35 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-settings-input-field
+      (result)="send($event)"
       [value]="profile.name.nickName"
       name="nickName"
       title="Login"
-      validate="login"
-    (result)="send($event)"></app-settings-input-field>
+      validate="login"></app-settings-input-field>
 
     <app-settings-input-field
+      (result)="send($event)"
       [value]="profile.name.firstName"
       name="firstName"
-      validate="required"
       title="FirstName"
-      (result)="send($event)"></app-settings-input-field>
+      validate="required"></app-settings-input-field>
 
     <app-settings-input-field
+      (result)="send($event)"
       [value]="profile.name.lastName"
       name="lastName"
-      validate="required"
-      title="LastName" (result)="send($event)"></app-settings-input-field>
+      title="LastName" validate="required"></app-settings-input-field>
     <app-settings-input-field
+      (result)="send($event)"
       [value]="profile.birthDay | date:'yyyy-MM-dd'"
       name="birthDay"
       title="BirthDay"
-      type="date"
-      validate="birthDay" (result)="send($event)"></app-settings-input-field>
+      type="date" validate="birthDay"></app-settings-input-field>
     <app-settings-input-field
+      (result)="send($event)"
       [value]="profile.email"
       name="email"
-      title="Mail"
-      validate="mail" (result)="send($event)"></app-settings-input-field>
+      title="Mail" validate="mail"></app-settings-input-field>
     <div>
       <mat-label>Gender</mat-label>
       <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender" placeholder="Gender"
@@ -48,7 +48,8 @@
       <div class="error">{{valid.pass.error}}</div>
       <label>
         Change Password
-        <input #pass (blur)="valid.pass.check(pass.value)" (focus)="reset('pass')" (input)="checkPassStrength(pass.value)" autocomplete="off" class="form-field"
+        <input #pass (blur)="valid.pass.check(pass.value)" (focus)="reset('pass')"
+               (input)="checkPassStrength(pass.value)" autocomplete="off" class="form-field"
                id="password"
                placeholder="Password"
                type="password">
@@ -60,7 +61,8 @@
     <div>
       <div class="error">{{valid.confirm.error}}</div>
       <label>
-        <input #confirm (blur)="valid.confirm.check(confirm.value)" (focus)="reset('confirm')" [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}" autocomplete="off"
+        <input #confirm (blur)="valid.confirm.check(confirm.value)" (focus)="reset('confirm')"
+               [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}" autocomplete="off"
                class="form-field"
                id="confirm"
                placeholder="Confirm password"
@@ -96,9 +98,9 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-image-edit
+      (result)="send($event)"
       [images]="profile.photo.paths"
-      [profilePhoto]="profile.photo.profilePhoto"
-      (result)="send($event)">
+      [profilePhoto]="profile.photo.profilePhoto">
     </app-image-edit>
     <p>About Me</p>
     <label>

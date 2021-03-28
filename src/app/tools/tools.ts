@@ -4,7 +4,7 @@ export function session(target: Object, method: string, descriptor: PropertyDesc
   if (!environment.production) {
     const originalMethod = descriptor.value;
     descriptor.value = function (...args: any) {
-      return fetch('http://localhost:5000/session').then( () => {
+      return fetch('http://localhost:5000/session').then(() => {
         return originalMethod.apply(this, args);
       })
     }

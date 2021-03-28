@@ -65,9 +65,10 @@ export class ValidatorService {
       return {valid: true};
     }
   }
-  async birthDay(date: string){
+
+  async birthDay(date: string) {
     const years = (+Date.now() - new Date(date).getTime()) / 3.154e+10; //years
-    if( years < 18 || years > 120) {
+    if (years < 18 || years > 120) {
       return {valid: false, error: 'Permissible age from 18 to 120 years old'}
     }
     return {valid: true};

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {ValidatorService} from "@services/validator/validator.service";
-import {ToastrService} from "ngx-toastr";
-import {Router} from "@angular/router";
-import {WebsocketService} from "@services/websocket/websocket.service";
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { ValidatorService } from "@services/validator/validator.service";
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
+import { WebsocketService } from "@services/websocket/websocket.service";
 
 interface FormControl {
   status: boolean,
@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
     this.valid.login.status = valid;
     this.valid.login.error = error ?? '';
   }
+
   reset(key: string): void {
     this.valid[key].error = '';
   }
@@ -66,6 +67,7 @@ export class RegisterComponent implements OnInit {
     const res = [/[a-z]/.test(pass), /\d/.test(pass), /[A-Z]/.test(pass), /\W/.test(pass), pass.length > 6];
     this.strength = res.filter(el => el).length;
   }
+
   checkFirstName(form: NgForm): void {
     const valid = form.value.firstName.trim().length !== 0;
     this.valid.firstName.status = valid;
@@ -78,6 +80,7 @@ export class RegisterComponent implements OnInit {
     this.valid.lastName.error = valid ? '' : 'Cannot be empty';
 
   }
+
   checkPass(): void {
     if (this.strength < 4) {
       this.valid.pass.error = 'Слишком слабый пароль';
@@ -89,7 +92,7 @@ export class RegisterComponent implements OnInit {
 
 
   async onSubmit(data: NgForm): Promise<void> {
-    for(let entry of Object.values(this.valid)) {
+    for (let entry of Object.values(this.valid)) {
       if (!entry.status) {
         await entry.check(data);
       }

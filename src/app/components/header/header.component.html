@@ -5,11 +5,11 @@
   </a>
   <mat-icon (click)="backToChats()" *ngIf="chatActive" style="cursor: pointer">keyboard_arrow_left</mat-icon>
   <span class="title"> Matcha</span>
-  <app-widget-notification *ngIf="newChatMessage" [key]="newChatMessage" >
-    <mat-icon [routerLink]="['/chats']"  routerLinkActive="" style="cursor: pointer"> mail_outline </mat-icon>
+  <app-widget-notification *ngIf="newChatMessage" [key]="newChatMessage">
+    <mat-icon [routerLink]="['/chats']" routerLinkActive="" style="cursor: pointer"> mail_outline</mat-icon>
   </app-widget-notification>
-  <app-widget-notification *ngIf="newNotifications" [key]="newNotifications"  >
-    <mat-icon [routerLink]="['/notification']" routerLinkActive="" style="cursor: pointer"> add_alert </mat-icon>
+  <app-widget-notification *ngIf="newNotifications" [key]="newNotifications">
+    <mat-icon [routerLink]="['/notification']" routerLinkActive="" style="cursor: pointer"> add_alert</mat-icon>
   </app-widget-notification>
   <mat-icon (click)="logout()" style="cursor: pointer">logout</mat-icon>
 </mat-toolbar>
