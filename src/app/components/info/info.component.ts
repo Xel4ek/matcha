@@ -36,7 +36,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   ) {
     this.userInfoService.data$.pipe(takeUntil(this.destroy)).subscribe(users => {
       this.user = users[this.login];
-      if (this.user) {
+      if (this.user && this.user.coordinates) {
         const {latitude: lat, longitude: lng} = this.user.coordinates;
         this.marker = {
           [this.login]: {

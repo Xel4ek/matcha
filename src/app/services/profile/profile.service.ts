@@ -34,6 +34,7 @@ export class ProfileService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subject.complete();
     this.destroy$.next();
     this.destroy$.complete();
   }

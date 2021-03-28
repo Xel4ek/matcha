@@ -21,6 +21,7 @@ export class DeviceDetectorService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.isMobileSubject.complete();
     this.destroy.next();
     this.destroy.complete();
   }

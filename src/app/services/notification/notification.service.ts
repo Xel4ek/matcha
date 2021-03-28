@@ -56,6 +56,8 @@ export class NotificationService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subject.complete();
+    this.countSubject.complete();
     this.subscriptions.map(subscription => subscription.unsubscribe());
   }
 }

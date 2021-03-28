@@ -18,12 +18,11 @@ export class AutocompleteService implements OnDestroy {
     const trimmed = input.trim();
     if (trimmed) {
       this.ws.send('findTag', trimmed);
-    } else {
-      // this.subject.next([]);
     }
   }
 
   ngOnDestroy(): void {
+    this.subject.complete();
     this.subscription.unsubscribe();
   }
 }

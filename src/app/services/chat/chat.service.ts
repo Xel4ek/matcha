@@ -49,6 +49,8 @@ export class ChatService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subject.complete();
+    this.countSubject.complete();
     this.destroy.next();
     this.destroy.complete();
   }

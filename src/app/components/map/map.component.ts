@@ -23,7 +23,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   updateBoundsAfterGetData = false;
   @Input() markers!: { [user: string]: CustomMarker };
   @Output() updateCoordinate = new EventEmitter<any>();
-  private map?: L.Map;
+  private map: L.Map | null = null;
   private mapMarkers: L.Marker[] = [];
   @ViewChild('map') private mapElement!: ElementRef<HTMLElement>;
 
@@ -55,6 +55,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   ngOnDestroy(): void {
     this.map?.off();
     this.map?.remove();
+    this.map = null;
   }
 
   addMarkers() {
@@ -86,6 +87,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   private updateBounds() {
     const latLongs = this.addMarkers();
+    if (!latLongs || !latLongs.length)
+      return;
     const bounds = L.latLngBounds(latLongs);
     this.map?.setView(bounds.getCenter(), 15)
     if (Object.keys(this.markers).length > 1) {

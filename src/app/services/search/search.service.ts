@@ -14,6 +14,6 @@ export class SearchService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.searchResults.unsubscribe();
+    this.searchResults.complete();
   }
 }

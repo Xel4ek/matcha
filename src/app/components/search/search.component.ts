@@ -53,13 +53,12 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
       }),
       map((user: string) => {
           this.userInfo.data$.pipe(takeUntil(this.update$)).subscribe(({[user]: info}) => {
-            if (info) {
+            if (info && info.coordinates) {
               const {latitude: lat, longitude: lng} = info.coordinates;
               this.markers = {
                 ...this.markers, ...{
                   [user]: {
-                    latlng: [lat, lng],
-                    popup: info.name.firstName + ' ' + info.name.lastName
+                    latlng: [lat, lng]
                   }
                 }
               }
@@ -93,15 +92,17 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
       if (this.login)
         this.markers = {[this.login]: this.markers[this.login]};
     }
-    this.ws.send('search', {
-      fame: this.fame,
-      age: this.age,
-      map: this.map.getBounds(),
-      sortBy: this.sortBy,
-      orderBy: this.desc,
-      tagList: this.tagList,
-      offset
-    });
+    if (this.map.getBounds()) {
+      this.ws.send('search', {
+        fame: this.fame,
+        age: this.age,
+        map: this.map.getBounds(),
+        sortBy: this.sortBy,
+        orderBy: this.desc,
+        tagList: this.tagList,
+        offset
+      });
+    }
   }
 
   ngAfterViewInit(): void {
@@ -118,7 +119,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
       rootMargin: '0px',
       threshold: .3
     }).observe(this.trigger.nativeElement);
-    // console.log(this.map.getBounds());
 
   }
 

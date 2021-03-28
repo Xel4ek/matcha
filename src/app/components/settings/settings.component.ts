@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { User } from "@services/user/user";
 import { ProfileService } from "@services/profile/profile.service";
 import { Subscription } from "rxjs";
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { CustomMarker } from "@components/map/map";
+import { User } from "@services/user/user";
 
 interface FormControl {
   status: boolean,

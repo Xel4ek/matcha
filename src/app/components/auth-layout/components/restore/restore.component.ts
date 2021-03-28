@@ -34,7 +34,7 @@ export class RestoreComponent implements OnInit {
   constructor(
     private ws: WebsocketService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
   ) {
   }
 

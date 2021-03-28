@@ -34,8 +34,8 @@ export class UserInfoService implements OnDestroy {
   }
 
   private prepareData(user: UserInfo): UserInfo {
-    if (!user?.photo.paths.length) {
-      user?.photo.paths.push('assets/img/4e73208be9f326816a787de2e04db80a.jpg');
+    if (!user?.photo?.paths?.length) {
+      user?.photo?.paths?.push('assets/img/4e73208be9f326816a787de2e04db80a.jpg');
     } else {
       const paths = user.photo.paths;
       const profilePhoto = user.photo.profilePhoto;

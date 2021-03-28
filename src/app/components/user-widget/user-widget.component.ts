@@ -26,7 +26,7 @@ export class UserWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
     return this._data;
   }
   set data(user: UserInfo | undefined) {
-    this.imgSrc = user?.photo.paths.find( (src:string) => src.includes(user?.photo.profilePhoto)) ?? this.imgSrc;
+    this.imgSrc = user?.photo?.paths.find( (src:string) => src.includes(user?.photo.profilePhoto)) ?? this.imgSrc;
     this._data = user;
   }
   ngAfterViewInit(): void {
