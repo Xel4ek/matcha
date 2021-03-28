@@ -102,17 +102,16 @@ export class FirstAccessComponent implements OnDestroy {
   sendFirstAccessData() {
     if(this.profile && this.firstAccess) {
       this.updating = true;
-      const {firstName, lastName, birthDay, sex, gender, photo, aboutMe} = this.profile;
+      const {firstName, lastName, birthDay, sex, gender, photo: photos, aboutMe} = this.profile;
       this.ws.send('profile', {firstName});
       this.ws.send('profile', {lastName});
       this.ws.send('profile', {birthDay});
       this.ws.send('profile', {sex});
       this.ws.send('profile', {gender});
       this.ws.send('profile', {aboutMe});
-      photo?.paths.map(((photo: string) => {
-        this.ws.send('profile', {photo})
+      photos?.paths.map(((photo: string) => {
+        this.ws.send('profile', {photo, isProfile: photo === photos.profilePhoto})
       }))
-      this.ws.send('profile', {profilePhoto: photo.profilePhoto})
       this.ws.send('profile', {firstAccess: false});
     }
   }

@@ -9,7 +9,7 @@
              class="img__wrapper">
           <img [src]="item.img | async" alt="" class="chat__img">
         </div>
-        <div [ngClass]="{'unread': !item.isRead}" class="chat__text">{{ item.text }}</div>
+        <div [ngClass]="{'unread': !item.isRead && (login$ | async) === item.from}" class="chat__text">{{ item.text }}</div>
       </div>
     </div>
   </div>
