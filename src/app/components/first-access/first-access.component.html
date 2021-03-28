@@ -13,8 +13,8 @@
     To access the site, specify your preferences, write a few words about yourself and add.
   </div>
 </div>
-<ng-template [ngIf]="profile">
-  <div class="content">
+<ng-template [ngIf]="profile && profile.firstAccess">
+  <div class="content first__access">
     <app-settings-input-field
       (result)="send($event)"
       [value]="profile.name.firstName"
@@ -36,7 +36,7 @@
     <div class="block__group">
       <div class="block">
 
-        <mat-label>Gender</mat-label>
+        <mat-label>Indicate gender</mat-label>
         <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender"
                     placeholder="Gender"
                     style="padding:.3rem">
@@ -46,7 +46,7 @@
         </mat-select>
       </div>
       <div class="block">
-        <mat-label>Gender</mat-label>
+        <mat-label>Preferred gender</mat-label>
         <mat-select #prefGender (selectionChange)="updatePrefGender(prefGender.value)" [value]="profile?.sex"
                     placeholder="Gender"
                     style="padding:.3rem">
@@ -71,4 +71,7 @@
       [profilePhoto]="profile.photo.profilePhoto">
     </app-image-edit>
   </div>
+  <div [ngClass]="{'disabled': !firstAccess, 'inactive': updating}" class="first__access__button" (click)="sendFirstAccessData()">
+    <mat-progress-spinner diameter="26" mode="indeterminate" value="100" *ngIf="updating">
+    </mat-progress-spinner><span class="button__text">Complete</span> </div>
 </ng-template>

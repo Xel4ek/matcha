@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
 
   }
   checkPass(): void {
-    if (this.strength < 3) {
+    if (this.strength < 4) {
       this.valid.pass.error = 'Слишком слабый пароль';
       this.valid.pass.status = false;
     } else {

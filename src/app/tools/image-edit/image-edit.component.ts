@@ -49,6 +49,7 @@ export class ImageEditComponent implements OnInit {
   }
 
   extractName(path: string): string {
+    if (path.startsWith('data:image')) return path;
     return path.split('\\').pop()!.split('/').pop() ?? '';
   }
 }

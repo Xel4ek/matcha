@@ -111,7 +111,7 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   checkPass(pass: string): void {
     this.pass = pass;
-    if (this.strength < 3) {
+    if (this.strength < 4) {
       this.valid.pass.error = 'Слишком слабый пароль';
       this.valid.pass.status = false;
     } else {
