@@ -58,8 +58,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
         return profiles ?? [];
       }),
       mergeMap( profiles => profiles),
-      map((user: string) => {
-          this.userInfo.data$.pipe(takeUntil(this.update$)).subscribe(({[user]: info}) => {
+      mergeMap((user: string) => {
+          return this.userInfo.data$.pipe(takeUntil(this.update$), map(({[user]: info}) => {
             if (info && info.coordinates) {
               const {latitude: lat, longitude: lng} = info.coordinates;
               this.markers = {
@@ -70,7 +70,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
                 }
               }
             }
-          })
+          }))
         }
       )
     ).subscribe();
