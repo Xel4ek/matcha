@@ -31,7 +31,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   login$: Observable<string | null>;
   private id!: string;
   private destroy = new Subject<void>();
-
+  private login?: string | null;
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
@@ -39,6 +39,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     private deviceDetector: DeviceDetectorService,
     private ps: ProfileService
   ) {
+    this.login$ = ps.data$.pipe(map(({login}) => this.login = login));
+    this.login$.pipe(takeUntil(this.destroy)).subscribe()
     activatedRoute.params.pipe(takeUntil(this.destroy))
       .pipe(switchMap(({id}) => {
         this.id = id;
@@ -48,7 +50,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
         if (chat) {
           Object.values(chat).map(message => {
             const {from, to, timestamp, isRead} = message;
-            if (!isRead) {
+            if (!isRead && from !== this.login) {
               this.ws.send('chat', {from, to, timestamp, isRead: true});
             }
           });
@@ -58,7 +60,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       });
     this.isMobile$ = deviceDetector.isMobile$
-    this.login$ = ps.data$.pipe(map(({login}) => login));
   }
 
   ngOnInit(): void {
