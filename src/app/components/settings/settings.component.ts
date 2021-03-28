@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
   strength = 0;
   pass = '';
   marker: { [user: string]: CustomMarker } = {}
-  public test: any;
   public valid: { [index: string]: FormControl } = {
     pass: {status: false, error: '', check: (pass: string) => this.checkPass(pass)},
     confirm: {status: false, error: '', check: (confirm: string) => this.checkConfirm(confirm)}
