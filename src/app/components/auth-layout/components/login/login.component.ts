@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(data: NgForm) {
-    Object.entries(this.valid).map(([key, entry]) => {
+    Object.values(this.valid).map((entry) => {
       if (!entry.status) {
         entry.check(data);
       }
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (firstAccess) {
             this.router.navigate(['./firstAccess']);
           } else {
-            this.router.navigate(['./settings']);
+            this.router.navigate(['./search']);
           }
         }
       })).subscribe();

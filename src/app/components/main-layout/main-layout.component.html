@@ -2,13 +2,11 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [mode]="mode" #drawer role="navigation" class="sidenav">
     <mat-nav-list (click)="hideSidenav()">
-      <app-widget-notification [key]="notificationCount?.like">
         <mat-list-item
           routerLink="followers"
           routerLinkActive="active">
           Followers
         </mat-list-item>
-      </app-widget-notification>
       <mat-list-item
         routerLink="search"
         routerLinkActive="active">
