@@ -39,7 +39,7 @@
       <mat-label>Gender</mat-label>
       <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender" placeholder="Gender"
                   style="padding:.3rem">
-        <mat-option *ngFor="let sex of ['Male', 'Female', 'Other']" [value]="sex">
+        <mat-option *ngFor="let sex of ['Male', 'Female', 'Bisexual']" [value]="sex">
           {{sex}}
         </mat-option>
       </mat-select>
