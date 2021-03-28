@@ -9,6 +9,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SWIPER_CONFIG, SwiperConfigInterface, SwiperModule } from 'ngx-swiper-wrapper';
 import { GlobalSharedModule } from "@tools/global-shared.module";
+import { AppModule } from "../../app.module";
+import { ThrottleClickDirective } from "../../pipes/throttle-click/throttle-click.directive";
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -16,7 +18,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 @NgModule({
-  declarations: [InfoComponent],
+  declarations: [InfoComponent, ThrottleClickDirective],
   imports: [
     MatListModule,
     MatButtonModule,
@@ -25,7 +27,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatIconModule,
     MatExpansionModule,
     SwiperModule,
-    GlobalSharedModule
+    GlobalSharedModule,
   ],
   providers: [{
     provide: SWIPER_CONFIG,

@@ -8,12 +8,12 @@
           'Was: ' + (user?.lastLoginTime ? (user?.lastLoginTime | date:'medium') : 'false')}}</span>
       </div>
       <div *ngIf="profile !== login" class="btn__block">
-        <div (click)="report()" class="btn" title="Report"><i class="far fa-thumbs-down"></i></div>
-        <div (click)="addBlackList()" class="btn" title="Block">
+        <div (click)="report()" class="btn" title="Report"><i class="far fa-thumbs-down" appThrottleClick [throttleTime]="2000"></i></div>
+        <div (click)="addBlackList()" class="btn" title="Block" appThrottleClick [throttleTime]="2000">
           <i *ngIf="!user?.isBlocked" class="fas fa-user-alt-slash"></i>
           <i *ngIf="user?.isBlocked" class="fas fa-user-check"></i>
         </div>
-        <div (click)="addFavorite()" *ngIf="likeAvailable" class="btn" title="Favorite">
+        <div (click)="addFavorite()" *ngIf="likeAvailable" class="btn" title="Favorite" appThrottleClick [throttleTime]="2000">
           <i [class]="user?.isFavourite ? 'fas' : 'far'" class="fa-star"></i></div>
         <div (click)="startChat()" *ngIf="user?.canActiveChat" class="btn" title="Chat"><i class="far fa-comments"></i>
         </div>

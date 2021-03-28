@@ -56,3 +56,7 @@
 .btn__block {
   padding: .5rem 0;
 }
+.disabled {
+  pointer-events: none;
+  background: #5a5d5d;
+}

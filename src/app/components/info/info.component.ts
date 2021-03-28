@@ -17,7 +17,6 @@ export class InfoComponent implements OnInit, OnDestroy {
   login!: string;
   profile?: string | null;
   public carousel: { [index: string]: string }[] = []
-  // public user: UserInfo | null = new UserInfo();
   marker: { [user: string]: CustomMarker } = {}
   public index: number = 0;
   public age?: number;
@@ -50,7 +49,7 @@ export class InfoComponent implements OnInit, OnDestroy {
     })
     this.ps.data$.pipe(takeUntil(this.destroy)).subscribe(profile => {
       this.profile = profile.login;
-      this.likeAvailable = profile.photo.paths.length !== 0;
+      this.likeAvailable = profile.photo?.paths.length !== 0;
     });
   }
 
