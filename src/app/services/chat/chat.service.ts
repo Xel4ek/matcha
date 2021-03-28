@@ -37,7 +37,7 @@ export class ChatService implements OnDestroy {
         let count = {_all: 0};
         Object.entries(chats).map(([key, value]) => {
           const unReads = Object.values(value).reduce((acc, cur) => {
-            if (!cur.isRead) {
+            if (!cur.isRead && cur.from !== this.login) {
               return acc + 1;
             }
             return acc;
