@@ -34,6 +34,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   markers: { [user: string]: CustomMarker } = {};
   tagList: string[] = [];
   loading = false;
+  searchEnd = false;
   private update$ = new Subject<void>();
   private destroy$ = new Subject<void>();
   private login?: string;
@@ -46,11 +47,17 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     private userInfo: UserInfoService,
   ) {
     this.searchService.data$.pipe(takeUntil(this.destroy$),
-      mergeMap(({profiles}: { profiles: string[] }) => {
-        if (Array.isArray(profiles))
+      map(({profiles}: { profiles: string[] }) => {
+
+        if (profiles.length) {
+          this.searchEnd = false;
           this.searchResults.push(...profiles);
+        } else {
+          this.searchEnd = true;
+        }
         return profiles ?? [];
       }),
+      mergeMap( profiles => profiles),
       map((user: string) => {
           this.userInfo.data$.pipe(takeUntil(this.update$)).subscribe(({[user]: info}) => {
             if (info && info.coordinates) {
@@ -86,6 +93,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   search(offset = 0): void {
+    this.searchEnd = false;
     if (offset === 0) {
       this.update$.next();
       this.searchResults = [];
@@ -108,11 +116,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   ngAfterViewInit(): void {
     this.map.setZoom(4);
     new IntersectionObserver(() => {
-      if (!this.loading && this.searchResults.length % 20 === 0) {
+      if (!this.loading && !this.searchEnd) {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
-        }, 300);
+        }, 800);
         this.search(this.searchResults.length);
       }
     }, {
