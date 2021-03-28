@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { WebsocketService } from "@services/websocket/websocket.service";
 import { User } from "@services/user/user";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from "rxjs";
 import { first, map, takeUntil, tap } from "rxjs/operators";
 import { Router } from "@angular/router";
 
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   providedIn: 'root'
 })
 export class ProfileService implements OnDestroy {
-  public subject = new BehaviorSubject<User>(new User());
+  public subject = new ReplaySubject<User>(1);
   data$: Observable<User> = this.subject.asObservable();
   private destroy$ = new Subject<void>();
   constructor(
