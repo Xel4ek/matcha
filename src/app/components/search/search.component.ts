@@ -119,11 +119,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     this.map.setZoom(4);
     new IntersectionObserver(() => {
       if (!this.loading && !this.searchEnd) {
+        this.search(this.searchResults.length);
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
         }, 800);
-        this.search(this.searchResults.length);
       }
     }, {
       rootMargin: '0px',
