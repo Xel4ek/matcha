@@ -11,7 +11,7 @@ import { FirstAccessGuard } from "./guards/first-access/first-access.guard";
 import { RegularGuard } from "./guards/regular/regular.guard";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: '', component: AuthLayoutComponent,
     children: [

@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from "@components/footer/footer.component";
 
 import { environment } from "../environments/environment";
-import { ThrottleClickDirective } from './pipes/throttle-click/throttle-click.directive';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent],
