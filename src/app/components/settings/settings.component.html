@@ -39,7 +39,7 @@
       <mat-label>Gender</mat-label>
       <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender" placeholder="Gender"
                   style="padding:.3rem">
-        <mat-option *ngFor="let sex of ['Male', 'Female', 'Bisexual']" [value]="sex">
+        <mat-option *ngFor="let sex of ['Male', 'Female', 'Other']" [value]="sex">
           {{sex}}
         </mat-option>
       </mat-select>
@@ -81,7 +81,7 @@
       <mat-select #prefGender (selectionChange)="updatePrefGender(prefGender.value)" [value]="profile?.sex"
                   placeholder="Gender"
                   style="padding:.3rem">
-        <mat-option *ngFor="let pref of ['Male', 'Female', 'Both']" [value]="pref">
+        <mat-option *ngFor="let pref of ['Male', 'Female', 'Bisexual']" [value]="pref">
           {{pref}}
         </mat-option>
       </mat-select>
