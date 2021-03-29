@@ -30,7 +30,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
   desc = false;
   sortBy = 'Match';
-  searchResults: string[] = [];
+  searchResults: Set<string> = new Set();
   markers: { [user: string]: CustomMarker } = {};
   tagList: string[] = [];
   loading = false;
@@ -51,7 +51,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
 
         if (profiles.length) {
           this.searchEnd = false;
-          this.searchResults.push(...profiles);
+          this.searchResults = new Set<string>([...this.searchResults, ...profiles]);
         } else {
           this.searchEnd = true;
         }
@@ -98,7 +98,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     this.searchEnd = false;
     if (offset === 0) {
       this.update$.next();
-      this.searchResults = [];
+      this.searchResults = new Set<string>();
       if (this.login)
         this.markers = {[this.login]: this.markers[this.login]};
     }
@@ -119,11 +119,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     this.map.setZoom(4);
     new IntersectionObserver(() => {
       if (!this.loading && !this.searchEnd) {
-        this.search(this.searchResults.length);
+        this.search(this.searchResults.size);
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
-        }, 800);
+        }, 1000);
       }
     }, {
       rootMargin: '0px',

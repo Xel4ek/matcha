@@ -38,7 +38,7 @@
     <i class="fas fa-angle-{{desc ? 'up' : 'down'}}" style="transform: scale(1.3)"></i></div>
   <div (click)="search()" class="btn">Search</div>
 </div>
-<mat-selection-list *ngIf="searchResults.length" [multiple]="false">
+<mat-selection-list *ngIf="searchResults.size" [multiple]="false">
   <mat-list-option (click)="openInfo(user)" *ngFor="let user of searchResults">
     <app-user-widget [user]="user"></app-user-widget>
   </mat-list-option>
