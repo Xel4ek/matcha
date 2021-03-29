@@ -74,7 +74,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    console.log('destroyed');
     this.destroy$.next();
     this.destroy$.complete();
   }
