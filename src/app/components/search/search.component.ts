@@ -46,7 +46,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     private router: Router,
     private userInfo: UserInfoService,
   ) {
-    this.searchService.data$.pipe(takeUntil(this.destroy$),
+    this.searchService.data$.pipe(
       map(({profiles}: { profiles: string[] }) => {
 
         if (profiles.length) {
@@ -59,7 +59,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
       }),
       mergeMap( profiles => profiles),
       mergeMap((user: string) => {
-          return this.userInfo.data$.pipe(takeUntil(this.update$), map(({[user]: info}) => {
+          return this.userInfo.data$.pipe(map(({[user]: info}) => {
             if (info && info.coordinates) {
               const {latitude: lat, longitude: lng} = info.coordinates;
               this.markers = {
@@ -72,7 +72,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
             }
           }))
         }
-      )
+      ),takeUntil(this.destroy$),
     ).subscribe();
 
     this.ps.data$.pipe(takeUntil(this.destroy$))

@@ -42,12 +42,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.login$ = ps.data$.pipe(map(({login}) => this.login = login));
     this.login$.pipe(takeUntil(this.destroy$)).subscribe()
-    activatedRoute.params.pipe(takeUntil(this.destroy$),
+    activatedRoute.params.pipe(
       switchMap(({id}) => {
         this.id = id;
         return chatService.data$;
       }),
-      map(chats => chats[this.id]))
+      map(chats => chats[this.id]),takeUntil(this.destroy$))
       .subscribe(chat => {
         if (chat) {
           Object.values(chat).map(message => {
@@ -74,6 +74,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    console.log('destroyed');
     this.destroy$.next();
     this.destroy$.complete();
   }

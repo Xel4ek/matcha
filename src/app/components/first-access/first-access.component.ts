@@ -20,12 +20,12 @@ export class FirstAccessComponent implements OnDestroy {
     private ws: WebsocketService,
     private router: Router
   ) {
-    profileService.data$.pipe(takeUntil(this.destroy$), map(profile => {
+    profileService.data$.pipe(map(profile => {
       if (!(profile.firstAccess)) {
         this.router.navigate(['/search']);
       }
       this.profile = profile;
-    })).subscribe();
+    }),takeUntil(this.destroy$)).subscribe();
   }
 
   ngOnDestroy(): void {

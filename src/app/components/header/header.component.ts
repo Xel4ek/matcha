@@ -28,9 +28,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationStart)
         this.chatActive = event.url.includes('chat/')
     }))
-    this.ps.data$.pipe(takeUntil(this.destroy$), map(({login}) => {
+    this.ps.data$.pipe( map(({login}) => {
       if (login) this.login = login
-    })).subscribe()
+    }), takeUntil(this.destroy$)).subscribe()
   }
 
   ngOnDestroy(): void {
@@ -39,8 +39,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.chatService.messageCount$.pipe(takeUntil(this.destroy$), map(({_all}) => this.newChatMessage = _all)).subscribe();
-    this.notificationService.count$.pipe(takeUntil(this.destroy$), map(({all}) => this.newNotifications = all)).subscribe();
+    this.chatService.messageCount$.pipe(map(({_all}) => this.newChatMessage = _all),takeUntil(this.destroy$),).subscribe();
+    this.notificationService.count$.pipe(map(({all}) => this.newNotifications = all),takeUntil(this.destroy$)).subscribe();
   }
 
   toggleMenu() {

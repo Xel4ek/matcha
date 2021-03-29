@@ -19,7 +19,7 @@ export class ChatService implements OnDestroy {
 
   constructor(private ws: WebsocketService, private profileService: ProfileService, private userInfo: UserInfoService) {
     this.profileService.data$.pipe(takeUntil(this.destroy)).subscribe(({login}) => this.login = login);
-    ws.on<{ messages: ChatMessage[] }>('chat').pipe(takeUntil(this.destroy),
+    ws.on<{ messages: ChatMessage[] }>('chat').pipe(
       map(({messages}) => {
         const chats = this.subject.getValue();
         messages.map((message) => {
@@ -46,7 +46,7 @@ export class ChatService implements OnDestroy {
           count = {...count, _all: count._all + unReads, [key]: unReads};
         })
         this.countSubject.next(count);
-      })).subscribe();
+      }),takeUntil(this.destroy)).subscribe();
   }
 
   ngOnDestroy(): void {
