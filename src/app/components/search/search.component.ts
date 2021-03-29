@@ -93,6 +93,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   search(offset = 0): void {
+    if(this.loading)
+      return;
     this.searchEnd = false;
     if (offset === 0) {
       this.update$.next();
