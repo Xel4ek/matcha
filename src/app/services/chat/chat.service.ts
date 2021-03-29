@@ -31,6 +31,7 @@ export class ChatService implements OnDestroy {
             chats[from] = {...chats[from], ...{[timestamp]: {...message, img: this.getImg(from)}}}
           }
         })
+        console.log(chats);
         this.subject.next(chats);
         return chats;
       }), map(chats => {

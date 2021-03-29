@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   isMobile$: Observable<boolean>;
   login$: Observable<string | null>;
   private id!: string;
-  private destroy = new Subject<void>();
+  private destroy$ = new Subject<void>();
   private login?: string | null;
 
   constructor(
@@ -41,12 +41,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     private ps: ProfileService
   ) {
     this.login$ = ps.data$.pipe(map(({login}) => this.login = login));
-    this.login$.pipe(takeUntil(this.destroy)).subscribe()
-    activatedRoute.params.pipe(takeUntil(this.destroy))
-      .pipe(switchMap(({id}) => {
+    this.login$.pipe(takeUntil(this.destroy$)).subscribe()
+    activatedRoute.params.pipe(takeUntil(this.destroy$),
+      switchMap(({id}) => {
         this.id = id;
         return chatService.data$;
-      }), map(chats => chats[this.id]))
+      }),
+      map(chats => chats[this.id]))
       .subscribe(chat => {
         if (chat) {
           Object.values(chat).map(message => {
@@ -73,13 +74,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.destroy.next();
-    this.destroy.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngAfterViewInit(): void {
     this.scrollToBottom();
-    this.elements?.changes.pipe(takeUntil(this.destroy)).subscribe(() =>
+    this.elements?.changes.pipe(takeUntil(this.destroy$)).subscribe(() =>
       this.scrollToBottom()
     )
   }
