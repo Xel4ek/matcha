@@ -3,13 +3,13 @@
     <div class="chat__window-helper">
       <div #chatMessage *ngFor="let item of chat"
            [ngClass]="{'revers': (login$ | async) === item.from && (isMobile$ |async)}"
-           [ngStyle]="{'max-width: 80%' : (isMobile$ |async)}"
+             [ngStyle]="{'max-width: 80%' : (isMobile$ |async)}"
            class="chat__message">
         <div [routerLink]="['/user/' + item.from]" [title]="item.from"
              class="img__wrapper">
           <img [src]="item.img | async" alt="" class="chat__img">
         </div>
-        <div [ngClass]="{'unread': !item.isRead && (login$ | async) === item.from}" class="chat__text">{{ item.text }}</div>
+        <div [ngClass]="{'unread': !item.isRead && (login$ | async) === item.to}" class="chat__text">{{ item.text }}</div>
       </div>
     </div>
   </div>

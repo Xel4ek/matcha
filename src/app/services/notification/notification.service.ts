@@ -38,10 +38,6 @@ export class NotificationService implements OnDestroy {
     this.countSubject.next(count);
   }
 
-  fetch(id = 0) {
-    this.ws.send('notification', {since: id})
-  }
-
   edit({action, id}: { action: 'remove' | 'edit', id: number }) {
     const data = this.subject.getValue();
     if (action === 'remove') {

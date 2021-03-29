@@ -102,7 +102,6 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
   * connect to WebSocked
   * */
 
-  // @session
   private connect(): void {
     /**
      * Ask cookie
@@ -114,9 +113,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
         this.wsMessages$.next(message)
       },
       () => {
-        // console.error('error', error);
         if (!this.websocket$) {
-          // run reconnect if errors
           this.reconnect();
         }
       });

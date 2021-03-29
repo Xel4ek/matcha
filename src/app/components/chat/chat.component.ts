@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
         if (chat) {
           Object.values(chat).map(message => {
             const {from, to, timestamp, isRead} = message;
-            if (!isRead && from !== this.login) {
+            if (!isRead && to === this.login) {
               this.ws.send('chat', {from, to, timestamp, isRead: true});
             }
           });

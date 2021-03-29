@@ -9,18 +9,23 @@ import { Subscription } from "rxjs";
   templateUrl: './user-widget.component.html',
   styleUrls: ['./user-widget.component.scss']
 })
-export class UserWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UserWidgetComponent implements OnInit, OnDestroy {
   @Input() user!: string;
   _data?: UserInfo;
   imgSrc: string = 'assets/img/4e73208be9f326816a787de2e04db80a.jpg';
-  subscription: Subscription;
+  subscription?: Subscription;
   constructor(private userInfo: UserInfoService,
               private ws: WebsocketService) {
-    this.subscription = this.userInfo.data$.subscribe(userData => {
-      this.data = userData[this.user];
-    })
   }
   ngOnInit(): void {
+    this.subscription = this.userInfo.data$.subscribe(userData => {
+      const user = userData[this.user];
+      if (user) {
+        this.data = user;
+      } else {
+        this.ws.send('userInfo', {login: this.user});
+      }
+    })
   }
   get data(): UserInfo | undefined {
     return this._data;
@@ -29,11 +34,8 @@ export class UserWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
     this.imgSrc = user?.photo?.paths.find( (src:string) => src.includes(user?.photo.profilePhoto)) ?? this.imgSrc;
     this._data = user;
   }
-  ngAfterViewInit(): void {
-      this.ws.send('userInfo', {login: this.user});
-  }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }

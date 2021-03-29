@@ -10,7 +10,9 @@
 }
 
 .carousel__wrapper {
-  align-self: center;
+  @media only screen and (max-width: 600px) {
+    align-self: center;
+  }
   max-width: 300px;
   min-width: 300px;
 }

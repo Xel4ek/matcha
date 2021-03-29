@@ -25,7 +25,6 @@ export class ImageEditComponent implements OnInit {
 
   changeProfilePhoto(startPhoto: string) {
     this.result.emit({profilePhoto: this.extractName(startPhoto)});
-    // this.ws.send('profile', {profilePhoto: this.extractName(startPhoto)})
   }
 
   uploadNewPhoto(event: Event) {

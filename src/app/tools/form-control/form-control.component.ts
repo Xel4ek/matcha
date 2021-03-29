@@ -33,7 +33,5 @@ export class FormControlComponent implements OnInit, AfterViewInit {
     } else {
       this.plugin.error('Не все поля заполнены', 'Ошибка!')
     }
-
-    // console.log(results);
   }
 }

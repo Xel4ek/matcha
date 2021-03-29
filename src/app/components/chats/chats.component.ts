@@ -18,7 +18,6 @@ export class ChatsComponent implements OnInit, OnDestroy {
 
   constructor(private ps: ProfileService, private router: Router,
               private ws: WebsocketService, private chatService: ChatService) {
-    // this.chats = Object.keys(new User().chats);
     ps.data$.pipe(takeUntil(this.destroy)).subscribe(profile => this.activeChatsUsers = profile.activeChats);
     chatService.messageCount$.pipe(takeUntil(this.destroy)).subscribe(counts => this.newMessageCount = counts);
   }
