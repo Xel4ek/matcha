@@ -52,7 +52,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
         takeUntil(this.destroy$)
       )
       .subscribe((chat) => {
-        console.log(chat);
         if (chat) {
           Object.values(chat).map((message) => {
             const { from, to, timestamp, isRead } = message;
