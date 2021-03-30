@@ -44,6 +44,15 @@ export class UserInfoService implements OnDestroy {
     if (user) {
       user.age = ((new Date().getTime() - new Date(user.birthDay).getTime()) / (24 * 3600 * 365.25 * 1000)) | 0;
     }
+    user.invited = true;
     return user;
+  }
+  getUser(login: string) {
+    const data = this.subject.getValue();
+    if (!data[login] || !data[login].invited) {
+      data[login] = new UserInfo({invited: true});
+      this.subject.next(data);
+      this.ws.send('userInfo', {login});
+    }
   }
 }

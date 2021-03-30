@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { SearchService } from "@services/search/search.service";
-import { WebsocketService } from "@services/websocket/websocket.service";
-import { ProfileService } from "@services/profile/profile.service";
-import { MapComponent } from "@components/map/map.component";
-import { Options } from "@angular-slider/ngx-slider";
-import { Router } from "@angular/router";
-import { UserInfoService } from "@services/user-info/user-info.service";
-import { Subject } from "rxjs";
-import { map, mergeMap, takeUntil } from "rxjs/operators";
-import { CustomMarker } from "@components/map/map";
+import { SearchService } from '@services/search/search.service';
+import { WebsocketService } from '@services/websocket/websocket.service';
+import { ProfileService } from '@services/profile/profile.service';
+import { MapComponent } from '@components/map/map.component';
+import { Options } from '@angular-slider/ngx-slider';
+import { Router } from '@angular/router';
+import { UserInfoService } from '@services/user-info/user-info.service';
+import { Subject } from 'rxjs';
+import { map, mergeMap, takeUntil, takeWhile } from 'rxjs/operators';
+import { CustomMarker } from '@components/map/map';
 
 @Component({
   selector: 'app-search',
@@ -27,7 +27,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   fameOptions: Options = {
     floor: 0,
     ceil: 99
-  }
+  };
   desc = false;
   sortBy = 'Match';
   searchResults: Set<string> = new Set();
@@ -38,6 +38,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   private update$ = new Subject<void>();
   private destroy$ = new Subject<void>();
   private login?: string;
+  private observer?: IntersectionObserver;
 
   constructor(
     private searchService: SearchService,
@@ -47,8 +48,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
     private userInfo: UserInfoService,
   ) {
     this.searchService.data$.pipe(
+      takeUntil(this.destroy$),
       map(({profiles}: { profiles: string[] }) => {
-
         if (profiles.length) {
           this.searchEnd = false;
           this.searchResults = new Set<string>([...this.searchResults, ...profiles]);
@@ -57,7 +58,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
         }
         return profiles ?? [];
       }),
-      mergeMap( profiles => profiles),
+      mergeMap(profiles => profiles),
       mergeMap((user: string) => {
           return this.userInfo.data$.pipe(map(({[user]: info}) => {
             if (info && info.coordinates) {
@@ -68,11 +69,12 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
                     latlng: [lat, lng]
                   }
                 }
-              }
+              };
             }
-          }))
+            return info?.login;
+          }), takeWhile((get) => !get));
         }
-      ),takeUntil(this.destroy$),
+      ),
     ).subscribe();
 
     this.ps.data$.pipe(takeUntil(this.destroy$))
@@ -87,20 +89,26 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
                 popup: profile.name.firstName + ' ' + profile.name.lastName
               }
             }
-          }
+          };
         }
-      })
+      });
   }
 
   search(offset = 0): void {
-    if(this.loading)
+    if (this.loading) {
       return;
+    }
+    this.loading = true;
     this.searchEnd = false;
+    setTimeout(() => {
+      this.loading = false;
+    }, 800);
     if (offset === 0) {
       this.update$.next();
       this.searchResults = new Set<string>();
-      if (this.login)
+      if (this.login) {
         this.markers = {[this.login]: this.markers[this.login]};
+      }
     }
     if (this.map.getBounds()) {
       this.ws.send('search', {
@@ -117,18 +125,12 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngAfterViewInit(): void {
     this.map.setZoom(4);
-    new IntersectionObserver(() => {
+    this.observer = new IntersectionObserver(() => {
       if (!this.loading && !this.searchEnd) {
         this.search(this.searchResults.size);
-        this.loading = true;
-        setTimeout(() => {
-          this.loading = false;
-        }, 1000);
       }
-    }, {
-      rootMargin: '0px',
-      threshold: .3
-    }).observe(this.trigger.nativeElement);
+    });
+    this.observer.observe(this.trigger.nativeElement);
 
   }
 
@@ -137,6 +139,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
+    this.observer?.disconnect();
     this.update$.next();
     this.update$.complete();
     this.destroy$.next();

@@ -1,22 +1,21 @@
 export class UserInfo {
   [index: string]: any;
 
-  login: string | null = '12';
+  login: string | null = null;
   name: { [index: string]: string | null } = {
-    firstName: 'Anonymous',
-    lastName: 'Anonymousov',
-    nickName: 'anon',
+    firstName: 'Not',
+    lastName: 'Found',
+    nickName: '404',
   };
   favoritesCount?: string;
   countFake?: string;
   sex?: string;
   distance?: number;
-  tag: string[] = ['dwa', 'daw'];
+  tag: string[] = [];
   fameRating: number = 0;
   photo: { [index: string]: any } = {
-    profilePhoto: 'original.webp',
-    paths: ['assets/img/original.webp',
-      'assets/img/14-48.jpg']
+    profilePhoto: null,
+    paths: []
   };
   birthDay: Date = new Date(1985, 5, 12);
   coordinates: { [index: string]: number } = {
@@ -32,8 +31,8 @@ export class UserInfo {
   isBlocked: boolean = false;
   canActiveChat: boolean = false;
   age?: number;
-
-  constructor(user?: object) {
-    this.value = user;
+  invited?: boolean;
+  constructor(user?: { [index: string]: any }) {
+    this.invited = user?.invited;
   }
 }

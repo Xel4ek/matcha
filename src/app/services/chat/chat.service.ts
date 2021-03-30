@@ -74,7 +74,7 @@ export class ChatService implements OnDestroy {
   private getImg(login: string): Observable<string> {
     return this.userInfo.data$.pipe(map(userData => {
       const data = userData[login];
-      if (!data) this.ws.send('userInfo', {login});
+      this.userInfo.getUser(login);
       return data?.photo.paths.find((src: string) => src.includes(data?.photo.profilePhoto));
     }))
   }
