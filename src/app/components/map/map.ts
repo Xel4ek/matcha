@@ -1,10 +1,7 @@
-import { LatLngExpression } from "leaflet";
-
-export interface Map {
-}
+import { LatLngExpression } from 'leaflet';
 
 export interface CustomMarker {
-  latlng: LatLngExpression,
-  popup?: string | null,
-  color?: string,
+  latlng: LatLngExpression;
+  popup?: string | null;
+  color?: string;
 }

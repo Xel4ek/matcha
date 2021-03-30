@@ -1,7 +1,7 @@
 .btn__block {
   @media only screen and (max-width: 600px) {
-    padding: .2rem;
-    gap: .5rem;
+    padding: 0.2rem;
+    gap: 0.5rem;
   }
   display: flex;
   justify-content: center;
@@ -9,10 +9,10 @@
   align-items: center;
   .redactor__control {
     font-size: 1.5rem;
-    padding: 0 .3rem;
+    padding: 0 0.3rem;
     cursor: pointer;
     color: #868c8d;
-    transition: transform .2s;
+    transition: transform 0.2s;
 
     &:hover {
       transform: scale(1.4);
@@ -29,7 +29,8 @@
   padding: 1rem;
   min-width: 100%;
 
-  .redactor__view, video {
+  .redactor__view,
+  video {
     width: 100%;
     canvas {
       border: 2px solid #3c1458;
@@ -40,7 +41,7 @@
     }
   }
 }
-#video{
+#video {
   position: relative;
   .webcam__icon {
     font-size: 2rem;
@@ -48,9 +49,9 @@
     right: 0;
     bottom: 1rem;
     cursor: pointer;
-    opacity: .5;
-    transition: transform .2s;
-    &:hover{
+    opacity: 0.5;
+    transition: transform 0.2s;
+    &:hover {
       opacity: 1;
       transform: scale(1.5);
       color: #501b66;
@@ -79,13 +80,13 @@
       position: absolute;
       display: flex;
       flex-direction: column;
-      padding: .5em;
-      gap: .5em;
+      padding: 0.5em;
+      gap: 0.5em;
       flex-wrap: wrap;
 
       .filter__element {
         cursor: pointer;
-        transition: transform .2s;
+        transition: transform 0.2s;
 
         &:hover {
           transform: scale(1.05);
@@ -102,7 +103,7 @@
           background: #5a5d5d;
 
           img {
-            opacity: .3;
+            opacity: 0.3;
           }
         }
       }

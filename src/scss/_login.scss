@@ -1,4 +1,4 @@
-.menu__content{
+.menu__content {
   width: 100%;
   margin: auto;
   img {
@@ -25,24 +25,24 @@
 }
 .field {
   width: 100%;
-  padding: .3rem;
+  padding: 0.3rem;
   border: 1px solid #868c8d;
   border-radius: 3px;
   font-weight: 300;
   text-overflow: ellipsis;
   transition: 0.4s all;
 }
-input:focus{
+input:focus {
   box-shadow: 0 0 0.5rem purple;
   border: 1px solid black;
 }
 .invalid {
-  box-shadow: 0 0 .5rem #9d0000;
+  box-shadow: 0 0 0.5rem #9d0000;
   border: 1px solid #830000;
 }
 
 .valid {
-  box-shadow: 0 0 .5rem #009d15;
+  box-shadow: 0 0 0.5rem #009d15;
   border: 1px solid #008321;
 }
 

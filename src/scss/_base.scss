@@ -3,7 +3,7 @@
 }
 
 .error {
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: #c10606;
 }
 
@@ -13,7 +13,7 @@
 
 .btn {
   width: 100%;
-  padding: .3rem 1rem;
+  padding: 0.3rem 1rem;
   cursor: pointer;
   text-align: center;
   color: white;
@@ -21,7 +21,7 @@
   background: linear-gradient(215deg, #546e7a, #37474f);
 
   @media only screen and (max-width: 330px) {
-    padding: .2rem .5rem;
+    padding: 0.2rem 0.5rem;
   }
 
   &:hover {
@@ -65,11 +65,10 @@
   to {
     transform: rotate(1turn);
   }
-
 }
 
 i {
-  margin: 0 .3ch;
+  margin: 0 0.3ch;
 }
 
 .loadingIcon {
@@ -85,7 +84,8 @@ i {
   15% {
     opacity: 1;
   }
-  30%, 70% {
+  30%,
+  70% {
     transform: translate(0, 0);
   }
   85% {
@@ -141,10 +141,10 @@ i {
   animation: 1.5s message ease;
 }
 
-.center{
-    margin: auto;
+.center {
+  margin: auto;
 }
 
-.mat-spinner{
+.mat-spinner {
   margin: auto;
 }

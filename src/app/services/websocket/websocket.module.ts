@@ -5,21 +5,16 @@ import { WebsocketService } from './websocket.service';
 import { config } from './websocket.config';
 import { WebSocketConfig } from './websocket.interfaces';
 
-
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [],
-  providers: [
-    WebsocketService
-  ]
+  providers: [WebsocketService],
 })
 export class WebsocketModule {
   public static config(wsConfig: WebSocketConfig): ModuleWithProviders<any> {
     return {
       ngModule: WebsocketModule,
-      providers: [{provide: config, useValue: wsConfig}]
+      providers: [{ provide: config, useValue: wsConfig }],
     };
   }
 }

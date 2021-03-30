@@ -1,15 +1,31 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { interval, Observable, Observer, Subject, SubscriptionLike } from 'rxjs';
-import { distinctUntilChanged, filter, first, map, share, takeWhile } from 'rxjs/operators';
+import {
+  interval,
+  Observable,
+  Observer,
+  Subject,
+  SubscriptionLike,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  first,
+  map,
+  share,
+  takeWhile,
+} from 'rxjs/operators';
 import { WebSocketSubject, WebSocketSubjectConfig } from 'rxjs/webSocket';
-import { IWebsocketService, IWsMessage, WebSocketConfig } from './websocket.interfaces';
+import {
+  IWebsocketService,
+  IWsMessage,
+  WebSocketConfig,
+} from './websocket.interfaces';
 import { config } from './websocket.config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebsocketService implements IWebsocketService, OnDestroy {
-
   public status: Observable<boolean>;
   private readonly config: WebSocketSubjectConfig<IWsMessage<any>>;
   private websocketSub: SubscriptionLike;
@@ -20,7 +36,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
   private wsMessages$: Subject<IWsMessage<any>>;
   private reconnectInterval: number;
   private readonly reconnectAttempts: number;
-  private isConnected: boolean = false;
+  private isConnected = false;
 
   constructor(@Inject(config) private wsConfig: WebSocketConfig) {
     this.wsMessages$ = new Subject<IWsMessage<any>>();
@@ -34,13 +50,13 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
         next: () => {
           this.websocket$ = null;
           this.connection$?.next(false);
-        }
+        },
       },
       openObserver: {
         next: () => {
           this.connection$?.next(true);
-        }
-      }
+        },
+      },
     };
 
     // connection status
@@ -49,30 +65,29 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
     }).pipe(share(), distinctUntilChanged());
 
     // run reconnect if not connection
-    this.statusSub = this.status
-      .subscribe((isConnected) => {
-        this.isConnected = isConnected;
-        if (!this.reconnection$ && !isConnected) {
-          this.reconnect();
-        }
-      });
+    this.statusSub = this.status.subscribe((isConnected) => {
+      this.isConnected = isConnected;
+      if (!this.reconnection$ && !isConnected) {
+        this.reconnect();
+      }
+    });
 
     this.websocketSub = this.wsMessages$.subscribe({
       next: () => null,
-      error: () => null
+      error: () => null,
     });
 
     this.connect();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.websocketSub.unsubscribe();
     this.statusSub.unsubscribe();
   }
 
   /*
-  * on message event
-  * */
+   * on message event
+   * */
 
   public on<T>(event: string): Observable<T> {
     return this.wsMessages$.pipe(
@@ -84,47 +99,47 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
   }
 
   /*
-  * on message to server
-  * */
+   * on message to server
+   * */
   public send(event: string, data: any = {}): void {
     if (event && this.isConnected) {
-      this.websocket$!.next({event, data});
+      this.websocket$?.next({ event, data });
     } else {
       this.status.pipe(first()).subscribe({
-        next: _ => this.websocket$!.next({event, data}),
+        next: (_) => this.websocket$?.next({ event, data }),
         error: () => null,
-      })
+      });
     }
   }
 
-
   /*
-  * connect to WebSocked
-  * */
+   * connect to WebSocked
+   * */
 
   private connect(): void {
-    /**
-     * Ask cookie
-     * */
     this.websocket$ = new WebSocketSubject(this.config);
 
     this.websocket$.subscribe(
       (message) => {
-        this.wsMessages$.next(message)
+        this.wsMessages$.next(message);
       },
       () => {
         if (!this.websocket$) {
           this.reconnect();
         }
-      });
+      }
+    );
   }
 
   /*
-  * reconnect if not connecting or errors
-  * */
+   * reconnect if not connecting or errors
+   * */
   private reconnect(): void {
-    this.reconnection$ = interval(this.reconnectInterval)
-      .pipe(takeWhile((v, index) => index < this.reconnectAttempts && !this.websocket$));
+    this.reconnection$ = interval(this.reconnectInterval).pipe(
+      takeWhile(
+        (v, index) => index < this.reconnectAttempts && !this.websocket$
+      )
+    );
 
     this.reconnection$.subscribe({
       next: () => this.connect(),
@@ -137,8 +152,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
           this.wsMessages$.complete();
           this.connection$?.complete();
         }
-      }
+      },
     });
   }
-
 }

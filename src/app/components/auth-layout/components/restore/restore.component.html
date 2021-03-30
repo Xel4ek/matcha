@@ -1,13 +1,20 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="menu__content">
-
   <div>
-    <div class="error">{{valid.mail.error}}</div>
-    <input #mail="ngModel" (blur)="valid.mail.check(f)" (focus)="valid.mail.reset()" [ngClass]="{'invalid':!!valid.mail.error}" autocomplete="off"
-           class="field" id="e-mail" name="mail"
-           ngModel
-           placeholder="E-mail address"
-           type="email"
-    ></div>
+    <div class="error">{{ valid.mail.error }}</div>
+    <input
+      #mail="ngModel"
+      (blur)="valid.mail.check(f)"
+      (focus)="valid.mail.reset()"
+      [ngClass]="{ invalid: !!valid.mail.error }"
+      autocomplete="off"
+      class="field"
+      id="e-mail"
+      name="mail"
+      ngModel
+      placeholder="E-mail address"
+      type="email"
+    />
+  </div>
   <div>
     <button class="btn" id="restore" type="submit">Restore</button>
   </div>

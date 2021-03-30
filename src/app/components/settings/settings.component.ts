@@ -1,101 +1,119 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ProfileService } from "@services/profile/profile.service";
-import { Subscription } from "rxjs";
-import { WebsocketService } from "@services/websocket/websocket.service";
-import { CustomMarker } from "@components/map/map";
-import { User } from "@services/user/user";
+import { ProfileService } from '@services/profile/profile.service';
+import { Subscription } from 'rxjs';
+import { WebsocketService } from '@services/websocket/websocket.service';
+import { CustomMarker } from '@components/map/map';
+import { User } from '@services/user/user';
 
 interface FormControl {
-  status: boolean,
-  error: string,
-  check: Function
+  status: boolean;
+  error: string;
+  check: (agr: string) => void;
 }
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
-
-  checked: boolean = true;
+  checked = true;
   profile?: User;
   subscription: Subscription;
   strength = 0;
   pass = '';
-  marker: { [user: string]: CustomMarker } = {}
+  marker: { [user: string]: CustomMarker } = {};
   public valid: { [index: string]: FormControl } = {
-    pass: {status: false, error: '', check: (pass: string) => this.checkPass(pass)},
-    confirm: {status: false, error: '', check: (confirm: string) => this.checkConfirm(confirm)}
+    pass: {
+      status: false,
+      error: '',
+      check: (pass: string) => this.checkPass(pass),
+    },
+    confirm: {
+      status: false,
+      error: '',
+      check: (confirm: string) => this.checkConfirm(confirm),
+    },
   };
 
   constructor(
     private profileService: ProfileService,
     private ws: WebsocketService
   ) {
-    this.subscription = this.profileService.data$.subscribe(profile => {
+    this.subscription = this.profileService.data$.subscribe((profile) => {
       if (profile && profile.login) {
         this.profile = profile;
-        const {latitude: lat, longitude: lng} = profile.coordinates;
+        const { latitude: lat, longitude: lng } = profile.coordinates;
         this.marker = {
           [profile.login]: {
             latlng: [lat, lng],
-            popup: profile.name.firstName + ' ' + profile.name.lastName
-          }
-        }
+            popup: profile.name.firstName + ' ' + profile.name.lastName,
+          },
+        };
       }
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 
-  updateGender(gender: string) {
-    this.ws.send('profile', {gender});
+  updateGender(gender: string): void {
+    this.ws.send('profile', { gender });
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {}
+
+  uploadAbout(aboutMe: string): void {
+    this.ws.send('profile', { aboutMe });
   }
 
-  uploadAbout(aboutMe: string) {
-    this.ws.send('profile', {aboutMe})
+  updatePrefGender(sex: string): void {
+    this.ws.send('profile', { sex });
   }
 
-  updatePrefGender(sex: string) {
-    this.ws.send('profile', {sex})
-  }
-
-  changeLocation({latlng: {lat: latitude, lng: longitude}}: { latlng: { [index: string]: number } }) {
+  changeLocation({
+    latlng: { lat: latitude, lng: longitude },
+  }: {
+    latlng: { [index: string]: number };
+  }): void {
     this.ws.send('profile', {
       coordinates: {
         latitude,
         longitude,
         accuracy: 0,
-      }
-    })
+      },
+    });
   }
 
-  editList(key: string, {action, data}: { action: string, data: string }) {
-    let send = data.replace(/[\W]/g, '');
+  editList(
+    key: string,
+    { action, data }: { action: string; data: string }
+  ): void {
+    const send = data.replace(/[\W]/g, '');
     if (send) {
       if (action === 'add') {
-        this.ws.send('profile', {[key]: '#' + send})
+        this.ws.send('profile', { [key]: '#' + send });
       }
       if (action === 'remove') {
         this.ws.send('profile', {
-          ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: data
-        })
+          ['remove' + key.replace(/^\w/, (c) => c.toUpperCase())]: data,
+        });
       }
     }
   }
 
   checkPassStrength(pass: string): void {
-    const res = [/[a-z]/.test(pass), /\d/.test(pass), /[A-Z]/.test(pass), /\W/.test(pass), pass.length > 6];
-    this.strength = res.filter(el => el).length;
+    const res = [
+      /[a-z]/.test(pass),
+      /\d/.test(pass),
+      /[A-Z]/.test(pass),
+      /\W/.test(pass),
+      pass.length > 6,
+    ];
+    this.strength = res.filter((el) => el).length;
   }
 
   checkPass(pass: string): void {
@@ -125,31 +143,31 @@ export class SettingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.valid[key].error = '';
   }
 
-  locateMe() {
+  locateMe(): void {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
-        this.ws.send('profile', {
-          coordinates: {
-            latitude,
-            longitude,
-          }
-        })
-      });
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          this.ws.send('profile', {
+            coordinates: {
+              latitude,
+              longitude,
+            },
+          });
+        }
+      );
     } else {
-
     }
   }
 
-  send(message: { [key: string]: string }) {
-    this.ws.send('profile', message)
+  send(message: { [key: string]: string }): void {
+    this.ws.send('profile', message);
   }
 
-  private updatePassword() {
+  private updatePassword(): void {
     if (this.valid.confirm.status && this.valid.pass.status) {
       this.ws.send('profile', {
-        pass: this.pass
-      })
-
+        pass: this.pass,
+      });
     }
   }
 }

@@ -13,7 +13,7 @@
     display: none;
   }
   .selected {
-    opacity: .6;
+    opacity: 0.6;
     background: #868c8d;
   }
   .gallery {
@@ -35,26 +35,26 @@
   margin-bottom: 1rem;
   background: white;
   border-radius: 4px;
-  img{
+  img {
     min-width: 100%;
   }
   .card__title {
-    padding: .5rem;
+    padding: 0.5rem;
     font-style: italic;
     &:first-child {
       font-size: 1.1rem;
     }
   }
   .date {
-    font-size: .7rem;
-    opacity: .9;
+    font-size: 0.7rem;
+    opacity: 0.9;
     padding-left: 1rem;
     font-weight: 300;
     font-style: italic;
   }
   .comment {
     padding: 0 1ch;
-    .comment__title{
+    .comment__title {
       font-weight: bold;
     }
     .comment__text {
@@ -62,7 +62,7 @@
     }
     margin-bottom: 1rem;
   }
-  .add__comment{
+  .add__comment {
     position: relative;
     .add__comment__btn {
       cursor: pointer;
@@ -94,7 +94,7 @@
 
       span {
         cursor: pointer;
-        padding: .3rem;
+        padding: 0.3rem;
         flex: 1 1 auto;
 
         &:hover {
@@ -105,7 +105,7 @@
       }
 
       display: flex;
-      gap: .1rem;
+      gap: 0.1rem;
       text-align: center;
     }
   }

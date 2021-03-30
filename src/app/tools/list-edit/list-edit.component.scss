@@ -6,11 +6,11 @@
 
 .entry {
   display: inline-block;
-  padding: 0.1rem .2rem;
+  padding: 0.1rem 0.2rem;
   border-radius: 1rem;
-  margin: .2ch;
-  border: 1px solid rgba(0, 0, 0, .1);
-  background-color: rgba(125, 24, 160, .1);
+  margin: 0.2ch;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(125, 24, 160, 0.1);
 }
 
 .autocomplete__wrapper {
@@ -29,7 +29,7 @@
     z-index: 9999;
     left: 0;
     top: 100%;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     border: 1px solid #e7e7e7;
     background: white;
 
@@ -40,8 +40,8 @@
       margin: 0;
 
       li {
-        padding: .1rem 1rem;
-        border-radius: .5rem;
+        padding: 0.1rem 1rem;
+        border-radius: 0.5rem;
         overflow: hidden;
 
         &:hover {

@@ -8,9 +8,8 @@ describe('RestoreComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RestoreComponent]
-    })
-      .compileComponents();
+      declarations: [RestoreComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -6,7 +6,7 @@
     "paths": {
       "@components/*": ["app/components/*"],
       "@services/*": ["app/services/*"],
-      "@tools/*": ["app/tools/*"],
+      "@tools/*": ["app/tools/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -22,10 +22,7 @@
     "target": "es2015",
 
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

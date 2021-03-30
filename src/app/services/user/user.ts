@@ -1,13 +1,13 @@
-import { UserInfo } from "@services/user-info/user-info";
+import { UserInfo } from '@services/user-info/user-info';
 
 export class User extends UserInfo {
-  public authorized: boolean = false;
+  public authorized = false;
   favoriteList: string[] = [];
   blackList: string[] = [];
   activeChats: string[] = [];
-  email: string = '';
+  email = '';
   matches: string[] = [];
-  firstAccess: boolean = true;
+  firstAccess = true;
 
   constructor() {
     super();

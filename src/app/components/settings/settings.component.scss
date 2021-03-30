@@ -4,14 +4,13 @@
   svg {
     top: calc(50% - 50px) !important;
   }
-
 }
 
 ::ng-deep .settings form {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
-  margin: .5rem;
+  gap: 0.5rem;
+  margin: 0.5rem;
 
   .btn {
     width: auto;
@@ -31,7 +30,7 @@
 }
 
 .block {
-  padding-bottom: .3rem;
+  padding-bottom: 0.3rem;
   border-bottom: 1px solid silver;
 }
 
@@ -39,7 +38,7 @@
   border: none;
   background-color: inherit;
   width: 100%;
-  padding: .3rem;
+  padding: 0.3rem;
   border-bottom: 1px solid #868c8d;
   font-weight: 300;
   text-overflow: ellipsis;
@@ -65,4 +64,3 @@ input::placeholder {
   font-weight: 400;
   color: #bdbdbd;
 }
-

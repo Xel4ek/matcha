@@ -12,10 +12,10 @@ export class UserInfo {
   sex?: string;
   distance?: number;
   tag: string[] = [];
-  fameRating: number = 0;
+  fameRating = 0;
   photo: { [index: string]: any } = {
     profilePhoto: null,
-    paths: []
+    paths: [],
   };
   birthDay: Date = new Date(1985, 5, 12);
   coordinates: { [index: string]: number } = {
@@ -23,13 +23,13 @@ export class UserInfo {
     longitude: 0,
     accuracy: 0,
   };
-  aboutMe: string = '';
-  isOnline: boolean = false;
+  aboutMe = '';
+  isOnline = false;
   lastLoginTime: Date = new Date();
   gender: string | null = null;
-  isFavourite: boolean = false;
-  isBlocked: boolean = false;
-  canActiveChat: boolean = false;
+  isFavourite = false;
+  isBlocked = false;
+  canActiveChat = false;
   age?: number;
   invited?: boolean;
   constructor(user?: { [index: string]: any }) {

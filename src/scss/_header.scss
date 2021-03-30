@@ -2,16 +2,16 @@
   background: white;
   box-shadow: 1px 0 1px #501b66;
 }
-.header__wrapper{
-  padding-right: .5rem;
+.header__wrapper {
+  padding-right: 0.5rem;
   display: flex;
   align-items: center;
   .header_btn {
     font-size: 1.5rem;
-    padding: 0 .3rem;
+    padding: 0 0.3rem;
     cursor: pointer;
     color: #868c8d;
-    transition: transform .2s;
+    transition: transform 0.2s;
     &:hover {
       transform: scale(1.2);
       color: inherit;
@@ -21,18 +21,17 @@
   .filler {
     flex: 1 1 auto;
   }
-  .title{
+  .title {
     flex: 1 1 auto;
     text-align: center;
   }
-  .menu{
+  .menu {
     position: relative;
-    .menu__content{
+    .menu__content {
       position: absolute;
       top: 2rem;
       right: 1rem;
       background: blue;
     }
   }
-
 }

@@ -1,59 +1,115 @@
-<ng-container *ngTemplateOutlet="notFound ? userNotFound : user ? userInfo : loading"></ng-container>
+<ng-container
+  *ngTemplateOutlet="notFound ? userNotFound : user ? userInfo : loading"
+></ng-container>
 <ng-template #userInfo>
   <div class="info">
     <div class="carousel__wrapper">
       <div class="status">
-        <span [ngClass]="{'online': user?.isOnline}">{{user?.isOnline ?
-          'Online' :
-          'Was: ' + (user?.lastLoginTime ? (user?.lastLoginTime | date:'medium') : 'false')}}</span>
+        <span [ngClass]="{ online: user?.isOnline }">{{
+          user?.isOnline
+            ? "Online"
+            : "Was: " +
+              (user?.lastLoginTime
+                ? (user?.lastLoginTime | date: "medium")
+                : "false")
+        }}</span>
       </div>
       <div *ngIf="profile !== login" class="btn__block">
-        <div (click)="report()" class="btn" title="Report"><i [throttleTime]="2000" appThrottleClick
-                                                              class="far fa-thumbs-down"></i></div>
-        <div (click)="addBlackList()" [throttleTime]="2000" appThrottleClick class="btn" title="Block">
+        <div (click)="report()" class="btn" title="Report">
+          <i
+            [throttleTime]="2000"
+            appThrottleClick
+            class="far fa-thumbs-down"
+          ></i>
+        </div>
+        <div
+          (click)="addBlackList()"
+          [throttleTime]="2000"
+          appThrottleClick
+          class="btn"
+          title="Block"
+        >
           <i *ngIf="!user?.isBlocked" class="fas fa-user-alt-slash"></i>
           <i *ngIf="user?.isBlocked" class="fas fa-user-check"></i>
         </div>
-        <div (click)="addFavorite()" *ngIf="likeAvailable" [throttleTime]="2000" appThrottleClick class="btn"
-             title="Favorite">
-          <i [class]="user?.isFavourite ? 'fas' : 'far'" class="fa-star"></i></div>
-        <div (click)="startChat()" *ngIf="user?.canActiveChat" class="btn" title="Chat"><i class="far fa-comments"></i>
+        <div
+          (click)="addFavorite()"
+          *ngIf="likeAvailable"
+          [throttleTime]="2000"
+          appThrottleClick
+          class="btn"
+          title="Favorite"
+        >
+          <i [class]="user?.isFavourite ? 'fas' : 'far'" class="fa-star"></i>
+        </div>
+        <div
+          (click)="startChat()"
+          *ngIf="user?.canActiveChat"
+          class="btn"
+          title="Chat"
+        >
+          <i class="far fa-comments"></i>
         </div>
       </div>
       <swiper [index]="index">
         <div *ngFor="let path of user?.photo?.paths">
-          <img [src]="path" alt="photo">
+          <img [src]="path" alt="photo" />
         </div>
       </swiper>
     </div>
     <mat-list role="list">
       <mat-list-item role="listitem">
-        Name: {{user?.name?.firstName}} {{user?.name?.lastName}} ({{user?.name?.nickName}})
+        Name: {{ user?.name?.firstName }} {{ user?.name?.lastName }} ({{
+          user?.name?.nickName
+        }})
       </mat-list-item>
       <mat-chip-list>
-        <mat-chip *ngFor="let tag of user?.tag" [ngClass]="{'purple': tags.indexOf(tag) !== -1}">
-          {{tag}}
+        <mat-chip
+          *ngFor="let tag of user?.tag"
+          [ngClass]="{ purple: tags.indexOf(tag) !== -1 }"
+        >
+          {{ tag }}
         </mat-chip>
       </mat-chip-list>
-      <mat-list-item *ngIf="user?.age" [title]="'Birth day: ' + (age | date:'longDate')" role="listitem">
-        Age: {{user?.age}} years
+      <mat-list-item
+        *ngIf="user?.age"
+        [title]="'Birth day: ' + (age | date: 'longDate')"
+        role="listitem"
+      >
+        Age: {{ user?.age }} years
       </mat-list-item>
       <mat-list-item role="listitem">
-        Rating: {{user?.fameRating }}<i class="fas fa-medal"></i>
+        Rating: {{ user?.fameRating }}<i class="fas fa-medal"></i>
       </mat-list-item>
-      <mat-list-item *ngIf="user?.favoritesCount" [title]="'Followers ' + user?.favoritesCount" role="listitem">
-        Followers: {{user?.favoritesCount}}<i class="fas fa-star"></i>
+      <mat-list-item
+        *ngIf="user?.favoritesCount"
+        [title]="'Followers ' + user?.favoritesCount"
+        role="listitem"
+      >
+        Followers: {{ user?.favoritesCount }}<i class="fas fa-star"></i>
       </mat-list-item>
-      <mat-list-item *ngIf="user?.countFake" [title]="'FakeStatus ' + user?.countFake" role="listitem">
-        FakeStatus: {{user?.countFake}}<i class="far fa-thumbs-down"></i>
+      <mat-list-item
+        *ngIf="user?.countFake"
+        [title]="'FakeStatus ' + user?.countFake"
+        role="listitem"
+      >
+        FakeStatus: {{ user?.countFake }}<i class="far fa-thumbs-down"></i>
       </mat-list-item>
-      <mat-list-item [ngSwitch]="user?.gender" [title]="'Gender:'" role="listitem">
+      <mat-list-item
+        [ngSwitch]="user?.gender"
+        [title]="'Gender:'"
+        role="listitem"
+      >
         Gender:
         <i *ngSwitchCase="'Male'" class="fas fa-mars"></i>
         <i *ngSwitchCase="'Female'" class="fas fa-venus"></i>
         <i *ngSwitchDefault class="fas fa-venus-mars"></i>
       </mat-list-item>
-      <mat-list-item [ngSwitch]="user?.sex" [title]="'Looking for:'" role="listitem">
+      <mat-list-item
+        [ngSwitch]="user?.sex"
+        [title]="'Looking for:'"
+        role="listitem"
+      >
         Looking for:
         <i *ngSwitchCase="'Male'" class="fas fa-mars"></i>
         <i *ngSwitchCase="'Female'" class="fas fa-venus"></i>
@@ -61,30 +117,23 @@
       </mat-list-item>
       <mat-list-item [title]="'Distance:'" role="listitem">
         <i class="fas fa-map-marker-alt" style="margin-left: 0"></i>
-        {{user?.distance | number: '1.0-1' }} km from you
+        {{ user?.distance | number: "1.0-1" }} km from you
       </mat-list-item>
     </mat-list>
   </div>
   <mat-accordion multi>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          About Me
-        </mat-panel-title>
+        <mat-panel-title> About Me </mat-panel-title>
       </mat-expansion-panel-header>
       <p>{{ user?.aboutMe }}</p>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          Find Me
-        </mat-panel-title>
-        <mat-panel-description>
-          Location
-        </mat-panel-description>
+        <mat-panel-title> Find Me </mat-panel-title>
+        <mat-panel-description> Location </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-map [markers]="marker">
-      </app-map>
+      <app-map [markers]="marker"> </app-map>
     </mat-expansion-panel>
   </mat-accordion>
   <!--  <pre> {{user | json }}</pre>-->
@@ -95,4 +144,3 @@
 <ng-template #userNotFound>
   <app-not-found></app-not-found>
 </ng-template>
-

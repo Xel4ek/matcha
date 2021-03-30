@@ -1,35 +1,37 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { ValidatorService } from "@services/validator/validator.service";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { ValidatorService } from '@services/validator/validator.service';
 
 @Component({
   selector: 'app-settings-input-field[name]',
   templateUrl: './settings-input-field.component.html',
-  styleUrls: ['./settings-input-field.component.scss']
+  styleUrls: ['./settings-input-field.component.scss'],
 })
 export class SettingsInputFieldComponent {
-
   error = '';
   status?: boolean;
   @ViewChild('input') inputValue!: ElementRef;
   @Input() title?: string;
   @Input() value: any;
-  @Input() type: string = 'text';
-  @Input() validate?: string
-  @Input() placeholder: string = '';
-  @Input() name: string = '';
-  @Output() result = new EventEmitter();
+  @Input() type = 'text';
+  @Input() validate?: string;
+  @Input() placeholder = '';
+  @Input() name = '';
+  @Output() resultSettings = new EventEmitter();
 
-  constructor(
-    private vs: ValidatorService,
-  ) {
-  }
+  constructor(private vs: ValidatorService) {}
 
-
-  reset() {
+  reset(): void {
     this.error = '';
   }
 
-  async apply() {
+  async apply(): Promise<void> {
     let value = '';
     if (this.type === 'date') {
       value = this.inputValue.nativeElement.valueAsNumber;
@@ -40,8 +42,7 @@ export class SettingsInputFieldComponent {
     this.error = result?.error ?? '';
     this.status = result.valid;
     if (result.valid && this.value !== value) {
-      this.result.emit({[this.name]: value});
+      this.resultSettings.emit({ [this.name]: value });
     }
   }
-
 }

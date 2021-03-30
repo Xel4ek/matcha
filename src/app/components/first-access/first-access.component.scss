@@ -9,7 +9,7 @@
   }
 }
 .block {
-  padding-bottom: .3rem;
+  padding-bottom: 0.3rem;
   border-bottom: 1px solid silver;
   flex: 1 1 auto;
 }
@@ -61,8 +61,8 @@
 }
 
 .info {
-  padding: .5rem 1rem;
-  margin: .3rem .3rem 1.3rem .3rem;
+  padding: 0.5rem 1rem;
+  margin: 0.3rem 0.3rem 1.3rem 0.3rem;
   border: 1px solid;
   border-radius: 3px;
   font-style: italic;
@@ -71,12 +71,12 @@
   align-items: center;
 }
 
-.first__access__button{
+.first__access__button {
   align-self: center;
   padding: 1rem 3rem;
   background: green;
   box-shadow: 5px 3px 10px grey;
-  transition: all .1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   align-items: center;
   display: flex;
   border-radius: 3px;
@@ -101,5 +101,4 @@
 }
 .inactive {
   pointer-events: none;
-
 }

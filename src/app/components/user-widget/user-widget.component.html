@@ -1,10 +1,10 @@
-<div *ngIf="data else loading" class="widget__wrapper">
+<div *ngIf="data; else loading" class="widget__wrapper">
   <div class="img__wrapper">
-    <img [src]="imgSrc" [alt]="data.login">
+    <img [src]="imgSrc" [alt]="data.login" />
   </div>
   <div class="widget__info">
     <div>
-      {{data?.name?.nickName}}
+      {{ data?.name?.nickName }}
     </div>
     <div [ngSwitch]="data?.gender">
       Sex:
@@ -14,19 +14,13 @@
     </div>
     <div>
       <i class="fas fa-map-marker-alt" style="margin-left: 0"></i>
-      {{data?.distance | number: '1.0-1' }} km
+      {{ data?.distance | number: "1.0-1" }} km
     </div>
-    <div>
-      {{data?.age}} years
-    </div>
-    <div>
-      <i class="fas fa-medal"></i>{{data?.fameRating }}
-    </div>
+    <div>{{ data?.age }} years</div>
+    <div><i class="fas fa-medal"></i>{{ data?.fameRating }}</div>
   </div>
   <div class="widget__content">
     <ng-content></ng-content>
   </div>
 </div>
-<ng-template #loading>
-  Loading...
-</ng-template>
+<ng-template #loading> Loading... </ng-template>

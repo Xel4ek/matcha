@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BreakpointObserver } from "@angular/cdk/layout";
-import { BehaviorSubject, Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeviceDetectorService implements OnDestroy {
   private destroy = new Subject<void>();
@@ -12,10 +12,10 @@ export class DeviceDetectorService implements OnDestroy {
   isMobile$ = this.isMobileSubject.asObservable();
 
   constructor(breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe([
-      '(max-width: 480px)'
-    ]).pipe(takeUntil(this.destroy))
-      .subscribe(result => {
+    breakpointObserver
+      .observe(['(max-width: 480px)'])
+      .pipe(takeUntil(this.destroy))
+      .subscribe((result) => {
         this.isMobileSubject.next(result.matches);
       });
   }

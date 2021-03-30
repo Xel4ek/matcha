@@ -1,106 +1,144 @@
-<div *ngIf="(profile && profile.login) else loading">
+<div *ngIf="profile && profile.login; else loading">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        General
-      </mat-panel-title>
+      <mat-panel-title> General </mat-panel-title>
     </mat-expansion-panel-header>
     <app-settings-input-field
-      (result)="send($event)"
+            (resultSettings)="send($event)"
       [value]="profile.name.nickName"
       name="nickName"
       title="Login"
-      validate="login"></app-settings-input-field>
+      validate="login"
+    ></app-settings-input-field>
 
     <app-settings-input-field
-      (result)="send($event)"
+            (resultSettings)="send($event)"
       [value]="profile.name.firstName"
       name="firstName"
       title="FirstName"
-      validate="required"></app-settings-input-field>
+      validate="required"
+    ></app-settings-input-field>
 
     <app-settings-input-field
-      (result)="send($event)"
+            (resultSettings)="send($event)"
       [value]="profile.name.lastName"
       name="lastName"
-      title="LastName" validate="required"></app-settings-input-field>
+      title="LastName"
+      validate="required"
+    ></app-settings-input-field>
     <app-settings-input-field
-      (result)="send($event)"
-      [value]="profile.birthDay | date:'yyyy-MM-dd'"
+            (resultSettings)="send($event)"
+      [value]="profile.birthDay | date: 'yyyy-MM-dd'"
       name="birthDay"
       title="BirthDay"
-      type="date" validate="birthDay"></app-settings-input-field>
+      type="date"
+      validate="birthDay"
+    ></app-settings-input-field>
     <app-settings-input-field
-      (result)="send($event)"
+            (resultSettings)="send($event)"
       [value]="profile.email"
       name="email"
-      title="Mail" validate="mail"></app-settings-input-field>
+      title="Mail"
+      validate="mail"
+    ></app-settings-input-field>
     <div>
       <mat-label>Gender</mat-label>
-      <mat-select #gender (selectionChange)="updateGender(gender.value)" [value]="profile?.gender" placeholder="Gender"
-                  style="padding:.3rem">
-        <mat-option *ngFor="let sex of ['Male', 'Female', 'Other']" [value]="sex">
-          {{sex}}
+      <mat-select
+        #gender
+        (selectionChange)="updateGender(gender.value)"
+        [value]="profile?.gender"
+        placeholder="Gender"
+        style="padding: 0.3rem"
+      >
+        <mat-option
+          *ngFor="let sex of ['Male', 'Female', 'Other']"
+          [value]="sex"
+        >
+          {{ sex }}
         </mat-option>
       </mat-select>
     </div>
     <div>
-      <div class="error">{{valid.pass.error}}</div>
+      <div class="error">{{ valid.pass.error }}</div>
       <label>
         Change Password
-        <input #pass (blur)="valid.pass.check(pass.value)" (focus)="reset('pass')"
-               (input)="checkPassStrength(pass.value)" autocomplete="off" class="form-field"
-               id="password"
-               placeholder="Password"
-               type="password">
+        <input
+          #pass
+          (blur)="valid.pass.check(pass.value)"
+          (focus)="reset('pass')"
+          (input)="checkPassStrength(pass.value)"
+          autocomplete="off"
+          class="form-field"
+          id="password"
+          placeholder="Password"
+          type="password"
+        />
       </label>
-      <mat-progress-bar *ngIf="!!pass.value" [value]="strength * 20" class="strength-{{strength}}"
-                        mode="determinate"></mat-progress-bar>
-
+      <mat-progress-bar
+        *ngIf="!!pass.value"
+        [value]="strength * 20"
+        class="strength-{{ strength }}"
+        mode="determinate"
+      ></mat-progress-bar>
     </div>
     <div>
-      <div class="error">{{valid.confirm.error}}</div>
+      <div class="error">{{ valid.confirm.error }}</div>
       <label>
-        <input #confirm (blur)="valid.confirm.check(confirm.value)" (focus)="reset('confirm')"
-               [ngClass]="{'invalid':!!valid.confirm.error,'valid':valid.confirm.status}" autocomplete="off"
-               class="form-field"
-               id="confirm"
-               placeholder="Confirm password"
-               type="password">
+        <input
+          #confirm
+          (blur)="valid.confirm.check(confirm.value)"
+          (focus)="reset('confirm')"
+          [ngClass]="{
+            invalid: !!valid.confirm.error,
+            valid: valid.confirm.status
+          }"
+          autocomplete="off"
+          class="form-field"
+          id="confirm"
+          placeholder="Confirm password"
+          type="password"
+        />
       </label>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel style="overflow: unset">
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Preferences
-      </mat-panel-title>
+      <mat-panel-title> Preferences </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="block">
       <mat-label>Gender</mat-label>
-      <mat-select #prefGender (selectionChange)="updatePrefGender(prefGender.value)" [value]="profile?.sex"
-                  placeholder="Gender"
-                  style="padding:.3rem">
-        <mat-option *ngFor="let pref of ['Male', 'Female', 'Bisexual']" [value]="pref">
-          {{pref}}
+      <mat-select
+        #prefGender
+        (selectionChange)="updatePrefGender(prefGender.value)"
+        [value]="profile?.sex"
+        placeholder="Gender"
+        style="padding: 0.3rem"
+      >
+        <mat-option
+          *ngFor="let pref of ['Male', 'Female', 'Bisexual']"
+          [value]="pref"
+        >
+          {{ pref }}
         </mat-option>
       </mat-select>
     </div>
     <div class="block">
       <p>Tags</p>
-      <app-list-edit (editList)="editList('tag', $event)" [list]="profile.tag"></app-list-edit>
+      <app-list-edit
+        (editList)="editList('tag', $event)"
+        [list]="profile.tag"
+      ></app-list-edit>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Advance
-      </mat-panel-title>
+      <mat-panel-title> Advance </mat-panel-title>
     </mat-expansion-panel-header>
     <app-image-edit
-      (result)="send($event)"
+      (resultEdit)="send($event)"
       [images]="profile.photo.paths"
-      [profilePhoto]="profile.photo.profilePhoto">
+      [profilePhoto]="profile.photo.profilePhoto"
+    >
     </app-image-edit>
     <p>About Me</p>
     <label>
@@ -108,15 +146,15 @@
         #about
         (blur)="uploadAbout(about.value)"
         [value]="profile.aboutMe"
-        cdkAutosizeMinRows="3" cdkTextareaAutosize
-        class="textarea"></textarea>
+        cdkAutosizeMinRows="3"
+        cdkTextareaAutosize
+        class="textarea"
+      ></textarea>
     </label>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Location
-      </mat-panel-title>
+      <mat-panel-title> Location </mat-panel-title>
     </mat-expansion-panel-header>
     <app-map (updateCoordinate)="changeLocation($event)" [markers]="marker">
       <i (click)="locateMe()" class="fas fa-search-location fa-3x"></i>
@@ -127,4 +165,3 @@
   <mat-spinner></mat-spinner>
 </ng-template>
 <!--<pre>{{profile | json}}</pre>-->
-

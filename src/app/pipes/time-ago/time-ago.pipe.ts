@@ -1,16 +1,24 @@
-import { ChangeDetectorRef, NgZone, OnDestroy, Pipe, PipeTransform } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  NgZone,
+  OnDestroy,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 
 @Pipe({
   name: 'timeAgo',
-  pure: false
+  pure: false,
 })
 export class TimeAgoPipe implements PipeTransform, OnDestroy {
   private timer?: number | null;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone) {
-  }
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {}
 
-  private static getSecondsUntilUpdate(seconds: number) {
+  private static getSecondsUntilUpdate(seconds: number): number {
     const min = 60;
     const hr = min * 60;
     const day = hr * 24;
@@ -25,12 +33,14 @@ export class TimeAgoPipe implements PipeTransform, OnDestroy {
     }
   }
 
-  transform(value: number | string) {
+  transform(value: number | string): string {
     this.removeTimer();
     const d = new Date(value);
     const now = new Date();
     const seconds = Math.round(Math.abs((now.getTime() - d.getTime()) / 1000));
-    const timeToUpdate = (Number.isNaN(seconds)) ? 1000 : TimeAgoPipe.getSecondsUntilUpdate(seconds) * 1000;
+    const timeToUpdate = Number.isNaN(seconds)
+      ? 1000
+      : TimeAgoPipe.getSecondsUntilUpdate(seconds) * 1000;
     this.timer = this.ngZone.runOutsideAngular(() => {
       if (typeof window !== 'undefined') {
         return window.setTimeout(() => {
@@ -84,7 +94,7 @@ export class TimeAgoPipe implements PipeTransform, OnDestroy {
     this.removeTimer();
   }
 
-  private removeTimer() {
+  private removeTimer(): void {
     if (this.timer) {
       window.clearTimeout(this.timer);
       this.timer = null;

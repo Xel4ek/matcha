@@ -12,7 +12,7 @@
 
     .setting__action {
       @media only screen and (max-width: 600px) {
-        transform: scale(.8);
+        transform: scale(0.8);
       }
       @media only screen and (min-width: 992px) {
         transform: scale(1.2);
@@ -30,7 +30,6 @@
     @media only screen and (min-width: 992px) {
       font-size: 50px;
     }
-
   }
 
   @keyframes arrow {
@@ -38,13 +37,13 @@
       left: 0.2rem;
     }
     100% {
-      left: .6rem;
+      left: 0.6rem;
     }
   }
 
   .setting__action {
     cursor: pointer;
-    padding: .3rem .3rem .3rem 0;
+    padding: 0.3rem 0.3rem 0.3rem 0;
     @media only screen and (max-width: 600px) {
       width: 1.5rem;
     }
@@ -57,39 +56,40 @@
     height: 2.5rem;
     position: relative;
 
-    &::after, &::before {
+    &::after,
+    &::before {
       position: absolute;
       top: 0;
-      left: .4rem;
-      content: '';
+      left: 0.4rem;
+      content: "";
       width: 1px;
       height: 1rem;
       background: #bdbdbd;
     }
 
     &::after {
-      transform: translate(.5rem, 10%) rotate(-40deg);
+      transform: translate(0.5rem, 10%) rotate(-40deg);
     }
 
     &::before {
-      transform: translate(.5rem, 90%) rotate(40deg);
+      transform: translate(0.5rem, 90%) rotate(40deg);
     }
-
   }
 
   .back {
     &::after {
-      transform: translate(.5rem, 10%) rotate(40deg);
+      transform: translate(0.5rem, 10%) rotate(40deg);
     }
 
     &::before {
-      transform: translate(.5rem, 90%) rotate(-40deg);
+      transform: translate(0.5rem, 90%) rotate(-40deg);
     }
 
     &:hover {
-      &.setting__action::after, &.setting__action::before {
+      &.setting__action::after,
+      &.setting__action::before {
         background: #5a5d5d;
-        animation: .8s arrow ease-in-out reverse infinite;
+        animation: 0.8s arrow ease-in-out reverse infinite;
       }
     }
   }
@@ -102,7 +102,7 @@
   .info {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 0.5rem;
 
     .btn {
       width: 10rem;
@@ -112,21 +112,21 @@
       box-shadow: 1px 1px 2px rgba(109, 109, 109, 0.5);
       background: #eee;
       border-radius: 3px;
-      padding: .2rem;
+      padding: 0.2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
 
       .title {
-        padding: .3rem 0 .3rem .3rem;
+        padding: 0.3rem 0 0.3rem 0.3rem;
         width: 8ch;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
       .settings__field {
-        padding: .4rem;
-        margin: 0 .5rem;
+        padding: 0.4rem;
+        margin: 0 0.5rem;
         border-left: #e1e1e1 2px solid;
         border-right: #e1e1e1 2px solid;
         flex: 1 1 auto;
@@ -138,12 +138,12 @@
       }
 
       &:hover {
-        .setting__action::after, .setting__action::before {
+        .setting__action::after,
+        .setting__action::before {
           background: #5a5d5d;
-          animation: .8s arrow ease-in-out infinite;
+          animation: 0.8s arrow ease-in-out infinite;
         }
       }
-
     }
   }
 }

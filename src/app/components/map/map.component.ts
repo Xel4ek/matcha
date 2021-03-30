@@ -8,16 +8,16 @@ import {
   OnDestroy,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import * as L from 'leaflet';
 import { LatLng } from 'leaflet';
-import { CustomMarker } from "@components/map/map";
+import { CustomMarker } from '@components/map/map';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   updateBoundsAfterGetData = false;
@@ -35,20 +35,24 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.map = L.map(this.mapElement.nativeElement);
     this.map.on('click', (e: any) => {
       this.updateCoordinate.emit(e);
-    })
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
+    const tiles = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }
+    );
     tiles.addTo(this.map);
     this.updateBounds();
   }
 
-  getBounds() {
+  getBounds(): L.LatLngBounds | undefined {
     return this.map?.getBounds();
   }
 
-  setZoom(zoom: number) {
+  setZoom(zoom: number): L.Map | undefined {
     return this.map?.setZoom(zoom);
   }
 
@@ -58,20 +62,23 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.map = null;
   }
 
-  addMarkers() {
-    this.mapMarkers.map(marker => {
+  addMarkers(): L.LatLng[] {
+    this.mapMarkers.map((marker) => {
       this.map?.removeLayer(marker);
-    })
+    });
     this.mapMarkers = [];
     const icon = new L.Icon.Default();
     const latLongs: LatLng[] = [];
-    Object.values(this.markers).map(({latlng, popup}) => {
-      const point = L.marker(latlng, {icon}).addTo(this.map!);
-      if (popup)
-        point.bindPopup('<h3>' + popup + '</h3>').openPopup();
-      this.mapMarkers.push(point);
-      latLongs.push(L.latLng(latlng));
-    })
+    Object.values(this.markers).map(({ latlng, popup }) => {
+      if (this.map) {
+        const point = L.marker(latlng, { icon }).addTo(this.map);
+        if (popup) {
+          point.bindPopup('<h3>' + popup + '</h3>').openPopup();
+        }
+        this.mapMarkers.push(point);
+        latLongs.push(L.latLng(latlng));
+      }
+    });
     return latLongs;
   }
 
@@ -85,12 +92,13 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
-  private updateBounds() {
+  private updateBounds(): void {
     const latLongs = this.addMarkers();
-    if (!latLongs || !latLongs.length)
+    if (!latLongs || !latLongs.length) {
       return;
+    }
     const bounds = L.latLngBounds(latLongs);
-    this.map?.setView(bounds.getCenter(), 15)
+    this.map?.setView(bounds.getCenter(), 15);
     if (Object.keys(this.markers).length > 1) {
       this.map?.fitBounds(bounds);
     }

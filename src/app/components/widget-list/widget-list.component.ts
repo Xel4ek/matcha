@@ -1,43 +1,50 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { ProfileService } from "@services/profile/profile.service";
-import { WebsocketService } from "@services/websocket/websocket.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ProfileService } from '@services/profile/profile.service';
+import { WebsocketService } from '@services/websocket/websocket.service';
 
 @Component({
   selector: 'app-widget-list',
   templateUrl: './widget-list.component.html',
-  styleUrls: ['./widget-list.component.scss']
+  styleUrls: ['./widget-list.component.scss'],
 })
 export class WidgetListComponent implements OnInit, OnDestroy {
-  list: { user: string, time: number }[] = [];
+  list: { user: string; time: number }[] = [];
   private action = '';
   private subscriptions: Subscription[] = [];
   mode = '';
 
-  constructor(private route: ActivatedRoute,
-              private ps: ProfileService,
-              private router: Router,
-              private ws: WebsocketService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private ps: ProfileService,
+    private router: Router,
+    private ws: WebsocketService
+  ) {}
 
   ngOnInit(): void {
-    this.subscriptions.push(this.route.data.subscribe(({key, mode}: { [index: string]: string }) => {
-      this.action = key.replace(/^\w/, (c) => c.toUpperCase());
-      this.mode = mode;
-      if (key) {
-        this.subscriptions.push(this.ps.data$.subscribe((profile) => {
-          this.list = profile[key];
-        }))
-      }
-    }))
+    this.subscriptions.push(
+      this.route.data.subscribe(
+        ({ key, mode }: { [index: string]: string }) => {
+          this.action = key.replace(/^\w/, (c) => c.toUpperCase());
+          this.mode = mode;
+          if (key) {
+            this.subscriptions.push(
+              this.ps.data$.subscribe((profile) => {
+                this.list = profile[key];
+              })
+            );
+          }
+        }
+      )
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.map((subs => subs.unsubscribe()));
+    this.subscriptions.map((subs) => subs.unsubscribe());
     this.subscriptions = [];
   }
-  remove(user: string) {
-    this.ws.send('profile', {['remove' + this.action]: user})
+  remove(user: string): void {
+    this.ws.send('profile', { ['remove' + this.action]: user });
   }
 }

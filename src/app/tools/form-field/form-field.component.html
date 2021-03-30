@@ -1,11 +1,16 @@
 <div>
-  <label>{{title}}
-    <input (blur)="check()" (focus)="reset()" [(ngModel)]="value" [ngClass]="{'invalid':!!error,'valid':status}"
-           [placeholder]="placeholder"
-           [type]="type"
-           autocomplete="off"
-           class="form-field"
-    >
+  <label
+    >{{ title }}
+    <input
+      (blur)="check()"
+      (focus)="reset()"
+      [(ngModel)]="value"
+      [ngClass]="{ invalid: !!error, valid: status }"
+      [placeholder]="placeholder"
+      [type]="type"
+      autocomplete="off"
+      class="form-field"
+    />
   </label>
-  <div class="error">{{error}}</div>
+  <div class="error">{{ error }}</div>
 </div>

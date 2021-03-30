@@ -1,8 +1,12 @@
 <mat-selection-list [multiple]="false">
-  <mat-list-option (click)="openChat(user)" *ngFor="let user of activeChatsUsers">
-    <app-widget-notification [key]="newMessageCount ? newMessageCount[user] : 0">
-      <app-user-widget [user]="user">
-      </app-user-widget>
+  <mat-list-option
+    (click)="openChat(user)"
+    *ngFor="let user of activeChatsUsers"
+  >
+    <app-widget-notification
+      [key]="newMessageCount ? newMessageCount[user] : 0"
+    >
+      <app-user-widget [user]="user"> </app-user-widget>
     </app-widget-notification>
   </mat-list-option>
 </mat-selection-list>

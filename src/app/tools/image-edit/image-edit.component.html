@@ -1,9 +1,11 @@
 <div class="card-wrapper">
-  <app-image-card (click)="changeProfilePhoto(image)"
-                  (remove)="removePhoto(image)"
-                  *ngFor="let image of images; index as i"
-                  [image]="image"
-                  [selected]="profilePhoto === extractName(image)">
+  <app-image-card
+    (click)="changeProfilePhoto(image)"
+    (remove)="removePhoto(image)"
+    *ngFor="let image of images; index as i"
+    [image]="image"
+    [selected]="profilePhoto === extractName(image)"
+  >
   </app-image-card>
   <app-image-card
     (addPhoto)="uploadNewPhoto($event)"

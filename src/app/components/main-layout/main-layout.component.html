@@ -2,48 +2,32 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [mode]="mode" #drawer role="navigation" class="sidenav">
     <mat-nav-list (click)="hideSidenav()">
-        <mat-list-item
-          routerLink="followers"
-          routerLinkActive="active">
-          Followers
-        </mat-list-item>
-      <mat-list-item
-        routerLink="search"
-        routerLinkActive="active">
+      <mat-list-item routerLink="followers" routerLinkActive="active">
+        Followers
+      </mat-list-item>
+      <mat-list-item routerLink="search" routerLinkActive="active">
         Search
       </mat-list-item>
       <app-widget-notification [key]="newMessagesCount">
-        <mat-list-item
-          routerLink="chats"
-          routerLinkActive="active">
+        <mat-list-item routerLink="chats" routerLinkActive="active">
           Chats
         </mat-list-item>
       </app-widget-notification>
-      <mat-list-item
-        routerLink="favorite"
-        routerLinkActive="active">
+      <mat-list-item routerLink="favorite" routerLinkActive="active">
         Favorite
       </mat-list-item>
-      <mat-list-item
-        routerLink="visitors"
-        routerLinkActive="active">
+      <mat-list-item routerLink="visitors" routerLinkActive="active">
         Visitors
       </mat-list-item>
       <app-widget-notification [key]="notificationCount?.all">
-        <mat-list-item
-          routerLink="notification"
-          routerLinkActive="active">
+        <mat-list-item routerLink="notification" routerLinkActive="active">
           Notification
         </mat-list-item>
       </app-widget-notification>
-      <mat-list-item
-        routerLink="settings"
-        routerLinkActive="active">
+      <mat-list-item routerLink="settings" routerLinkActive="active">
         Settings
       </mat-list-item>
-      <mat-list-item
-        routerLink="blacklist"
-        routerLinkActive="active">
+      <mat-list-item routerLink="blacklist" routerLinkActive="active">
         Blacklist
       </mat-list-item>
     </mat-nav-list>
