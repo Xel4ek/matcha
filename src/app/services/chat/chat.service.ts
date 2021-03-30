@@ -77,7 +77,8 @@ export class ChatService implements OnDestroy {
   }
 
   send(to: string, message: string): void {
-    if (to && message) {
+    const toSend = message.trim();
+    if (to && toSend) {
       const data = {
         from: this.login,
         to,
