@@ -67,7 +67,7 @@ export class ValidatorService {
     if (action && action in this.availableValidators && value) {
       return this.availableValidators[action](value);
     } else {
-      return { valid: true };
+      return { valid: false };
     }
   }
 
