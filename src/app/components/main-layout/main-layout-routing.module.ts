@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: 'followers',
     component: WidgetListComponent,
-    data: { key: 'followers' },
+    data: { key: 'followers', mode: 'freeze' },
   },
   { path: 'notification', component: NotificationsComponent },
 ];
