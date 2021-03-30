@@ -57,7 +57,7 @@
     <div class="error">{{ valid.pass.error }}</div>
     <input
       #pass="ngModel"
-      (blur)="valid.pass.check()"
+      (blur)="valid.pass.check(f)"
       (focus)="reset('pass')"
       (input)="checkPassStrength(f)"
       autocomplete="off"
